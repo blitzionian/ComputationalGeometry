@@ -39,8 +39,23 @@ int main() {
 
 		Line line = Line(p1, p2);
 
-		printf("%f %f %f %f\n", p1.getX(), p1.getY(), x2, y2);
+		lines.push_back(line);
+		cout << line.toString() << "\n";
 	}
+
+	cout << lines.size() << "\n";
+
+//	 for (it=mylist.begin(); it!=mylist.end(); ++it)
+//	    std::cout << ' ' << *it;
+
+	for (std::vector<Line>::iterator it = lines.begin(); it != lines.end(); ++it) {
+		/* std::cout << *it; ... */
+//		cout << (*it).toString();
+	}
+
+//	for (Line& line : lines) {
+//		cout << line.toString() << "\n";
+//	}
 
 	return 0;
 }

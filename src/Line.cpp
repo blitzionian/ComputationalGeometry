@@ -24,7 +24,6 @@ Point& Line::getStartPoint() {
 }
 
 std::string Line::toString() {
-//	std::sprintf("%f %f %f %f", p1->x, p1->y, p2->x, p2->y);
-	return "";
+	return this->p1.toString() + " " + this->p2.toString();
 }
 

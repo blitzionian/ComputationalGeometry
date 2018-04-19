@@ -1,4 +1,5 @@
 #include "Point.h"
+#include <sstream>
 
 Point::Point(double x, double y) {
 	this->x = x;
@@ -14,4 +15,10 @@ double Point::getX() {
 
 double Point::getY() {
 	return this->y;
+}
+
+std::string Point::toString() {
+	std::ostringstream strs;
+	strs << this->x << " " << this->y;
+	return strs.str();
 }

@@ -1,6 +1,8 @@
 #ifndef POINT_H_
 #define POINT_H_
 
+#include <string>
+
 class Point {
 public:
 	Point(double x, double y);
@@ -8,6 +10,8 @@ public:
 
 	double getX();
 	double getY();
+
+	std::string toString();
 
 private:
 	double x;
