@@ -1,18 +1,17 @@
-/*
- * Point.cpp
- *
- *  Created on: Apr 15, 2018
- *      Author: markus
- */
-
 #include "Point.h"
 
-Point::Point() {
-	this->x = 0;
-	this->y = 0;
-
+Point::Point(double x, double y) {
+	this->x = x;
+	this->y = y;
 }
 
 Point::~Point() {
 }
 
+double Point::getX() {
+	return this->x;
+}
+
+double Point::getY() {
+	return this->y;
+}

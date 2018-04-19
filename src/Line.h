@@ -1,26 +1,25 @@
-/*
- * Line.h
- *
- *  Created on: Apr 15, 2018
- *      Author: markus
- */
-
 #include "Point.h"
+#include <string>
 
 #ifndef LINE_H_
 #define LINE_H_
 
 class Line {
 public:
-	Line();
+	Line(Point& startPoint, Point& endPoint);
 	virtual ~Line();
 
-	void setStartPoint(Point startPoint);
-	void setEndPoint(Point endPoint);
+	void setStartPoint(Point& startPoint);
+	Point& getStartPoint();
+
+	void setEndPoint(Point& endPoint);
+	Point& getEndPoint();
+
+	std::string toString();
 
 private:
-	Point p1;
-	Point p2;
+	Point& p1;
+	Point& p2;
 };
 
 #endif /* LINE_H_ */

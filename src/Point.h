@@ -1,21 +1,17 @@
-/*
- * Point.h
- *
- *  Created on: Apr 15, 2018
- *      Author: markus
- */
-
 #ifndef POINT_H_
 #define POINT_H_
 
 class Point {
 public:
-	Point();
+	Point(double x, double y);
 	virtual ~Point();
 
+	double getX();
+	double getY();
+
 private:
-	signed int x;
-	signed int y;
+	double x;
+	double y;
 };
 
 #endif /* POINT_H_ */
