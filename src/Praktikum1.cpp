@@ -1,14 +1,6 @@
-//============================================================================
-// Name        : Praktikum1.cpp
-// Author      : Markus Hüttner
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <list>
 #include "Line.h"
 
 using namespace std;
@@ -19,7 +11,7 @@ int main() {
 	ifstream inStream;
 	inStream.open(FILE_1);
 
-	std::vector<Line> lines;
+	std::list<Line*> lines;
 
 	while (!inStream.eof()) {
 		double x1;
@@ -34,28 +26,17 @@ int main() {
 		double y2;
 		inStream >> y2;
 
-		Point p1 = Point(x1, y1);
-		Point p2 = Point(x2, y2);
+		Point *p1 = new Point(x1, y1);
+		Point *p2 = new Point(x2, y2);
 
-		Line line = Line(p1, p2);
+		Line *line = new Line(*p1, *p2);
 
 		lines.push_back(line);
-		cout << line.toString() << "\n";
 	}
 
-	cout << lines.size() << "\n";
-
-//	 for (it=mylist.begin(); it!=mylist.end(); ++it)
-//	    std::cout << ' ' << *it;
-
-	for (std::vector<Line>::iterator it = lines.begin(); it != lines.end(); ++it) {
-		/* std::cout << *it; ... */
-//		cout << (*it).toString();
+	for (Line* line : lines) {
+		cout << line->toString() << "\n";
 	}
-
-//	for (Line& line : lines) {
-//		cout << line.toString() << "\n";
-//	}
 
 	return 0;
 }

@@ -7,6 +7,10 @@ Line::Line(Point& startPoint, Point& endPoint) :
 Line::~Line() {
 }
 
+double Line::ccw(Point& pointToConsider) {
+	return 0;
+}
+
 void Line::setStartPoint(Point& startPoint) {
 	this->p1 = startPoint;
 }

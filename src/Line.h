@@ -17,6 +17,8 @@ public:
 
 	std::string toString();
 
+	double ccw(Point& pointToConsider);
+
 private:
 	Point& p1;
 	Point& p2;
