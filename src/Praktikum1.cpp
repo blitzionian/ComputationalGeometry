@@ -36,14 +36,7 @@ int main() {
 				cout << "Line " << i << " kreuzt Line " << j << "\n";
 			}
 		}
-
-//		break;
 	}
-
-//	for (Line* line : lines) {
-//
-//		cout << line->toString() << "\n";
-//	}
 
 	return 0;
 }
