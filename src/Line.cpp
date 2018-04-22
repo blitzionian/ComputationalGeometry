@@ -8,7 +8,14 @@ Line::~Line() {
 }
 
 double Line::ccw(Point& pointToConsider) {
-	return 0;
+	double ax = p2.getX() - p1.getX();
+	double ay = p2.getY() - p1.getY();
+
+	double bx = pointToConsider.getX() - p1.getX();
+	double by = pointToConsider.getY() - p1.getY();
+	double result = ax * by - ay * bx;
+
+	return result;
 }
 
 void Line::setStartPoint(Point& startPoint) {
@@ -25,6 +32,11 @@ Point& Line::getEndPoint() {
 
 Point& Line::getStartPoint() {
 	return this->p2;
+}
+
+Point* Line::getNormalForm() {
+
+	return new Point(0, 0);
 }
 
 std::string Line::toString() {

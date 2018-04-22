@@ -22,6 +22,8 @@ public:
 private:
 	Point& p1;
 	Point& p2;
+
+	Point* getNormalForm();
 };
 
 #endif /* LINE_H_ */
