@@ -2,9 +2,38 @@
 
 Line::Line(Point& startPoint, Point& endPoint) :
 		p1(startPoint), p2(endPoint) {
+	if (p1.getX() <= p2.getX()) {
+		this->left = &p1;
+		this->right = &p2;
+	} else {
+		this->left = &p1;
+		this->right = &p2;
+	}
+
+	if (p1.getY() <= p2.getY()) {
+		this->bottom = &p1;
+		this->top = &p2;
+	} else {
+		this->bottom = &p2;
+		this->top = &p1;
+	}
 }
 
 Line::~Line() {
+}
+
+bool Line::contains(Point& point) {
+	double px = point.getX();
+	if (this->left->getX() > px || this->right->getX() < px) {
+		return false;
+	}
+
+	double py = point.getY();
+	if (this->top->getY() < py || this->bottom->getY() > py) {
+		return false;
+	}
+
+	return true;
 }
 
 double Line::ccw(Point& pointToConsider) {
@@ -16,14 +45,6 @@ double Line::ccw(Point& pointToConsider) {
 	double result = ax * by - ay * bx;
 
 	return result;
-}
-
-void Line::setStartPoint(Point& startPoint) {
-	this->p1 = startPoint;
-}
-
-void Line::setEndPoint(Point& endPoint) {
-	this->p2 = endPoint;
 }
 
 Point& Line::getEndPoint() {

@@ -23,20 +23,21 @@ int main() {
 			double r2 = lineToConsider->ccw(otherLine->getEndPoint());
 
 			if (r1 == 0 && r2 == 0) {
-				cout << "Line " << i << " kollinear mit Linie " << j << "\n";
+				if (lineToConsider->contains(otherLine->getStartPoint())
+						|| lineToConsider->contains(otherLine->getStartPoint())) {
+					cout << "Line " << i << " schneidet kollinear mit Linie " << j << "\n";
+				}
+
 				continue;
 			}
 
-//			cout << "Line " << i << ":" << j << "; P1: " << r1 << "; P2: " << r2 << "\n";
-
 			double product = r1 * r2;
-
 			if (product <= 0) {
 				cout << "Line " << i << " kreuzt Line " << j << "\n";
 			}
 		}
 
-		break;
+//		break;
 	}
 
 //	for (Line* line : lines) {
