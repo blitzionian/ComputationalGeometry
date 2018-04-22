@@ -6,12 +6,25 @@
 using namespace std;
 
 const string FILE_1 = "input/s_1000_1.dat";
+const string FILE_2 = "input/s_10000_1.dat";
+const string FILE_3 = "input/s_100000_1.dat";
 
 void readInputFile(string file, vector<Line*>* lines);
+void calculateFile(string file);
 
 int main() {
+	calculateFile(FILE_1);
+	calculateFile(FILE_2);
+	calculateFile(FILE_3);
+
+	return 0;
+}
+
+void calculateFile(string file) {
+	cout << "\nStarte mit Berechnung File: " << file << "\n\n";
+
 	std::vector<Line*> lines;
-	readInputFile(FILE_1, &lines);
+	readInputFile(file, &lines);
 
 	for (size_t i = 0; i < lines.size(); i++) {
 		Line *lineToConsider = lines.at(i);
@@ -37,8 +50,6 @@ int main() {
 			}
 		}
 	}
-
-	return 0;
 }
 
 void readInputFile(string file, vector<Line*>* lines) {
