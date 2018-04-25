@@ -11,7 +11,9 @@ public:
 
 	Point& getStartPoint();
 	Point& getEndPoint();
+	bool crosses(Line& line);
 	bool contains(Point& point);
+	bool isPoint();
 
 	std::string toString();
 

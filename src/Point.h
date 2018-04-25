@@ -12,6 +12,7 @@ public:
 	double getY();
 
 	std::string toString();
+	bool equals(Point& point);
 
 private:
 	double x;

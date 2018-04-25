@@ -22,3 +22,7 @@ std::string Point::toString() {
 	strs << this->x << " " << this->y;
 	return strs.str();
 }
+
+bool Point::equals(Point& point) {
+	return this->x == point.x && this->y == point.y;
+}
