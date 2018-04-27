@@ -9,8 +9,8 @@ Line::Line(Point& startPoint, Point& endPoint) :
 		this->left = &p1;
 		this->right = &p2;
 	} else {
-		this->left = &p1;
-		this->right = &p2;
+		this->left = &p2;
+		this->right = &p1;
 	}
 
 	if (p1.getY() <= p2.getY()) {
@@ -25,28 +25,30 @@ Line::Line(Point& startPoint, Point& endPoint) :
 Line::~Line() {
 }
 
-bool Line::crosses(Line& lineToCheck) {
-	double r1 = this->ccw(lineToCheck.getStartPoint());
-	double r2 = this->ccw(lineToCheck.getEndPoint());
+bool Line::cross(Line& lineToCheck) {
+	double ccwThis1 = this->ccw(lineToCheck.getStartPoint());
+	double ccwThis2 = this->ccw(lineToCheck.getEndPoint());
 
-	if (r1 == 0 && r2 == 0) {
-		cout << "Parallel: " << this->toString() << " : " << lineToCheck.toString() << "\n";
+//	double ccwOther1 = lineToCheck.ccw(this->getStartPoint());
+//	double ccwOther2 = lineToCheck.ccw(this->getEndPoint());
 
+	if (ccwThis1 == 0 && ccwThis2 == 0) {
 		if (this->contains(lineToCheck.getStartPoint()) || this->contains(lineToCheck.getEndPoint())) {
-			cout << lineToCheck.toString() << " : " << this->toString() << "\n";
-//			std::cout << "Line schneidet kollinear mit Linie\n";
+//			cout << "Collinear match: " << lineToCheck.toString() << " : " << this->toString() << endl;
 			return true;
 		}
+
+		return false;
 	}
 
-	double resultOtherLine = r1 * r2;
+	double resultOtherLine = ccwThis1 * ccwThis2;
 
 	if (resultOtherLine <= 0) {
 		double resultThisLIne = lineToCheck.ccw(this->getStartPoint()) * lineToCheck.ccw(this->getEndPoint());
 
 		if (resultThisLIne <= 0) {
+//			cout << "Kreuzende Linien: " << this->toString() << " : " << lineToCheck.toString() << endl;
 			return true;
-			//					cout << "Line " << i << " kreuzt Line " << j << "\n";
 		}
 	}
 
@@ -54,30 +56,20 @@ bool Line::crosses(Line& lineToCheck) {
 }
 
 bool Line::isPoint() {
-	return this->p1.equals(this->p2);
+	return this->p1 == this->p2;
 }
 
 bool Line::contains(Point& point) {
-	double px = point.getX();
-	double lx = (px - this->p1.getX()) / (this->p2.getX() - this->p1.getX());
+	bool test = this->left->getX() <= point.getX() && this->right->getX() >= point.getX()
+			&& this->top->getY() >= point.getY() && this->bottom->getY() <= point.getY();
 
-	double py = point.getY();
-	double ly = (py - this->p1.getY()) / (this->p2.getY() - this->p1.getY());
+//	if (point.getX() == (double) 83.307) {
+//		cout << "Left: " << this->left->toString() << "; Right: " << this->right->toString() << endl;
+//		cout << "Compare: " << this->toString() << " : " << point.toString() << endl;
+//		cout << "result: " << test << endl;
+//	}
 
-	if (ly == lx) {
-		if (this->left->getX() > px || this->right->getX() < px) {
-			return false;
-		}
-
-		if (this->top->getY() < py || this->bottom->getY() > py) {
-			return false;
-		}
-
-		cout << point.toString() << " inside " << this->toString() << "\n";
-		return true;
-	}
-
-	return false;
+	return test;
 }
 
 double Line::ccw(Point& pointToConsider) {

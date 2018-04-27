@@ -11,7 +11,7 @@ public:
 
 	Point& getStartPoint();
 	Point& getEndPoint();
-	bool crosses(Line& line);
+	bool cross(Line& line);
 	bool contains(Point& point);
 	bool isPoint();
 

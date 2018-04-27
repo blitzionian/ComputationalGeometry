@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <vector>
 #include <chrono>
@@ -18,45 +19,51 @@ int64_t currentTime(void);
 int main() {
 	calculateFile(FILE_1);
 	calculateFile(FILE_2);
-//	calculateFile(FILE_3);
+	calculateFile(FILE_3);
 
 	return 0;
 }
 
 void calculateFile(string file) {
-	cout << "\nStarte mit Berechnung File: " << file << "\n\n";
+	cout << endl << "Starte mit Berechnung File: " << file << endl << endl;
 	int count = 0;
-
-	int64_t start = currentTime();
 
 	std::vector<Line*> lines;
 	readInputFile(file, &lines);
 
+	int64_t start = currentTime();
+
 	for (size_t i = 0; i < lines.size(); i++) {
 		Line *lineToConsider = lines.at(i);
-
 		bool isPoint = lineToConsider->isPoint();
 
 		for (size_t j = i + 1; j < lines.size(); j++) {
 			Line *otherLine = lines.at(j);
 
 			if (isPoint) {
-				if (otherLine->contains(lineToConsider->getStartPoint())) {
+				if (otherLine->isPoint()) {
+					if (lineToConsider->getStartPoint() == otherLine->getStartPoint()) {
+//						cout << i << " : " << j << endl;
+						count++;
+					}
+				} else {
+					if (otherLine->cross(*lineToConsider)) {
+//						cout << i << " : " << j << endl;
+						count++;
+					}
+				}
+			} else {
+				if (lineToConsider->cross(*otherLine)) {
+//					cout << i << " : " << j << endl;
 					count++;
 				}
-			} else if (otherLine->isPoint()) {
-				if (lineToConsider->contains(otherLine->getStartPoint())) {
-					count++;
-				}
-			} else if (lineToConsider->crosses(*otherLine)) {
-				count++;
 			}
 		}
 	}
 
 	int64_t duration = currentTime() - start;
-	cout << "Duration: " << duration << "\n";
-	cout << "Count: " << count << "\n";
+	cout << "Duration: " << duration << endl;
+	cout << "Count: " << count << endl;
 }
 
 void readInputFile(string file, vector<Line*>* lines) {
@@ -64,17 +71,26 @@ void readInputFile(string file, vector<Line*>* lines) {
 	inStream.open(file);
 
 	while (!inStream.eof()) {
+		string lineFromFile;
+		getline(inStream, lineFromFile);
+
+		if (lineFromFile.empty()) {
+			continue;
+		}
+
+		istringstream tmp(lineFromFile);
+
 		double x1;
-		inStream >> x1;
+		tmp >> x1;
 
 		double y1;
-		inStream >> y1;
+		tmp >> y1;
 
 		double x2;
-		inStream >> x2;
+		tmp >> x2;
 
 		double y2;
-		inStream >> y2;
+		tmp >> y2;
 
 		Point *p1 = new Point(x1, y1);
 		Point *p2 = new Point(x2, y2);
@@ -83,6 +99,8 @@ void readInputFile(string file, vector<Line*>* lines) {
 
 		lines->push_back(line);
 	}
+
+//	cout << "readed: " << lines->size() << endl;
 
 	inStream.close();
 }
