@@ -1,4 +1,4 @@
-#include "Point.h"
+#include "point.hpp"
 #include <sstream>
 
 Point::Point(double x, double y) {

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <chrono>
-#include "Line.h"
+#include "line.hpp"
 
 using namespace std;
 using namespace std::chrono;
