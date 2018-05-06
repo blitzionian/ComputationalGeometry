@@ -8,6 +8,7 @@
 
 #include "point.hpp"
 #include "line.hpp"
+#include "polygon.hpp"
 
 #include <stdio.h>
 #include <string.h>
@@ -20,63 +21,63 @@ using namespace std;
 
 const char* FILE_1 = "input/DeutschlandMitStaedten.svg";
 
-map<string*, vector<Line*>*>* readPolygonFromSvg(const char* svgFile);
+vector<Polygon*>* readPolygonsFromSvg(const char* svgFile);
 
 int main() {
-	map<string*, vector<Line*>*>* polygonMap = readPolygonFromSvg(FILE_1);
+	vector<Polygon*>* polygons = readPolygonsFromSvg(FILE_1);
 
-	map<string*, vector<Line*>*>::iterator itr;
-	for (itr = polygonMap->begin(); itr != polygonMap->end(); ++itr) {
-		cout << *itr->first << '\n';
+	vector<Polygon*>::iterator itr;
+	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
+		cout << *(*itr)->getId() << '\n';
 	}
 
 	cout << endl;
 }
 
 /**
- * Liest alle Pfade aus der gegebenen SVG Datei. Die Pfade sind in der zurückgegebenen Map enthalten.
- * Der Key der Map ist die id des Pfades. (In unserem Fall der Name des Bundeslandes)
+ * Liest alle Pfade aus der gegebenen SVG Datei. Es wird eine Liste auf Polygon erstellt. Jedes Polygon representiert
+ * einen Pfad. (In unserem Fall ein Bundesland)
  */
-map<string*, vector<Line*>*>* readPolygonFromSvg(const char* svgFile) {
+vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 	struct NSVGimage* image;
 	image = nsvgParseFromFile(FILE_1, "px", 96);
 
-	map<string*, vector<Line*>*>* polygonMap = new map<string*, vector<Line*>*>();
+	vector<Polygon*>* polygons = new vector<Polygon*>();
 
 	NSVGshape* shape;
 	for (shape = image->shapes; shape != NULL; shape = shape->next) {
 		NSVGpath* path;
 
-		vector<Line*>* newBundesland = new vector<Line*>();
-		string* name = new string(shape->id, 63);
-		polygonMap->insert(pair<string*, vector<Line*>*>(name, newBundesland));
+		vector<Line*>* edges = new vector<Line*>();
+		Polygon* polygon = new Polygon(new string(shape->id), edges);
+		polygons->push_back(polygon);
 
 		int count = 0;
 		for (path = shape->paths; path != NULL; path = path->next) {
 			count++;
 
-			Point* firstPoint;
-			Point* lastPoint;
+			Point* firstPoint = NULL;
+			Point* lastPoint = NULL;
 
 			for (int i = 0; i < path->npts - 1; i += 6) {
-				Point nextPoint(path->pts[i], path->pts[i + 1]);
+				Point* nextPoint = new Point(path->pts[i], path->pts[i + 1]);
 
 				if (firstPoint == NULL) {
-					firstPoint = &nextPoint;
+					firstPoint = nextPoint;
 				}
 
 				if (lastPoint != NULL) {
-					Line* newLine = new Line(*lastPoint, nextPoint);
-					newBundesland->push_back(newLine);
+					Line* newLine = new Line(*lastPoint, *nextPoint);
+					edges->push_back(newLine);
 				}
 
-				lastPoint = &nextPoint;
+				lastPoint = nextPoint;
 			}
 
-			newBundesland->push_back(new Line(*lastPoint, *firstPoint));
+			edges->push_back(new Line(*lastPoint, *firstPoint));
 		}
 	}
 
-	return polygonMap;
+	return polygons;
 }
 
