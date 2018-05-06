@@ -90,11 +90,6 @@ Point& Line::getStartPoint() {
 	return this->p2;
 }
 
-Point* Line::getNormalForm() {
-
-	return new Point(0, 0);
-}
-
 std::string Line::toString() {
 	return this->p1.toString() + " " + this->p2.toString();
 }
