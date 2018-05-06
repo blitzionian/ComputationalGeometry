@@ -20,21 +20,27 @@ Line::Line(Point& startPoint, Point& endPoint) :
 		this->bottom = &p2;
 		this->top = &p1;
 	}
+
+	this->pointsEqual = startPoint == endPoint;
 }
 
 Line::~Line() {
 }
 
 bool Line::cross(Line& lineToCheck) {
+	if (pointsEqual) {
+		if (!lineToCheck.isPoint()) {
+			return lineToCheck.cross(*this);
+		} else {
+			return this->p1 == lineToCheck.p1;
+		}
+	}
+
 	double ccwThis1 = this->ccw(lineToCheck.getStartPoint());
 	double ccwThis2 = this->ccw(lineToCheck.getEndPoint());
 
-//	double ccwOther1 = lineToCheck.ccw(this->getStartPoint());
-//	double ccwOther2 = lineToCheck.ccw(this->getEndPoint());
-
 	if (ccwThis1 == 0 && ccwThis2 == 0) {
 		if (this->contains(lineToCheck.getStartPoint()) || this->contains(lineToCheck.getEndPoint())) {
-//			cout << "Collinear match: " << lineToCheck.toString() << " : " << this->toString() << endl;
 			return true;
 		}
 
@@ -47,7 +53,6 @@ bool Line::cross(Line& lineToCheck) {
 		double resultThisLIne = lineToCheck.ccw(this->getStartPoint()) * lineToCheck.ccw(this->getEndPoint());
 
 		if (resultThisLIne <= 0) {
-//			cout << "Kreuzende Linien: " << this->toString() << " : " << lineToCheck.toString() << endl;
 			return true;
 		}
 	}
@@ -56,18 +61,12 @@ bool Line::cross(Line& lineToCheck) {
 }
 
 bool Line::isPoint() {
-	return this->p1 == this->p2;
+	return pointsEqual;
 }
 
 bool Line::contains(Point& point) {
 	bool test = this->left->getX() <= point.getX() && this->right->getX() >= point.getX()
 			&& this->top->getY() >= point.getY() && this->bottom->getY() <= point.getY();
-
-//	if (point.getX() == (double) 83.307) {
-//		cout << "Left: " << this->left->toString() << "; Right: " << this->right->toString() << endl;
-//		cout << "Compare: " << this->toString() << " : " << point.toString() << endl;
-//		cout << "result: " << test << endl;
-//	}
 
 	return test;
 }

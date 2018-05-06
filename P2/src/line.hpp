@@ -29,6 +29,8 @@ private:
 	Point* top;
 	Point* bottom;
 
+	bool pointsEqual;
+
 	Point* getNormalForm();
 };
 
