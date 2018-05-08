@@ -11,12 +11,18 @@ Polygon::~Polygon() {
 
 double Polygon::getExpanse() {
 	double expanse = 0.0;
-	Point zero(0, 0);
+//	Point zero(0, 0);
 
-//	for (size_t i = 0; i < this->edges->size(); i++) {
-//		Line l = *(this->edges->at(i));
-//		expanse += l.getExpanseOverXLine();
-//	}
+//	cout << *this->id << this->paths->size() << endl;
+
+	for (size_t i = 0; i < this->paths->size(); i++) {
+		path_t path = this->paths->at(i);
+
+		for (size_t pathIndex = 0; pathIndex < path->size(); pathIndex++) {
+			Line l = *(path->at(i));
+			expanse += l.getExpanseOverXLine();
+		}
+	}
 
 	return expanse;
 }

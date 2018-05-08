@@ -64,8 +64,9 @@ vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 			Point* firstPoint = NULL;
 			Point* lastPoint = NULL;
 
-			for (int i = 0; i < path->npts - 1; i += 6) {
-				Point* nextPoint = new Point(path->pts[i], path->pts[i + 1]);
+			for (int i = 0; i < path->npts - 1; i += 3) {
+				float* points = &path->pts[i * 2];
+				Point* nextPoint = new Point(points[0], points[1]);
 
 				if (firstPoint == NULL) {
 					firstPoint = nextPoint;
@@ -74,13 +75,18 @@ vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 
 				if (lastPoint != NULL) {
 					Line* newLine = new Line(*lastPoint, *nextPoint);
+
+					if (*polygon->getId() == "Bayern") {
+//						cout << newLine->toString() << endl;
+//						cout << nextPoint->toString() << endl;
+					}
 					newPath->push_back(newLine);
 				}
 
 				lastPoint = nextPoint;
 			}
 
-			newPath->push_back(new Line(*lastPoint, *firstPoint));
+//			newPath->push_back(new Line(*lastPoint, *firstPoint));
 		}
 	}
 
