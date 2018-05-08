@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-Polygon::Polygon(string* id, vector<path_t>* edges) :
-		id(id), edges(edges) {
+Polygon::Polygon(string* id, vector<path_t>* paths) :
+		id(id), paths(paths) {
 }
 
 Polygon::~Polygon() {

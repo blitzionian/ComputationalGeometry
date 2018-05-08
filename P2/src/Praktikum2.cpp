@@ -69,16 +69,11 @@ vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 
 				if (firstPoint == NULL) {
 					firstPoint = nextPoint;
-					cout << "First Point: " << firstPoint->toString() << shape->id << endl;
+//					cout << "First Point: " << firstPoint->toString() << shape->id << endl;
 				}
 
 				if (lastPoint != NULL) {
 					Line* newLine = new Line(*lastPoint, *nextPoint);
-
-					if (*polygon->getId() == "Bremen") {
-						cout << newLine->toString() << endl;
-					}
-
 					newPath->push_back(newLine);
 				}
 
