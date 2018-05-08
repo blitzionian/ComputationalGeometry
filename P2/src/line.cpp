@@ -27,6 +27,12 @@ Line::Line(Point& startPoint, Point& endPoint) :
 Line::~Line() {
 }
 
+double Line::getExpanseOverXLine() {
+	double height = (this->p1.getY() + this->p2.getY()) / 2;
+	double width = this->p1.getX() - this->p2.getX();
+	return height * width;
+}
+
 bool Line::cross(Line& lineToCheck) {
 	if (pointsEqual) {
 		if (!lineToCheck.isPoint()) {

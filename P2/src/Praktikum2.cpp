@@ -28,7 +28,9 @@ int main() {
 
 	vector<Polygon*>::iterator itr;
 	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
-		cout << *(*itr)->getId() << '\n';
+		Polygon polygon = *(*itr);
+		cout << "Fläche von " << *polygon.getId() << ": " << polygon.getExpanse();
+		cout << endl;
 	}
 
 	cout << endl;
@@ -48,13 +50,16 @@ vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 	for (shape = image->shapes; shape != NULL; shape = shape->next) {
 		NSVGpath* path;
 
-		vector<Line*>* edges = new vector<Line*>();
+		vector<path_t>* edges = new vector<path_t>();
 		Polygon* polygon = new Polygon(new string(shape->id), edges);
 		polygons->push_back(polygon);
 
 		int count = 0;
 		for (path = shape->paths; path != NULL; path = path->next) {
 			count++;
+
+			path_t newPath = new vector<Line*>();
+			edges->push_back(newPath);
 
 			Point* firstPoint = NULL;
 			Point* lastPoint = NULL;
@@ -64,17 +69,23 @@ vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 
 				if (firstPoint == NULL) {
 					firstPoint = nextPoint;
+					cout << "First Point: " << firstPoint->toString() << shape->id << endl;
 				}
 
 				if (lastPoint != NULL) {
 					Line* newLine = new Line(*lastPoint, *nextPoint);
-					edges->push_back(newLine);
+
+					if (*polygon->getId() == "Bremen") {
+						cout << newLine->toString() << endl;
+					}
+
+					newPath->push_back(newLine);
 				}
 
 				lastPoint = nextPoint;
 			}
 
-			edges->push_back(new Line(*lastPoint, *firstPoint));
+			newPath->push_back(new Line(*lastPoint, *firstPoint));
 		}
 	}
 

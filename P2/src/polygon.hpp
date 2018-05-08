@@ -9,14 +9,16 @@ using namespace std;
 
 class Polygon {
 public:
-	Polygon(string* id, vector<Line*>* edges);
+	Polygon(string* id, vector<path_t>* edges);
 	virtual ~Polygon();
 
 	string* getId();
 
+	double getExpanse();
+
 private:
 	string* id;
-	vector<Line*>* edges;
+	vector<path_t>* edges;
 };
 
 #endif /* SRC_POLYGON_HPP_ */

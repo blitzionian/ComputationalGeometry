@@ -1,8 +1,9 @@
-#include "point.hpp"
-#include <string>
-
 #ifndef LINE_H_
 #define LINE_H_
+
+#include "point.hpp"
+#include <string>
+#include <vector>
 
 class Line {
 public:
@@ -11,6 +12,8 @@ public:
 
 	Point& getStartPoint();
 	Point& getEndPoint();
+
+	double getExpanseOverXLine();
 
 	/**
 	 * Berechnet ob sich die Strecke mit einer anderen gegebenen Strecke schneidet.
@@ -53,5 +56,7 @@ private:
 	// Speichert ob start und enpunkt identisch sind.
 	bool pointsEqual;
 };
+
+typedef std::vector<Line*>* path_t;
 
 #endif /* LINE_H_ */
