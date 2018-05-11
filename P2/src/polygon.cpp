@@ -22,8 +22,8 @@ double Polygon::getExpanse() {
 		Line second = *path->at(1);
 
 		if (*this->id == "Bayern") {
-			cout << "First: " << first.toString() << endl;
-			cout << "Second: " << second.toString() << endl;
+//			cout << "First: " << first.toString() << endl;
+//			cout << "Second: " << second.toString() << endl;
 		}
 
 		for (size_t pathIndex = 0; pathIndex < path->size(); pathIndex++) {
