@@ -15,19 +15,18 @@ double Polygon::getExpanse() {
 
 //	cout << *this->id << this->paths->size() << endl;
 
-	for (size_t i = 0; i < this->paths->size(); i++) {
-		path_t path = this->paths->at(i);
-
-		Line first = *path->at(0);
-		Line second = *path->at(1);
+	for (size_t pathNumber = 0; pathNumber < this->paths->size(); pathNumber++) {
+		path_t path = this->paths->at(pathNumber);
 
 		if (*this->id == "Bayern") {
+			Line first = *path->at(0);
+			Line second = *path->at(1);
 //			cout << "First: " << first.toString() << endl;
 //			cout << "Second: " << second.toString() << endl;
 		}
 
-		for (size_t pathIndex = 0; pathIndex < path->size(); pathIndex++) {
-			Line l = *(path->at(i));
+		for (size_t lineIndex = 0; lineIndex < path->size(); lineIndex++) {
+			Line l = *(path->at(lineIndex));
 			expanse += l.getExpanseOverXLine();
 		}
 	}
