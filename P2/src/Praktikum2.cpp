@@ -25,7 +25,7 @@ const char* FILE_1 = "input/DeutschlandMitStaedten.svg";
 vector<Polygon*>* readPolygonsFromSvg(const char* svgFile);
 
 int main() {
-	/*vector<Polygon*>* polygons = readPolygonsFromSvg(FILE_1);
+	vector<Polygon*>* polygons = readPolygonsFromSvg(FILE_1);
 
 	vector<Polygon*>::iterator itr;
 	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
@@ -35,11 +35,12 @@ int main() {
 		cout << endl;
 	}
 
-	cout << endl;*/
+	cout << endl;
 	city_parser::city_list cities = city_parser::from_file(FILE_1);
-	for(city_parser::city_itr it = cities.begin(); it != cities.end(); ++it){
+	for (city_parser::city_itr it = cities.begin(); it != cities.end(); ++it) {
 		city_parser::city c = *it;
-		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX() << ", 'y': " << c.coordinate.getY() << "}" << endl;
+		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX() << ", 'y': " << c.coordinate.getY() << "}"
+				<< endl;
 	}
 }
 

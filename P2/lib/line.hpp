@@ -1,5 +1,6 @@
 #include "point.hpp"
 #include <string>
+#include <vector>
 
 #ifndef LINE_H_
 #define LINE_H_
