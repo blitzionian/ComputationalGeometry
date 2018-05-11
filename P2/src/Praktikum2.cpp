@@ -30,6 +30,7 @@ int main() {
 	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
 		Polygon polygon = *(*itr);
 		cout << "Fläche von " << *polygon.getId() << ": " << polygon.getExpanse();
+		cout << " (Anzahl Pfade: " << polygon.getPathCount() << ")";
 		cout << endl;
 	}
 

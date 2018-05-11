@@ -13,6 +13,7 @@ public:
 	virtual ~Polygon();
 
 	string* getId();
+	int getPathCount();
 
 	double getExpanse();
 
