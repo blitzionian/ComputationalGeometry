@@ -25,9 +25,15 @@ double Polygon::getExpanse() {
 //			cout << "Second: " << second.toString() << endl;
 		}
 
+		double tmp = expanse;
+
 		for (size_t lineIndex = 0; lineIndex < path->size(); lineIndex++) {
 			Line l = *(path->at(lineIndex));
 			expanse += l.getExpanseOverXLine();
+		}
+
+		if (*this->id == "Bremen") {
+//			cout << "Fläche " << pathNumber << ": " << (expanse - tmp) << endl;
 		}
 	}
 
