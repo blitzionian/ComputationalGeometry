@@ -15,8 +15,6 @@ using namespace std;
 class Country {
 public:
 
-	typedef Point* vertex;
-
 	Country(string* name, vector<Polygon*> *polygons);
 	virtual ~Country();
 
@@ -31,12 +29,6 @@ public:
 	 * Berechnet die Fläche des Landes.
 	 */
 	double getExpanse();
-
-	std::vector<vertex> vertices();
-
-	Point maxCoordinates();
-
-	bool includesPoint(Point & point);
 
 private:
 	/**

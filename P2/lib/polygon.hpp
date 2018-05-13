@@ -11,6 +11,8 @@ using namespace std;
  */
 class Polygon {
 public:
+	typedef Point* vertex;
+
 	Polygon(vector<Line*> *edges);
 	virtual ~Polygon();
 
@@ -18,6 +20,12 @@ public:
 	 * Berechnet die Fläche des Polygons.
 	 */
 	double getExpanse();
+
+	std::vector<vertex> vertices();
+
+	Point maxCoordinates();
+
+	bool includesPoint(Point & point);
 
 private:
 	/**
