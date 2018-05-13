@@ -89,11 +89,11 @@ double Line::ccw(Point& pointToConsider) {
 }
 
 Point& Line::getEndPoint() {
-	return this->p1;
+	return this->p2;
 }
 
 Point& Line::getStartPoint() {
-	return this->p2;
+	return this->p1;
 }
 
 std::string Line::toString() {
