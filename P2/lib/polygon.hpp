@@ -9,6 +9,9 @@ using namespace std;
 
 class Polygon {
 public:
+
+	typedef Point* vertex;
+
 	Polygon(string* id, vector<path_t>* paths);
 	virtual ~Polygon();
 
@@ -17,6 +20,12 @@ public:
 	int getPathCount();
 
 	double getExpanse();
+
+	std::vector<vertex> vertices();
+
+	Point maxCoordinates();
+
+	bool includesPoint(Point & point);
 
 private:
 	/**
