@@ -1,11 +1,12 @@
 #include <country.hpp>
+
 #include <iostream>
 #include <algorithm>
 #include <stdlib.h>
 
 inline short int signum(double val);
 
-Country::Country(string* name, vector<path_t>* polygons) :
+Country::Country(string* name, vector<Polygon*> *polygons) :
 		name(name), polygons(polygons) {
 }
 
@@ -15,14 +16,14 @@ Country::~Country() {
 double Country::getExpanse() {
 	double expanse = 0.0;
 
-	for (size_t polygonIndex = 0; polygonIndex < this->polygons->size(); polygonIndex++) {
-		path_t path = this->polygons->at(polygonIndex);
-
-		for (size_t lineIndex = 0; lineIndex < path->size(); lineIndex++) {
-			Line l = *(path->at(lineIndex));
-			expanse += l.getExpanseOverXLine();
-		}
-	}
+//	for (size_t polygonIndex = 0; polygonIndex < this->polygons->size(); polygonIndex++) {
+//		Polygon path = this->polygons->at(polygonIndex);
+//
+//		for (size_t lineIndex = 0; lineIndex < path->size(); lineIndex++) {
+//			Line l = *(path->at(lineIndex));
+//			expanse += l.getExpanseOverXLine();
+//		}
+//	}
 
 	return expanse;
 }
@@ -38,14 +39,15 @@ string* Country::getName() {
 std::vector<Country::vertex> Country::vertices() {
 	std::vector<vertex> result;
 	// for each path
-	for (std::vector<path_t>::iterator outer = polygons->begin(); outer != polygons->end(); ++outer) {
-		std::vector<Line*> path = *(*outer);
-		// for each line
-		for (std::vector<Line*>::iterator inner = path.begin(); inner != path.end(); ++inner) {
-			Line l = *(*inner);
-			result.push_back(&l.getStartPoint());
-		}
-	}
+//	for (std::vector<path_t>::iterator outer = polygons->begin(); outer != polygons->end(); ++outer) {
+//		std::vector<Line*> path = *(*outer);
+//		// for each line
+//		for (std::vector<Line*>::iterator inner = path.begin(); inner != path.end(); ++inner) {
+//			Line l = *(*inner);
+//			result.push_back(&l.getStartPoint());
+//		}
+//	}
+
 	return result;
 }
 

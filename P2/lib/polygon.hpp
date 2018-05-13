@@ -14,6 +14,9 @@ public:
 	Polygon(vector<Line*> *edges);
 	virtual ~Polygon();
 
+	/**
+	 * Berechnet die Fläche des Polygons.
+	 */
 	double getExpanse();
 
 private:

@@ -57,9 +57,4 @@ private:
 	bool pointsEqual;
 };
 
-/**
- * Type to represent a single path.
- */
-typedef std::vector<Line*>* path_t;
-
 #endif /* LINE_H_ */

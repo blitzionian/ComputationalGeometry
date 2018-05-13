@@ -1,9 +1,11 @@
-#ifndef SRC_POLYGON_HPP_
-#define SRC_POLYGON_HPP_
+#ifndef SRC_COUNTRY_HPP_
+#define SRC_COUNTRY_HPP_
 
 #include <vector>
 #include <string>
-#include "line.hpp"
+
+#include <line.hpp>
+#include <polygon.hpp>
 
 using namespace std;
 
@@ -15,7 +17,7 @@ public:
 
 	typedef Point* vertex;
 
-	Country(string* name, vector<path_t>* paths);
+	Country(string* name, vector<Polygon*> *polygons);
 	virtual ~Country();
 
 	string* getName();
@@ -40,8 +42,7 @@ private:
 	 * Alle Polygone die zum Bundesland gehören. Hier sind alle Polygone enthalten,
 	 * egal ob sie ein Loch oder eine Exklave darstellen.
 	 */
-	vector<path_t>* polygons;
+	vector<Polygon*>* polygons;
 };
 
-#endif /* SRC_POLYGON_HPP_ */
-
+#endif /* SRC_COUNTRY_HPP_ */
