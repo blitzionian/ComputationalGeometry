@@ -1,6 +1,7 @@
 #include <country.hpp>
 
 #include <iostream>
+#include <math.h>
 
 Country::Country(string* name, vector<Polygon*> *polygons) :
 		name(name), polygons(polygons) {
@@ -15,7 +16,7 @@ double Country::getExpanse() {
 	for (size_t polygonIndex = 0; polygonIndex < this->polygons->size(); polygonIndex++) {
 		Polygon* polygon = this->polygons->at(polygonIndex);
 
-		expanse += polygon->getExpanse();
+		expanse += abs(polygon->getExpanse());
 	}
 
 	return expanse;
