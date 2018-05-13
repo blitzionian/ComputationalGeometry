@@ -30,7 +30,7 @@ int main() {
 	vector<Country*>::iterator itr;
 	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
 		Country polygon = *(*itr);
-		cout << "Fläche von " << *polygon.getId() << ": "
+		cout << "Fläche von " << *polygon.getName() << ": "
 				<< polygon.getExpanse();
 		cout << " (Anzahl Pfade: " << polygon.getPathCount() << ")";
 		cout << endl;
@@ -86,7 +86,7 @@ vector<Country*>* readPolygonsFromSvg(const char* svgFile) {
 				if (lastPoint != NULL) {
 					Line* newLine = new Line(*lastPoint, *nextPoint);
 
-					if (*polygon->getId() == "Bayern") {
+					if (*polygon->getName() == "Bayern") {
 //						cout << newLine->toString() << endl;
 //						cout << nextPoint->toString() << endl;
 					}

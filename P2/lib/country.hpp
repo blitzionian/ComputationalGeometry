@@ -7,15 +7,18 @@
 
 using namespace std;
 
+/**
+ * Diese Klasse repräsentiert ein komplettes Bundesland.
+ */
 class Country {
 public:
 
 	typedef Point* vertex;
 
-	Country(string* id, vector<path_t>* paths);
+	Country(string* name, vector<path_t>* paths);
 	virtual ~Country();
 
-	string* getId();
+	string* getName();
 
 	int getPathCount();
 
@@ -31,13 +34,13 @@ private:
 	/**
 	 * Der Name der Polygons (z.B. Bayern)
 	 */
-	string* id;
+	string* name;
 
 	/**
-	 * Alle Pfade die zum Polygon gehören. Es kann davon ausgegenagen werden, dass jeder Pfad geschlossen ist
-	 * und damit Prinzipiell ein eigenes Polygon darstellt.
+	 * Alle Polygone die zum Bundesland gehören. Hier sind alle Polygone enthalten,
+	 * egal ob sie ein Loch oder eine Exklave darstellen.
 	 */
-	vector<path_t>* paths;
+	vector<path_t>* polygons;
 };
 
 #endif /* SRC_POLYGON_HPP_ */
