@@ -1,4 +1,4 @@
-#include "Polygon.hpp"
+#include <polygon.hpp>
 
 Polygon::Polygon(vector<Line*> *edges) :
 		edges(edges) {
