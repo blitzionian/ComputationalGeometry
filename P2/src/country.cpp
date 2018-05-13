@@ -15,9 +15,8 @@ Country::~Country() {
 double Country::getExpanse() {
 	double expanse = 0.0;
 
-	for (size_t pathNumber = 0; pathNumber < this->polygons->size();
-			pathNumber++) {
-		path_t path = this->polygons->at(pathNumber);
+	for (size_t polygonIndex = 0; polygonIndex < this->polygons->size(); polygonIndex++) {
+		path_t path = this->polygons->at(polygonIndex);
 
 		for (size_t lineIndex = 0; lineIndex < path->size(); lineIndex++) {
 			Line l = *(path->at(lineIndex));
@@ -39,12 +38,10 @@ string* Country::getName() {
 std::vector<Country::vertex> Country::vertices() {
 	std::vector<vertex> result;
 	// for each path
-	for (std::vector<path_t>::iterator outer = polygons->begin();
-			outer != polygons->end(); ++outer) {
+	for (std::vector<path_t>::iterator outer = polygons->begin(); outer != polygons->end(); ++outer) {
 		std::vector<Line*> path = *(*outer);
 		// for each line
-		for (std::vector<Line*>::iterator inner = path.begin();
-				inner != path.end(); ++inner) {
+		for (std::vector<Line*>::iterator inner = path.begin(); inner != path.end(); ++inner) {
 			Line l = *(*inner);
 			result.push_back(&l.getStartPoint());
 		}
@@ -61,10 +58,8 @@ Point Country::maxCoordinates() {
 		x.push_back(p.getX());
 		y.push_back(p.getY());
 	}
-	std::sort(x.begin(), x.end(),
-			[](double first, double second) {return (first < second);});
-	std::sort(x.begin(), x.end(),
-			[](double first, double second) {return (first < second);});
+	std::sort(x.begin(), x.end(), [](double first, double second) {return (first < second);});
+	std::sort(x.begin(), x.end(), [](double first, double second) {return (first < second);});
 	return Point(x.back(), y.back());
 }
 

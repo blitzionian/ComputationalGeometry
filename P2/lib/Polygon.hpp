@@ -14,6 +14,8 @@ public:
 	Polygon(vector<Line*> *edges);
 	virtual ~Polygon();
 
+	double getExpanse();
+
 private:
 	/**
 	 * Die Kanten des Polygons.
