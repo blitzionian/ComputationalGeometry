@@ -22,8 +22,14 @@ public:
 
 	string* getName();
 
+	/**
+	 * Gibt die Anzahl der Enthaltenen Polygone an.
+	 */
 	int getPathCount();
 
+	/**
+	 * Berechnet die Fläche des Landes.
+	 */
 	double getExpanse();
 
 	std::vector<vertex> vertices();
