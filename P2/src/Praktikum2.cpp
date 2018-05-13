@@ -30,7 +30,8 @@ int main() {
 	vector<Polygon*>::iterator itr;
 	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
 		Polygon polygon = *(*itr);
-		cout << "Fläche von " << *polygon.getId() << ": " << polygon.getExpanse();
+		cout << "Fläche von " << *polygon.getId() << ": "
+				<< polygon.getExpanse();
 		cout << " (Anzahl Pfade: " << polygon.getPathCount() << ")";
 		cout << endl;
 	}
@@ -39,14 +40,15 @@ int main() {
 	city_parser::city_list cities = city_parser::from_file(FILE_1);
 	for (city_parser::city_itr it = cities.begin(); it != cities.end(); ++it) {
 		city_parser::city c = *it;
-		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX() << ", 'y': " << c.coordinate.getY() << "}"
-				<< endl;
+		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX()
+				<< ", 'y': " << c.coordinate.getY() << "}" << endl;
 	}
 }
 
 /**
- * Liest alle Pfade aus der gegebenen SVG Datei. Es wird eine Liste auf Polygon erstellt. Jedes Polygon representiert
- * einen Pfad. (In unserem Fall ein Bundesland)
+ * Liest alle Polygone aus der gegebenen SVG Datei.(In unserem Fall die Liste der Bundesländer)
+ * Jedes Polygon besteht aus einer Liste von Strecken (siehe line.hpp). Der Anfangspunkt einer Strecke entspricht dem
+ * Endpunkt der vorhergehenden Strecke. Das Polygon ist geschlosse, dass heißt der Letzte Punkt entspricht dem ersten Punkt.
  */
 vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 	struct NSVGimage* image;
