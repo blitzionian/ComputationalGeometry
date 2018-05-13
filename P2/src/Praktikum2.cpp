@@ -102,4 +102,3 @@ vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
 
 	return polygons;
 }
-
