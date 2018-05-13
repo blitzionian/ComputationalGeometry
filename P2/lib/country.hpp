@@ -7,13 +7,13 @@
 
 using namespace std;
 
-class Polygon {
+class Country {
 public:
 
 	typedef Point* vertex;
 
-	Polygon(string* id, vector<path_t>* paths);
-	virtual ~Polygon();
+	Country(string* id, vector<path_t>* paths);
+	virtual ~Country();
 
 	string* getId();
 

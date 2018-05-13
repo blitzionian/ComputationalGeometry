@@ -1,3 +1,4 @@
+#include <country.hpp>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -8,7 +9,6 @@
 
 #include "point.hpp"
 #include "line.hpp"
-#include "polygon.hpp"
 #include <parse_cities.hpp>
 
 #include <stdio.h>
@@ -22,14 +22,14 @@ using namespace std;
 
 const char* FILE_1 = "input/DeutschlandMitStaedten.svg";
 
-vector<Polygon*>* readPolygonsFromSvg(const char* svgFile);
+vector<Country*>* readPolygonsFromSvg(const char* svgFile);
 
 int main() {
-	vector<Polygon*>* polygons = readPolygonsFromSvg(FILE_1);
+	vector<Country*>* polygons = readPolygonsFromSvg(FILE_1);
 
-	vector<Polygon*>::iterator itr;
+	vector<Country*>::iterator itr;
 	for (itr = polygons->begin(); itr != polygons->end(); ++itr) {
-		Polygon polygon = *(*itr);
+		Country polygon = *(*itr);
 		cout << "Fläche von " << *polygon.getId() << ": "
 				<< polygon.getExpanse();
 		cout << " (Anzahl Pfade: " << polygon.getPathCount() << ")";
@@ -50,18 +50,18 @@ int main() {
  * Jedes Polygon besteht aus einer Liste von Strecken (siehe line.hpp). Der Anfangspunkt einer Strecke entspricht dem
  * Endpunkt der vorhergehenden Strecke. Das Polygon ist geschlosse, dass heißt der Letzte Punkt entspricht dem ersten Punkt.
  */
-vector<Polygon*>* readPolygonsFromSvg(const char* svgFile) {
+vector<Country*>* readPolygonsFromSvg(const char* svgFile) {
 	struct NSVGimage* image;
 	image = nsvgParseFromFile(FILE_1, "px", 96);
 
-	vector<Polygon*>* polygons = new vector<Polygon*>();
+	vector<Country*>* polygons = new vector<Country*>();
 
 	NSVGshape* shape;
 	for (shape = image->shapes; shape != NULL; shape = shape->next) {
 		NSVGpath* path;
 
 		vector<path_t>* edges = new vector<path_t>();
-		Polygon* polygon = new Polygon(new string(shape->id), edges);
+		Country* polygon = new Country(new string(shape->id), edges);
 		polygons->push_back(polygon);
 
 		int count = 0;

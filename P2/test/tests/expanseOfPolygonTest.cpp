@@ -23,7 +23,7 @@ namespace {
 		vector<path_t> allPaths;
 		allPaths.push_back(paths);
 
-		Polygon polygon(new string(""), &allPaths);
+		Country polygon(new string(""), &allPaths);
 
 		ASSERT_EQ(1.0, polygon.getExpanse());
 

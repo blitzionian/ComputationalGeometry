@@ -1,19 +1,18 @@
-#include "polygon.hpp"
-
+#include <country.hpp>
 #include <iostream>
 #include <algorithm>
 #include <stdlib.h>
 
 inline short int signum(double val);
 
-Polygon::Polygon(string* id, vector<path_t>* paths) :
+Country::Country(string* id, vector<path_t>* paths) :
 		id(id), paths(paths) {
 }
 
-Polygon::~Polygon() {
+Country::~Country() {
 }
 
-double Polygon::getExpanse() {
+double Country::getExpanse() {
 	double expanse = 0.0;
 //	Point zero(0, 0);
 
@@ -44,15 +43,15 @@ double Polygon::getExpanse() {
 	return expanse;
 }
 
-int Polygon::getPathCount() {
+int Country::getPathCount() {
 	return this->paths->size();
 }
 
-string* Polygon::getId() {
+string* Country::getId() {
 	return this->id;
 }
 
-std::vector<Polygon::vertex> Polygon::vertices() {
+std::vector<Country::vertex> Country::vertices() {
 	std::vector<vertex> result;
 	// for each path
 	for(std::vector<path_t>::iterator outer = paths -> begin(); outer != paths -> end(); ++outer) {
@@ -66,7 +65,7 @@ std::vector<Polygon::vertex> Polygon::vertices() {
 	return result;
 }
 
-Point Polygon::maxCoordinates() {
+Point Country::maxCoordinates() {
 	std::vector<double> x;
 	std::vector<double> y;
 	std::vector<vertex> v = vertices();
@@ -80,7 +79,7 @@ Point Polygon::maxCoordinates() {
 	return Point(x.back(),y.back());
 }
 
-bool Polygon::includesPoint(Point & point) {
+bool Country::includesPoint(Point & point) {
 	bool answer = false;
 	Point max = maxCoordinates();
 	Point outer(max.getX() + 10, max.getY() + 10);
