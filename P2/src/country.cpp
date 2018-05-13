@@ -13,9 +13,9 @@ double Country::getExpanse() {
 	double expanse = 0.0;
 
 	for (size_t polygonIndex = 0; polygonIndex < this->polygons->size(); polygonIndex++) {
-		Polygon* path = this->polygons->at(polygonIndex);
+		Polygon* polygon = this->polygons->at(polygonIndex);
 
-		expanse += path->getExpanse();
+		expanse += polygon->getExpanse();
 	}
 
 	return expanse;
