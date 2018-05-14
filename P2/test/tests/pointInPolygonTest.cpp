@@ -12,7 +12,7 @@ namespace {
 		Point pointToCheck(0.5, 1);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_TRUE(polygon.includesPoint(pointToCheck));
+		ASSERT_TRUE(polygon.includesPoint(&pointToCheck));
 	}
 
 	TEST(Polygon_In_Polygon_Test, Triangle_Inside) {
@@ -25,7 +25,7 @@ namespace {
 		Point pointToCheck(0.5, 0.5);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_TRUE(polygon.includesPoint(pointToCheck));
+		ASSERT_TRUE(polygon.includesPoint(&pointToCheck));
 	}
 
 	TEST(Polygon_In_Polygon_Test, Triangle_Outside) {
@@ -38,7 +38,7 @@ namespace {
 		Point pointToCheck(0.5, 1.5);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_FALSE(polygon.includesPoint(pointToCheck));
+		ASSERT_FALSE(polygon.includesPoint(&pointToCheck));
 	}
 
 	TEST(Polygon_In_Polygon_Test, Square_On_Knot) {
@@ -52,7 +52,7 @@ namespace {
 		Point pointToCheck(0, 0);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_TRUE(polygon.includesPoint(pointToCheck));
+		ASSERT_TRUE(polygon.includesPoint(&pointToCheck));
 	}
 
 	TEST(Polygon_In_Polygon_Test, Square_Inside) {
@@ -66,7 +66,7 @@ namespace {
 		Point pointToCheck(0.75, 0.75);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_TRUE(polygon.includesPoint(pointToCheck));
+		ASSERT_TRUE(polygon.includesPoint(&pointToCheck));
 	}
 
 	TEST(Polygon_In_Polygon_Test, Square_Outside) {
@@ -80,7 +80,7 @@ namespace {
 		Point pointToCheck(1.5, 1.5);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_FALSE(polygon.includesPoint(pointToCheck));
+		ASSERT_FALSE(polygon.includesPoint(&pointToCheck));
 	}
 
 	TEST(Polygon_In_Polygon_Test, Square_On_Edge) {
@@ -94,6 +94,6 @@ namespace {
 		Point pointToCheck(0.5, 0);
 
 		Polygon polygon(&polygonKnots);
-		ASSERT_TRUE(polygon.includesPoint(pointToCheck));
+		ASSERT_TRUE(polygon.includesPoint(&pointToCheck));
 	}
 }

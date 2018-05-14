@@ -30,7 +30,7 @@ public:
 	 */
 	double getExpanse();
 
-	bool contains(Point point);
+	bool contains(Point* point);
 
 private:
 	/**

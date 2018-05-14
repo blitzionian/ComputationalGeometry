@@ -37,7 +37,7 @@ public:
 	/**
 	 * Berechnet den ccw Wert der Strecke zu einem gegebenen Punkt.
 	 */
-	double ccw(Point& pointToConsider);
+	double ccw(Point* pointToConsider);
 
 private:
 	Point* startPoint;

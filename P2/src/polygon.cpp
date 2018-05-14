@@ -35,25 +35,13 @@ double Polygon::getExpanse() {
 	return expanse;
 }
 
-vector<Polygon::vertex> Polygon::vertices() {
-	vector<vertex> result;
-
-	// for each Line
-	for (vector<Line*>::iterator outer = edges.begin(); outer != edges.end(); ++outer) {
-		Line* l = *outer;
-		result.push_back(l->getStartPoint());
-	}
-
-	return result;
-}
-
 Point Polygon::maxCoordinates() {
 	vector<double> x;
 	vector<double> y;
-	vector<vertex> v = vertices();
 
-	for (vector<vertex>::iterator it = v.begin(); it != v.end(); ++it) {
-		Point p = *(*it);
+	for (vector<Point*>::iterator pointIterator = this->knots->begin(); pointIterator != this->knots->end();
+			++pointIterator) {
+		Point p = *(*pointIterator);
 		x.push_back(p.getX());
 		y.push_back(p.getY());
 	}
@@ -63,35 +51,41 @@ Point Polygon::maxCoordinates() {
 	return Point(x.back(), y.back());
 }
 
-bool Polygon::includesPoint(Point & point) {
-	bool answer = false;
+bool Polygon::includesPoint(Point* point) {
+	bool includesPoint = false;
 	Point max = maxCoordinates();
 	Point outer(max.getX() + 10, max.getY() + 10);
-	vector<vertex> v = vertices();
-	Line ref(&outer, &point);
-	vector<vertex>::iterator current = v.begin();
-	while (current != v.end() && 0.0 == ref.ccw(*(*current))) {
+
+	Line ref(&outer, point);
+
+	vector<Point*>::iterator current = this->knots->begin();
+	while (current != this->knots->end() && 0.0 == ref.ccw(*current)) {
 		++current;
 	}
-	if (current != v.end()) {
+
+	if (current != this->knots->end()) {
 		unsigned int count = 0;
-		short int outer_signum = signum(ref.ccw(*(*current)));
-		for (vector<vertex>::iterator it(current); it != v.end(); ++it) {
-			short int inner_signum = signum(ref.ccw(*(*it)));
+		short int outer_signum = signum(ref.ccw(*current));
+
+		for (vector<Point*>::iterator it(current); it != this->knots->end(); ++it) {
+			short int inner_signum = signum(ref.ccw(*it));
+
 			if (2 == abs(inner_signum - outer_signum)) {
 				outer_signum = inner_signum;
-				vector<vertex>::iterator cpy(it);
+				vector<Point*>::iterator cpy(it);
 				--cpy;
 				Line inner_ref(*cpy, *it);
-				double ccws = inner_ref.ccw(outer) * inner_ref.ccw(point);
+				double ccws = inner_ref.ccw(&outer) * inner_ref.ccw(point);
 				if (ccws <= 0) {
 					++count;
 				}
 			}
 		}
-		answer = (0 != count % 2);
+
+		includesPoint = (0 != count % 2);
 	}
-	return answer;
+
+	return includesPoint;
 }
 
 vector<Point*>* Polygon::getKnots() {

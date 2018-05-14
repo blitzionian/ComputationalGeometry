@@ -16,7 +16,7 @@ Country::Country(string* name, vector<Polygon*> *polygons) :
 			}
 
 			Polygon* innerPolygon = polygons->at(innerPolygonIndex);
-			Point firstPoint = *innerPolygon->getKnots()->at(0);
+			Point* firstPoint = innerPolygon->getKnots()->at(0);
 
 			if (polygon->includesPoint(firstPoint)) {
 				polygonType = Polygon::HOLE;
@@ -56,7 +56,7 @@ double Country::getExpanse() {
 	return expanse;
 }
 
-bool Country::contains(Point point) {
+bool Country::contains(Point* point) {
 	for (size_t polygonIndex = 0; polygonIndex < this->areas.size(); polygonIndex++) {
 		Polygon polygon = *this->areas.at(polygonIndex);
 

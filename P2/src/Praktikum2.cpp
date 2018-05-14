@@ -50,7 +50,7 @@ int main() {
 
 		for (size_t cityIndex = 0; cityIndex < cities.size(); cityIndex++) {
 			city_parser::city cityToConsider = cities.at(cityIndex);
-			if (country.contains(cityToConsider.coordinate)) {
+			if (country.contains(&cityToConsider.coordinate)) {
 				cout << *country.getName() << " contains " << cityToConsider.name << endl;
 			}
 		}

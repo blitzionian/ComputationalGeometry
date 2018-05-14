@@ -15,8 +15,6 @@ public:
 	static const int HOLE = -1;
 	static const int AREA = 1;
 
-	typedef Point* vertex;
-
 	Polygon(vector<Point*> *knots);
 	virtual ~Polygon();
 
@@ -25,12 +23,11 @@ public:
 	 */
 	double getExpanse();
 
-	std::vector<vertex> vertices();
 	vector<Point*>* getKnots();
 
 	Point maxCoordinates();
 
-	bool includesPoint(Point &point);
+	bool includesPoint(Point* point);
 
 private:
 	/**
