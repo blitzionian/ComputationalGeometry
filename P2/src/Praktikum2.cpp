@@ -60,37 +60,25 @@ vector<Country*>* readPolygonsFromSvg(const char* svgFile) {
 	for (shape = image->shapes; shape != NULL; shape = shape->next) {
 		vector<Polygon*>* polygonsOfCountry = new vector<Polygon*>();
 
-		Country* newCountry = new Country(new string(shape->id), polygonsOfCountry);
-		countries->push_back(newCountry);
-
 //		// Lese alle Pfade des aktuellen Bundeslandes (alle Polygone, Inseln, Löcher etc)
 		NSVGpath* path;
 		for (path = shape->paths; path != NULL; path = path->next) {
-			vector<Line*>* edges = new vector<Line*>();
+			vector<Point*>* knots = new vector<Point*>();
 
-			Polygon* newPolygon = new Polygon(edges);
-			polygonsOfCountry->push_back(newPolygon);
-
-			Point* firstPoint = NULL;
-			Point* lastPoint = NULL;
-
-//			// Lese alle Edges des akutellen Pfades (Polygons)
+//			// Lese alle Knoten des akutellen Pfades (Polygons)
 			for (int i = 0; i < path->npts - 1; i += 3) {
 				float* points = &path->pts[i * 2];
+
 				Point* nextPoint = new Point(points[0], points[1]);
-
-				if (firstPoint == NULL) {
-					firstPoint = nextPoint;
-				}
-
-				if (lastPoint != NULL) {
-					Line* newEdge = new Line(*lastPoint, *nextPoint);
-					edges->push_back(newEdge);
-				}
-
-				lastPoint = nextPoint;
+				knots->push_back(nextPoint);
 			}
+
+			Polygon* newPolygon = new Polygon(knots);
+			polygonsOfCountry->push_back(newPolygon);
 		}
+
+		Country* newCountry = new Country(new string(shape->id), polygonsOfCountry);
+		countries->push_back(newCountry);
 	}
 
 	return countries;

@@ -7,11 +7,11 @@
 
 class Line {
 public:
-	Line(Point& startPoint, Point& endPoint);
+	Line(Point* startPoint, Point* endPoint);
 	virtual ~Line();
 
-	Point& getStartPoint();
-	Point& getEndPoint();
+	Point* getStartPoint();
+	Point* getEndPoint();
 
 	double getExpanseOverXLine();
 
@@ -40,8 +40,8 @@ public:
 	double ccw(Point& pointToConsider);
 
 private:
-	Point& p1;
-	Point& p2;
+	Point* startPoint;
+	Point* endPoint;
 
 	// Speichert den Punkt mit der kleinsten x Koordinate
 	Point* left;

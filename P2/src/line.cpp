@@ -3,22 +3,22 @@
 
 using namespace std;
 
-Line::Line(Point& startPoint, Point& endPoint) :
-		p1(startPoint), p2(endPoint) {
-	if (p1.getX() <= p2.getX()) {
-		this->left = &p1;
-		this->right = &p2;
+Line::Line(Point* startPoint, Point* endPoint) :
+		startPoint(startPoint), endPoint(endPoint) {
+	if (startPoint->getX() <= endPoint->getX()) {
+		this->left = startPoint;
+		this->right = endPoint;
 	} else {
-		this->left = &p2;
-		this->right = &p1;
+		this->left = endPoint;
+		this->right = startPoint;
 	}
 
-	if (p1.getY() <= p2.getY()) {
-		this->bottom = &p1;
-		this->top = &p2;
+	if (startPoint->getY() <= endPoint->getY()) {
+		this->bottom = startPoint;
+		this->top = endPoint;
 	} else {
-		this->bottom = &p2;
-		this->top = &p1;
+		this->bottom = endPoint;
+		this->top = startPoint;
 	}
 
 	this->pointsEqual = startPoint == endPoint;
@@ -28,8 +28,8 @@ Line::~Line() {
 }
 
 double Line::getExpanseOverXLine() {
-	double height = (this->p1.getY() + this->p2.getY()) / 2;
-	double width = this->p1.getX() - this->p2.getX();
+	double height = (this->startPoint->getY() + this->endPoint->getY()) / 2;
+	double width = this->startPoint->getX() - this->endPoint->getX();
 	return height * width;
 }
 
@@ -38,15 +38,15 @@ bool Line::cross(Line& lineToCheck) {
 		if (!lineToCheck.isPoint()) {
 			return lineToCheck.cross(*this);
 		} else {
-			return this->p1 == lineToCheck.p1;
+			return this->startPoint == lineToCheck.startPoint;
 		}
 	}
 
-	double ccwThis1 = this->ccw(lineToCheck.getStartPoint());
-	double ccwThis2 = this->ccw(lineToCheck.getEndPoint());
+	double ccwThis1 = this->ccw(*lineToCheck.getStartPoint());
+	double ccwThis2 = this->ccw(*lineToCheck.getEndPoint());
 
 	if (ccwThis1 == 0 && ccwThis2 == 0) {
-		if (this->contains(lineToCheck.getStartPoint()) || this->contains(lineToCheck.getEndPoint())) {
+		if (this->contains(*lineToCheck.getStartPoint()) || this->contains(*lineToCheck.getEndPoint())) {
 			return true;
 		}
 
@@ -56,7 +56,7 @@ bool Line::cross(Line& lineToCheck) {
 	double resultOtherLine = ccwThis1 * ccwThis2;
 
 	if (resultOtherLine <= 0) {
-		double resultThisLIne = lineToCheck.ccw(this->getStartPoint()) * lineToCheck.ccw(this->getEndPoint());
+		double resultThisLIne = lineToCheck.ccw(*this->getStartPoint()) * lineToCheck.ccw(*this->getEndPoint());
 
 		if (resultThisLIne <= 0) {
 			return true;
@@ -78,25 +78,25 @@ bool Line::contains(Point& point) {
 }
 
 double Line::ccw(Point& pointToConsider) {
-	double ax = p2.getX() - p1.getX();
-	double ay = p2.getY() - p1.getY();
+	double ax = endPoint->getX() - startPoint->getX();
+	double ay = endPoint->getY() - startPoint->getY();
 
-	double bx = pointToConsider.getX() - p1.getX();
-	double by = pointToConsider.getY() - p1.getY();
+	double bx = pointToConsider.getX() - startPoint->getX();
+	double by = pointToConsider.getY() - startPoint->getY();
 	double result = ax * by - ay * bx;
 
 	return result;
 }
 
-Point& Line::getEndPoint() {
-	return this->p2;
+Point* Line::getEndPoint() {
+	return this->endPoint;
 }
 
-Point& Line::getStartPoint() {
-	return this->p1;
+Point* Line::getStartPoint() {
+	return this->startPoint;
 }
 
 std::string Line::toString() {
-	return this->p1.toString() + " " + this->p2.toString();
+	return this->startPoint->toString() + " " + this->endPoint->toString();
 }
 

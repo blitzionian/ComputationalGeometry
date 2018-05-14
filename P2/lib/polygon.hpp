@@ -2,6 +2,7 @@
 #define SRC_POLYGON_HPP_
 
 #include <vector>
+#include <point.hpp>
 #include <line.hpp>
 
 using namespace std;
@@ -13,7 +14,7 @@ class Polygon {
 public:
 	typedef Point* vertex;
 
-	Polygon(vector<Line*> *edges);
+	Polygon(vector<Point*> *knots);
 	virtual ~Polygon();
 
 	/**
@@ -31,7 +32,9 @@ private:
 	/**
 	 * Die Kanten des Polygons.
 	 */
-	vector<Line*> *edges;
+	vector<Line*> edges;
+
+	vector<Point*> *knots;
 };
 
 #endif /* SRC_POLYGON_HPP_ */
