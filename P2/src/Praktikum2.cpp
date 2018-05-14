@@ -22,16 +22,16 @@ using namespace std;
 
 const char* FILE_1 = "input/DeutschlandMitStaedten.svg";
 
-vector<Country*>* readPolygonsFromSvg(const char* svgFile);
+vector<Country*>* readCountriesFromSvg(const char* svgFile);
 
 int main() {
-	vector<Country*>* countries = readPolygonsFromSvg(FILE_1);
+	vector<Country*>* countries = readCountriesFromSvg(FILE_1);
 
 	vector<Country*>::iterator itr;
 	for (itr = countries->begin(); itr != countries->end(); ++itr) {
 		Country country = *(*itr);
 		cout << "Fläche von " << *country.getName() << ": " << country.getExpanse();
-		cout << " (Anzahl Pfade: " << country.getPathCount() << ")";
+//		cout << " (Anzahl Pfade: " << country.getPathCount() << ")";
 		cout << endl;
 	}
 
@@ -42,6 +42,19 @@ int main() {
 		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX() << ", 'y': " << c.coordinate.getY() << "}"
 				<< endl;
 	}
+
+	cout << endl;
+
+	for (size_t countryIndex = 0; countryIndex < countries->size(); countryIndex++) {
+		Country country = *countries->at(countryIndex);
+
+		for (size_t cityIndex = 0; cityIndex < cities.size(); cityIndex++) {
+			city_parser::city cityToConsider = cities.at(cityIndex);
+			if (country.contains(cityToConsider.coordinate)) {
+				cout << *country.getName() << " contains " << cityToConsider.name << endl;
+			}
+		}
+	}
 }
 
 /**
@@ -49,13 +62,13 @@ int main() {
  * Jedes Polygon besteht aus einer Liste von Strecken (siehe line.hpp). Der Anfangspunkt einer Strecke entspricht dem
  * Endpunkt der vorhergehenden Strecke. Das Polygon ist geschlosse, dass heißt der Letzte Punkt entspricht dem ersten Punkt.
  */
-vector<Country*>* readPolygonsFromSvg(const char* svgFile) {
+vector<Country*>* readCountriesFromSvg(const char* svgFile) {
 	struct NSVGimage* image;
 	image = nsvgParseFromFile(FILE_1, "px", 96);
 
 	vector<Country*>* countries = new vector<Country*>();
 
-	// Lese alle Shapes (Bundesländer)
+// Lese alle Shapes (Bundesländer)
 	NSVGshape* shape;
 	for (shape = image->shapes; shape != NULL; shape = shape->next) {
 		vector<Polygon*>* polygonsOfCountry = new vector<Polygon*>();

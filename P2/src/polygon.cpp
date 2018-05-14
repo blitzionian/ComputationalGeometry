@@ -27,8 +27,6 @@ Polygon::~Polygon() {
 double Polygon::getExpanse() {
 	double expanse = 0.0;
 
-	cout << "Anzahl Edges: " << this->edges.size() << endl;
-
 	for (size_t edgeIndex = 0; edgeIndex < this->edges.size(); edgeIndex++) {
 		Line* edge = this->edges.at(edgeIndex);
 		expanse += edge->getExpanseOverXLine();

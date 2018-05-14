@@ -22,6 +22,18 @@ double Country::getExpanse() {
 	return expanse;
 }
 
+bool Country::contains(Point point) {
+	for (size_t polygonIndex = 0; polygonIndex < this->polygons->size(); polygonIndex++) {
+		Polygon polygon = *this->polygons->at(polygonIndex);
+
+		if (polygon.includesPoint(point)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 int Country::getPathCount() {
 	return this->polygons->size();
 }

@@ -30,6 +30,8 @@ public:
 	 */
 	double getExpanse();
 
+	bool contains(Point point);
+
 private:
 	/**
 	 * Der Name der Polygons (z.B. Bayern)
