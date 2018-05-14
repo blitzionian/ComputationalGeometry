@@ -42,7 +42,8 @@ private:
 	 * Alle Polygone die zum Bundesland gehören. Hier sind alle Polygone enthalten,
 	 * egal ob sie ein Loch oder eine Exklave darstellen.
 	 */
-	vector<Polygon*>* polygons;
+	vector<Polygon*> areas;
+	vector<Polygon*> holes;
 };
 
 #endif /* SRC_COUNTRY_HPP_ */

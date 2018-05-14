@@ -12,6 +12,9 @@ using namespace std;
  */
 class Polygon {
 public:
+	static const int HOLE = -1;
+	static const int AREA = 1;
+
 	typedef Point* vertex;
 
 	Polygon(vector<Point*> *knots);
