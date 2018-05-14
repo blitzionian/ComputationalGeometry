@@ -28,6 +28,11 @@ public:
 	bool contains(Point& point);
 
 	/**
+	 * Gibt an ob die Strecke den gegebenen Punkt enhält. (ohne Einschränkung im Vergleich zu contains)
+	 */
+	bool containsReal(Point* point);
+
+	/**
 	 * Gibt an ob die Strecke eigentlich nur ein Punkt ist. (Start und Endpunkt der Strecke sind identisch)
 	 */
 	bool isPoint();

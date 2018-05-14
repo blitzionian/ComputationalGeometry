@@ -52,41 +52,79 @@ Point Polygon::maxCoordinates() {
 }
 
 bool Polygon::includesPoint(Point* point) {
-	bool includesPoint = false;
 	Point max = maxCoordinates();
 	Point outer(max.getX() + 10, max.getY() + 10);
 
-	Line ref(&outer, point);
+	Line toCheck(&outer, point);
 
-	vector<Point*>::iterator current = this->knots->begin();
-	while (current != this->knots->end() && 0.0 == ref.ccw(*current)) {
-		++current;
-	}
+	vector<Line*> crossedLines;
+	int crossCount = 0;
 
-	if (current != this->knots->end()) {
-		unsigned int count = 0;
-		short int outer_signum = signum(ref.ccw(*current));
+	int lastSignum = -2;
 
-		for (vector<Point*>::iterator it(current); it != this->knots->end(); ++it) {
-			short int inner_signum = signum(ref.ccw(*it));
+	for (size_t indexLines = 0; indexLines < this->edges.size(); indexLines++) {
+		Line* lineOfPolygon = this->edges.at(indexLines);
 
-			if (2 == abs(inner_signum - outer_signum)) {
-				outer_signum = inner_signum;
-				vector<Point*>::iterator cpy(it);
-				--cpy;
-				Line inner_ref(*cpy, *it);
-				double ccws = inner_ref.ccw(&outer) * inner_ref.ccw(point);
-				if (ccws <= 0) {
-					++count;
-				}
+		if (toCheck.cross(*lineOfPolygon)) {
+			crossedLines.push_back(lineOfPolygon);
+
+			double ccw = lineOfPolygon->ccw(point);
+
+			if (lastSignum == -2) {
+				lastSignum = signum(ccw);
+				crossCount++;
+				continue;
 			}
-		}
 
-		includesPoint = (0 != count % 2);
+			if (lastSignum != signum(ccw) && lastSignum != 0) {
+				crossCount++;
+			}
+		} else {
+			lastSignum = -2;
+		}
 	}
 
-	return includesPoint;
+	return crossCount % 2 != 0;
 }
+
+//bool Polygon::includesPoint(Point* point) {
+//	bool includesPoint = false;
+//	Point max = maxCoordinates();
+//	Point outer(max.getX() + 10, max.getY() + 10);
+//
+//	Line toCheck(&outer, point);
+//
+//	vector<Point*>::iterator current = this->knots->begin();
+//	while (current != this->knots->end() && 0.0 == toCheck.ccw(*current)) {
+//		++current;
+//	}
+//
+//	if (current != this->knots->end()) {
+//		unsigned int count = 0;
+//		short int outer_signum = signum(toCheck.ccw(*current));
+//
+//		for (vector<Point*>::iterator it(current); it != this->knots->end(); ++it) {
+//			short int inner_signum = signum(toCheck.ccw(*it));
+//
+//			if (2 == abs(inner_signum - outer_signum)) {
+//				outer_signum = inner_signum;
+//				vector<Point*>::iterator cpy(it);
+//				--cpy;
+//				Line inner_ref(*cpy, *it);
+//				double ccws = inner_ref.ccw(&outer) * inner_ref.ccw(point);
+//
+//				if (ccws <= 0) {
+////					includesPoint = !includesPoint;
+//					++count;
+//				}
+//			}
+//		}
+//
+//		includesPoint = (0 != count % 2);
+//	}
+//
+//	return includesPoint;
+//}
 
 vector<Point*>* Polygon::getKnots() {
 	return this->knots;

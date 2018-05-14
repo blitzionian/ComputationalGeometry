@@ -70,6 +70,16 @@ bool Line::isPoint() {
 	return pointsEqual;
 }
 
+bool Line::containsReal(Point* point) {
+	double ccw = this->ccw(point);
+
+	if (ccw == 0) {
+		return this->contains(*point);
+	}
+
+	return false;
+}
+
 bool Line::contains(Point& point) {
 	bool test = this->left->getX() <= point.getX() && this->right->getX() >= point.getX()
 			&& this->top->getY() >= point.getY() && this->bottom->getY() <= point.getY();
