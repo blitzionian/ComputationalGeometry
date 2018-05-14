@@ -96,6 +96,10 @@ bool Polygon::includesPoint(Point & point) {
 	return answer;
 }
 
+vector<Point*>* Polygon::getKnots() {
+	return this->knots;
+}
+
 inline short int signum(double val) {
 	short int answer = 0;
 	if (val < 0.0) {

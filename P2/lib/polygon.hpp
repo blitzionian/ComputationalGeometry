@@ -23,10 +23,11 @@ public:
 	double getExpanse();
 
 	std::vector<vertex> vertices();
+	vector<Point*>* getKnots();
 
 	Point maxCoordinates();
 
-	bool includesPoint(Point & point);
+	bool includesPoint(Point &point);
 
 private:
 	/**
