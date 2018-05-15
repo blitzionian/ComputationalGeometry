@@ -31,19 +31,18 @@ int main() {
 	for (itr = countries->begin(); itr != countries->end(); ++itr) {
 		Country country = *(*itr);
 		cout << "Fläche von " << *country.getName() << ": " << country.getExpanse();
-//		cout << " (Anzahl Pfade: " << country.getPathCount() << ")";
 		cout << endl;
 	}
 
 	cout << endl;
 	city_parser::city_list cities = city_parser::from_file(FILE_1);
-	for (city_parser::city_itr it = cities.begin(); it != cities.end(); ++it) {
-		city_parser::city c = *it;
-		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX() << ", 'y': " << c.coordinate.getY() << "}"
-				<< endl;
-	}
+//	for (city_parser::city_itr it = cities.begin(); it != cities.end(); ++it) {
+//		city_parser::city c = *it;
+//		cout << "{'name': '" << c.name << "', 'x': " << c.coordinate.getX() << ", 'y': " << c.coordinate.getY() << "}"
+//				<< endl;
+//	}
 
-	cout << endl;
+//	cout << endl;
 
 	for (size_t countryIndex = 0; countryIndex < countries->size(); countryIndex++) {
 		Country country = *countries->at(countryIndex);
