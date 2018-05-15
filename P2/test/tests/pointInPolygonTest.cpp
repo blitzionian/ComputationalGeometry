@@ -2,6 +2,19 @@
 #include <polygon.hpp>
 
 namespace {
+	TEST(Polygon_In_Polygon_Test, Triangle_Kollinear_Edge) {
+		vector<Point*> polygonKnots;
+		polygonKnots.push_back(new Point(1, 1));
+		polygonKnots.push_back(new Point(0, 0));
+		polygonKnots.push_back(new Point(1, 0));
+		polygonKnots.push_back(new Point(1, 1));
+
+		Point pointToCheck(-1, -1);
+
+		Polygon polygon(&polygonKnots);
+		ASSERT_FALSE(polygon.includesPoint(&pointToCheck));
+	}
+
 	TEST(Polygon_In_Polygon_Test, Triangle_On_Top) {
 		vector<Point*> polygonKnots;
 		polygonKnots.push_back(new Point(0, 0));
