@@ -30,11 +30,6 @@ Country::Country(string* name, vector<Polygon*> *polygons) :
 			this->holes.push_back(polygon);
 		}
 	}
-
-	if (*name == "Niedersachsen") {
-		cout << "Holes: " << this->holes.size() << endl;
-		cout << "Areas: " << this->areas.size() << endl;
-	}
 }
 
 Country::~Country() {
