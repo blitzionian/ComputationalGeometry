@@ -1,4 +1,6 @@
 Debug
+cmake-build-debug
 .settings
 .project
 .cproject
+.idea

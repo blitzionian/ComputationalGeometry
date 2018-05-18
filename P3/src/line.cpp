@@ -110,3 +110,6 @@ std::string Line::toString() {
 	return this->startPoint->toString() + " " + this->endPoint->toString();
 }
 
+bool Line::equals(Line & other) {
+	return *(getStartPoint()) == *(other.getStartPoint()) && *(getEndPoint()) == *(other.getEndPoint());
+}

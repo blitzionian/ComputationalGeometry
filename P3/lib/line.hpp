@@ -7,6 +7,7 @@
 
 class Line {
 public:
+
 	Line(Point* startPoint, Point* endPoint);
 	virtual ~Line();
 
@@ -38,6 +39,8 @@ public:
 	bool isPoint();
 
 	std::string toString();
+
+	bool equals(Line & other);
 
 	/**
 	 * Berechnet den ccw Wert der Strecke zu einem gegebenen Punkt.
