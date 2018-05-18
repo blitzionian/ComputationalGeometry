@@ -9,7 +9,10 @@ line_sweep::Event_Queue::Event_Queue() = default;
 
 line_sweep::Event_Queue::Event_Queue(std::vector<Line *> & lines) {
     for(auto & line : lines) {
-        m_data.push_back(node {EventType::SEGMENT_END, line -> getEndPoint()});
+        m_data.push_back(node {EventType::SEGMENT_START, line -> getStartPoint(), line});
+    }
+    for(auto & line : lines) {
+        m_data.push_back(node {EventType::SEGMENT_END, line -> getEndPoint(), line});
     }
     sort();
 }
@@ -18,8 +21,8 @@ line_sweep::Event_Queue::~Event_Queue() {
     m_data.clear();
 }
 
-void line_sweep::Event_Queue::insert(EventType type, Point *point) {
-    m_data.push_back(node {type, point});
+void line_sweep::Event_Queue::insert(EventType type, Point *point, Line * line) {
+    m_data.push_back(node {type, point, line});
     sort();
 }
 
@@ -44,6 +47,13 @@ template<typename Func> std::vector<line_sweep::Event_Queue::node> line_sweep::E
     }
     return result;
 }
+
+line_sweep::Event_Queue::node line_sweep::Event_Queue::pop() {
+    node result = m_data.front();
+    m_data.erase(m_data.begin());
+    return result;
+}
+
 
 void line_sweep::Event_Queue::sort() {
     std::sort(m_data.begin(),m_data.end(),[](node & left, node & right){

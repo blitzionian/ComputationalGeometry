@@ -15,6 +15,7 @@ namespace line_sweep {
         struct node {
             EventType event;
             Point * point;
+            Line * line;
             bool operator==(const node & other) {
                 return event == other.event && (*point) == (*other.point);
             }
@@ -22,8 +23,9 @@ namespace line_sweep {
         Event_Queue();
         explicit Event_Queue(std::vector<Line*> & lines);
         virtual ~Event_Queue();
-        void insert(EventType type, Point * point);
+        void insert(EventType type, Point * point, Line * line);
         node erase(node & n);
+        node pop();
         std::vector<node> next_neighbours(node & n);
         template<typename Func> std::vector<node> where(Func func);
 
