@@ -17,7 +17,7 @@ namespace line_sweep {
             Point * point;
             Line * line;
             bool operator==(const node & other) {
-                return event == other.event && (*point) == (*other.point);
+                return event == other.event && (*point) == (*other.point) && line->equals(*(other.line));
             }
         };
         Event_Queue();
