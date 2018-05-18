@@ -33,14 +33,12 @@ std::vector<Line*> line_sweep::filter_special_cases(std::vector<Line *> &in) {
     return out;
 }
 
-
 inline bool same_end_points(Line * left, Line * right) {
     return *(left->getEndPoint()) == *(right->getEndPoint());
 }
 
 inline void remove_line(std::vector<Line *> & data, Line * to_remove) {
-    long index = find(data.begin(),data.end(),to_remove) - data.begin();
-    data.erase(data.begin() + index);
+    data.erase(find(data.begin(),data.end(),to_remove));
 }
 
 inline bool overlap(Line * left, Line * right) {

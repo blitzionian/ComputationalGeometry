@@ -8,6 +8,7 @@
 #include <vector>
 #include <line.hpp>
 
+
 namespace line_sweep {
 
     std::vector<Line*> filter_special_cases(std::vector<Line*> & in);
