@@ -29,8 +29,19 @@ line_sweep::Event_Queue::node line_sweep::Event_Queue::erase(line_sweep::Event_Q
 }
 
 std::vector<line_sweep::Event_Queue::node> line_sweep::Event_Queue::next_neighbours(line_sweep::Event_Queue::node &n) {
-    std::vector<line_sweep::Event_Queue::node> result;
-    // TODO: fill result
+    node next = *(++find(m_data.begin(),m_data.end(),n));
+    return where([&next](node other){
+        return other.point->getX() == next.point->getX();
+    });
+}
+
+template<typename Func> std::vector<line_sweep::Event_Queue::node> line_sweep::Event_Queue::where(Func func) {
+    std::vector<node> result;
+    for(auto & node : m_data) {
+        if(func(node)) {
+            result.push_back(node);
+        }
+    }
     return result;
 }
 

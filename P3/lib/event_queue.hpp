@@ -25,6 +25,7 @@ namespace line_sweep {
         void insert(EventType type, Point * point);
         node erase(node & n);
         std::vector<node> next_neighbours(node & n);
+        template<typename Func> std::vector<node> where(Func func);
 
 
     private:
