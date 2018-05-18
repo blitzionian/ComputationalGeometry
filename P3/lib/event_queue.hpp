@@ -12,6 +12,7 @@
 namespace line_sweep {
     class Event_Queue {
     public:
+
         struct node {
             EventType event;
             Point * point;
@@ -20,6 +21,7 @@ namespace line_sweep {
                 return event == other.event && (*point) == (*other.point) && line->equals(*(other.line));
             }
         };
+        
         Event_Queue();
         explicit Event_Queue(std::vector<Line*> & lines);
         virtual ~Event_Queue();
