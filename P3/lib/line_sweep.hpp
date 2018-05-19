@@ -12,6 +12,7 @@
 namespace line_sweep {
 
     std::vector<Line*> filter_special_cases(std::vector<Line*> & in);
+    std::vector<Point*> intersections(std::vector<Line*> & segments);
 
 }
 

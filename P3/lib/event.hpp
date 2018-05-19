@@ -1,17 +1,17 @@
 #ifndef EVENT_HPP_
 #define EVENT_HPP_
 
-enum EventType {
-	SEGMENT_START, SEGMENT_END, CROSSPOINT
-};
+#include <point.hpp>
 
-class Event {
-public:
-	Event(EventType eventType);
-	virtual ~Event();
+namespace line_sweep {
+    enum event_type {
+        SEGMENT_START, SEGMENT_END, INTERSECTION
+    };
 
-private:
-	EventType eventType;
-};
+    struct event {
+        event_type type;
+        Point * point;
+    };
+}
 
 #endif /* EVENT_HPP_ */

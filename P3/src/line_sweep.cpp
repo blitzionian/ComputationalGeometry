@@ -3,6 +3,7 @@
 //
 #include <algorithm>
 #include <line_sweep.hpp>
+#include <event_queue.hpp>
 
 inline void remove_line(std::vector<Line *> & data, Line * to_remove);
 inline bool same_end_points(Line * left, Line * right);
@@ -29,8 +30,32 @@ std::vector<Line*> line_sweep::filter_special_cases(std::vector<Line *> &in) {
         }
     }
 
-    // move out into in
     return out;
+}
+
+// TODO: implement sweep line algorithm
+std::vector<Point*> line_sweep::intersections(std::vector<Line*> & segments) {
+    Event_Queue x(segments);
+    std::vector<Line*> sl;
+    std::vector<Point*> l;
+    while(!x.empty()) {
+        Event_Queue::node e = x.pop();
+        switch(e.event) {
+            case SEGMENT_START: {
+                Line *seg_e = e.line;
+                sl.push_back(seg_e);
+                break;
+            }
+            case SEGMENT_END: {
+                break;
+            }
+            case INTERSECTION: {
+                break;
+            }
+        }
+    }
+
+    return l;
 }
 
 inline bool same_end_points(Line * left, Line * right) {

@@ -18,7 +18,6 @@ add_executable(P3
         lib/line.hpp
         lib/point.hpp
         lib/line_sweep.hpp
-        src/event.cpp
         src/line.cpp
         src/point.cpp
         src/Praktikum3.cpp
@@ -33,7 +32,6 @@ add_executable(P3_Test
         lib/line.hpp
         lib/point.hpp
         lib/line_sweep.hpp
-        src/event.cpp
         src/line.cpp
         src/point.cpp
         test/contrib/gtest/gtest-all.cc

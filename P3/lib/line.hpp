@@ -7,7 +7,7 @@
 
 class Line {
 public:
-
+    Line();
 	Line(Point* startPoint, Point* endPoint);
 	virtual ~Line();
 
@@ -46,6 +46,8 @@ public:
 	 * Berechnet den ccw Wert der Strecke zu einem gegebenen Punkt.
 	 */
 	double ccw(Point* pointToConsider);
+
+	void set_points(Point * start, Point * end);
 
 private:
 	Point* startPoint;

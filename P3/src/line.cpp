@@ -3,28 +3,34 @@
 
 using namespace std;
 
-Line::Line(Point* startPoint, Point* endPoint) :
-		startPoint(startPoint), endPoint(endPoint) {
-	if (startPoint->getX() <= endPoint->getX()) {
-		this->left = startPoint;
-		this->right = endPoint;
-	} else {
-		this->left = endPoint;
-		this->right = startPoint;
-	}
+Line::Line() = default;
 
-	if (startPoint->getY() <= endPoint->getY()) {
-		this->bottom = startPoint;
-		this->top = endPoint;
-	} else {
-		this->bottom = endPoint;
-		this->top = startPoint;
-	}
-
-	this->pointsEqual = startPoint == endPoint;
+Line::Line(Point* start, Point* end) {
+    set_points(start,end);
 }
 
-Line::~Line() {
+Line::~Line() = default;
+
+void Line::set_points(Point * start, Point * end)  {
+    startPoint = start;
+    endPoint = end;
+    if (startPoint->getX() <= endPoint->getX()) {
+        this->left = startPoint;
+        this->right = endPoint;
+    } else {
+        this->left = endPoint;
+        this->right = startPoint;
+    }
+
+    if (startPoint->getY() <= endPoint->getY()) {
+        this->bottom = startPoint;
+        this->top = endPoint;
+    } else {
+        this->bottom = endPoint;
+        this->top = startPoint;
+    }
+
+    this->pointsEqual = startPoint == endPoint;
 }
 
 double Line::getExpanseOverXLine() {
