@@ -16,6 +16,7 @@ const string FILE_4 = "input/s_1000_10.dat";
 void readInputFile(string file, vector<Line*>* lines);
 void calculateFile(string file);
 int64_t currentTime(void);
+bool isSpecialCase(Line lineToCheck);
 
 int main() {
 	calculateFile(FILE_1);
@@ -30,7 +31,7 @@ void calculateFile(string file) {
 	cout << endl << "Starte mit Berechnung File: " << file << endl << endl;
 	int count = 0;
 
-	std::vector<Line*> lines;
+	vector<Line*> lines;
 	readInputFile(file, &lines);
 
 	int64_t start = currentTime();
@@ -40,6 +41,21 @@ void calculateFile(string file) {
 	int64_t duration = currentTime() - start;
 	cout << "Duration: " << duration << endl;
 	cout << "Count: " << count << endl;
+}
+
+bool isSpecialCase(Line lineToCheck) {
+	if (lineToCheck.isPoint()) {
+		return true;
+	}
+
+	Point* startPoint = lineToCheck.getStartPoint();
+	Point* endPoit = lineToCheck.getEndPoint();
+
+	if (startPoint->getY() == endPoit->getY()) {
+		return true;
+	}
+
+	return false;
 }
 
 void readInputFile(string file, vector<Line*>* lines) {
@@ -73,7 +89,9 @@ void readInputFile(string file, vector<Line*>* lines) {
 
 		Line *line = new Line(p1, p2);
 
-		lines->push_back(line);
+		if (!isSpecialCase(*line)) {
+			lines->push_back(line);
+		}
 	}
 
 	inStream.close();
