@@ -2,8 +2,10 @@
 #define LIB_SWEEPLINE_HPP_
 
 #include <vector>
+#include <list>
 #include <line.hpp>
 #include <event.hpp>
+#include <crosspoints.hpp>
 
 using namespace std;
 
@@ -12,16 +14,24 @@ public:
 	SweepLine(vector<Line*> lines);
 	virtual ~SweepLine();
 
-	void calculateResult();
+	Crosspoints* calculateResult();
 	int getCrossCount();
+
+	void printEventQueue();
 
 private:
 	vector<Line*> lines;
-	int crossCount = -1;
+	int crossCount = 0;
 
-	vector<Event> eventQueue;
+	Crosspoints crosspoints;
+	list<Line*> sweepLine;
+	list<Event> eventQueue;
 
 	void initEventQueue();
+
+	void handleStartPoint(Event eventToHandle);
+	void handleEndPoint(Event eventToHandle);
+	void handleIntersection(Event eventToHandle);
 };
 
 #endif /* LIB_SWEEPLINE_HPP_ */

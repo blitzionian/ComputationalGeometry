@@ -13,7 +13,8 @@ public:
 
 	std::string toString();
 
-	bool operator==(Point const& other);
+	bool operator==(const Point& other);
+	bool operator<(const Point& other);
 
 private:
 	double x;

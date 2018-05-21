@@ -3,7 +3,9 @@
 #include <fstream>
 #include <vector>
 #include <chrono>
-#include "line.hpp"
+
+#include <line.hpp>
+#include <sweepLine.hpp>
 
 using namespace std;
 using namespace std::chrono;
@@ -29,18 +31,19 @@ int main() {
 
 void calculateFile(string file) {
 	cout << endl << "Starte mit Berechnung File: " << file << endl << endl;
-	int count = 0;
 
-	vector<Line*> lines;
-	readInputFile(file, &lines);
+	vector<Line*>* lines = new vector<Line*>();
+	readInputFile(file, lines);
 
 	int64_t start = currentTime();
 
-	// TODO impelment sweep line.
+	SweepLine sweepline(*lines);
+	sweepline.calculateResult();
+//	sweepline.printEventQueue();
 
 	int64_t duration = currentTime() - start;
 	cout << "Duration: " << duration << endl;
-	cout << "Count: " << count << endl;
+	cout << "Count: " << sweepline.getCrossCount() << endl;
 }
 
 bool isSpecialCase(Line lineToCheck) {

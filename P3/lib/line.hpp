@@ -32,33 +32,20 @@ public:
 	 */
 	bool containsReal(Point* point);
 
-	/**
-	 * Gibt an ob die Strecke eigentlich nur ein Punkt ist. (Start und Endpunkt der Strecke sind identisch)
-	 */
 	bool isPoint();
-
 	std::string toString();
-
-	/**
-	 * Berechnet den ccw Wert der Strecke zu einem gegebenen Punkt.
-	 */
 	double ccw(Point* pointToConsider);
 
 private:
 	Point* startPoint;
 	Point* endPoint;
 
-	// Speichert den Punkt mit der kleinsten x Koordinate
 	Point* left;
-	// Speichert den Punkt mit der größten x Koordinate
 	Point* right;
 
-	// Speichert den Punkt mit der größten y Koordinate
 	Point* top;
-	// Speichert den Punkt mit der kleinsten y Koordinate
 	Point* bottom;
 
-	// Speichert ob start und enpunkt identisch sind.
 	bool pointsEqual;
 };
 

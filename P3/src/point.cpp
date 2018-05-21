@@ -23,6 +23,20 @@ std::string Point::toString() {
 	return strs.str();
 }
 
+bool Point::operator<(const Point& other) {
+	if (this->x < other.x) {
+		return true;
+	}
+
+	if (this->x == other.x) {
+		if (this->y < other.y) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool Point::operator ==(Point const& other) {
 	return this->x == other.x && this->y == other.y;
 }
