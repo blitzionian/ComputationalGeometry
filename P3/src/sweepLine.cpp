@@ -10,9 +10,32 @@ SweepLine::~SweepLine() {
 
 void SweepLine::handleStartPoint(Event eventToHandle) {
 	Line* segment = eventToHandle.getSegment();
+	list<Line*>::iterator insertedElementIt = this->insertIntoSweepLine(segment);
+	//	cout << "Sweep Line after insert: " << endl;
+	//	this->printSweepLine();
 
-	this->sweepLine.push_back(segment);
+	list<Line*>::iterator previous(insertedElementIt);
 
+	Line* segmentAbove = *(insertedElementIt++);
+	Line* segmentBelow = *(previous--);
+
+	if (segment->cross(*segmentAbove)) {
+		Crosspoint* crosspoint = new Crosspoint(segment, segmentAbove);
+		this->crosspoints.add(crosspoint);
+
+		Event* ev = new Event(crosspoint);
+		this->eventQueue.push_back(*ev);
+	}
+
+	if (segment->cross(*segmentBelow)) {
+		Crosspoint* crosspoint = new Crosspoint(segment, segmentBelow);
+		this->crosspoints.add(crosspoint);
+
+		Event* ev = new Event(crosspoint);
+		this->eventQueue.push_back(*ev);
+	}
+
+	this->eventQueue.sort();
 }
 
 void SweepLine::handleEndPoint(Event eventToHandle) {
@@ -21,6 +44,23 @@ void SweepLine::handleEndPoint(Event eventToHandle) {
 
 void SweepLine::handleIntersection(Event eventToHandle) {
 
+}
+
+list<Line*>::iterator SweepLine::insertIntoSweepLine(Line* segment) {
+	double xPosition = segment->getStartPoint()->getX();
+	double yValue = segment->getStartPoint()->getY();
+
+	list<Line*>::iterator slIter;
+	for (slIter = this->sweepLine.begin(); slIter != this->sweepLine.end(); slIter++) {
+		Line* currentLine = *slIter;
+		double otherYValue = currentLine->getYAt(xPosition);
+
+		if (otherYValue > yValue) {
+			break;
+		}
+	}
+
+	return this->sweepLine.insert(slIter, segment);
 }
 
 Crosspoints* SweepLine::calculateResult() {
@@ -70,9 +110,16 @@ void SweepLine::printEventQueue() {
 
 	for (eventIterator = this->eventQueue.begin(); eventIterator != this->eventQueue.end(); eventIterator++) {
 		Event event = *eventIterator;
-
 		Point* point = event.getPointToConsider();
-
 		cout << point->toString() << endl;
+	}
+}
+
+void SweepLine::printSweepLine() {
+	list<Line*>::iterator slIter;
+
+	for (slIter = this->sweepLine.begin(); slIter != this->sweepLine.end(); slIter++) {
+		Line* line = *slIter;
+		cout << line->toString() << endl;
 	}
 }

@@ -2,6 +2,54 @@
 #include <line.hpp>
 
 namespace {
+	TEST(Line_Test, YAt1) {
+		Point startPoint(0, 0);
+		Point endPoint(1, 1);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(0.5, line.getYAt(0.5));
+	}
+
+	TEST(Line_Test, YAt2) {
+		Point startPoint(0, 0);
+		Point endPoint(2, 1);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(0.25, line.getYAt(0.5));
+	}
+
+	TEST(Line_Test, YAt3) {
+		Point startPoint(0, 1);
+		Point endPoint(2, 2);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(1.25, line.getYAt(0.5));
+	}
+
+	TEST(Line_Test, Steigung1) {
+		Point startPoint(0, 0);
+		Point endPoint(1, 1);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(1, line.getSteigung());
+	}
+
+	TEST(Line_Test, Steigung2) {
+		Point startPoint(0, 1);
+		Point endPoint(1, 0);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(-1, line.getSteigung());
+	}
+
+	TEST(Line_Test, Steigung3) {
+		Point startPoint(0, 0);
+		Point endPoint(2, 1);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(0.5, line.getSteigung());
+	}
+
 	TEST(Line_Test, Expanse1) {
 		Point startPoint(0, 0);
 		Point endPoint(1, 0);

@@ -14,8 +14,10 @@ Event::~Event() {
 Point* Event::getPointToConsider(Event event) {
 	if (event.eventType == EventType::SEGMENT_START) {
 		return event.line1->getStartPoint();
-	} else {
+	} else if (event.eventType == EventType::SEGMENT_END) {
 		return event.line1->getEndPoint();
+	} else {
+		return event.crosspoint->getPoint();
 	}
 }
 

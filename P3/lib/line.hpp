@@ -13,6 +13,14 @@ public:
 	Point* getStartPoint();
 	Point* getEndPoint();
 
+	Point* getLeftPoint();
+	Point* getRightPoint();
+
+	double getYAt(double x);
+	double getSteigung();
+	double getLength();
+	double getWidth();
+
 	double getExpanseOverXLine();
 
 	/**
@@ -47,6 +55,10 @@ private:
 	Point* bottom;
 
 	bool pointsEqual;
+
+	double steigung;
+
+	double calculateSteigung();
 };
 
 #endif /* LINE_H_ */

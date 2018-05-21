@@ -32,6 +32,10 @@ private:
 	void handleStartPoint(Event eventToHandle);
 	void handleEndPoint(Event eventToHandle);
 	void handleIntersection(Event eventToHandle);
+
+	list<Line*>::iterator insertIntoSweepLine(Line* segment);
+
+	void printSweepLine();
 };
 
 #endif /* LIB_SWEEPLINE_HPP_ */

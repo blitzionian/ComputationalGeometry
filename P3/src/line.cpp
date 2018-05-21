@@ -1,5 +1,6 @@
 #include "line.hpp"
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -22,9 +23,41 @@ Line::Line(Point* startPoint, Point* endPoint) :
 	}
 
 	this->pointsEqual = startPoint == endPoint;
+
+	steigung = calculateSteigung();
 }
 
 Line::~Line() {
+}
+
+double Line::calculateSteigung() {
+	double diffY = this->right->getY() - this->left->getY();
+	double diffX = this->right->getX() - this->left->getX();
+	return diffY / diffX;
+}
+
+double Line::getWidth() {
+	return this->right->getX() - this->left->getX();
+}
+
+double Line::getLength() {
+	double diffX = getWidth();
+	double diffY = this->right->getY() - this->left->getY();
+
+	return hypot(diffX, diffY);
+}
+
+double Line::getYAt(double x) {
+	if (x < this->left->getX() || x > this->right->getX()) {
+		return 0;
+	}
+
+	double distanceToStartPoint = x - this->left->getX();
+	return this->left->getY() + this->steigung * distanceToStartPoint;
+}
+
+double Line::getSteigung() {
+	return steigung;
 }
 
 double Line::getExpanseOverXLine() {
@@ -96,6 +129,14 @@ double Line::ccw(Point* pointToConsider) {
 	double result = ax * by - ay * bx;
 
 	return result;
+}
+
+Point* Line::getLeftPoint() {
+	return this->left;
+}
+
+Point* Line::getRightPoint() {
+	return this->right;
 }
 
 Point* Line::getEndPoint() {
