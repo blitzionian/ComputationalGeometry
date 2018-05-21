@@ -21,6 +21,10 @@ Point* Event::getPointToConsider(Event event) {
 	}
 }
 
+Crosspoint* Event::getCrosspoint() {
+	return this->crosspoint;
+}
+
 bool Event::isStartpoint() {
 	return this->eventType == EventType::SEGMENT_START;
 }

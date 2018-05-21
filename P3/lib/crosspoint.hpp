@@ -9,6 +9,12 @@ public:
 	virtual ~Crosspoint();
 
 	Point* getPoint();
+
+	Line* getLine1();
+	Line* getLine2();
+
+	bool operator==(Crosspoint& other);
+
 private:
 	Line* line1;
 	Line* line2;

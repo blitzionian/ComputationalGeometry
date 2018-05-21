@@ -44,6 +44,8 @@ public:
 	std::string toString();
 	double ccw(Point* pointToConsider);
 
+	bool operator==(Line& other);
+
 private:
 	Point* startPoint;
 	Point* endPoint;

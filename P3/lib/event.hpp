@@ -17,6 +17,7 @@ public:
 	static Point* getPointToConsider(Event event);
 	Point* getPointToConsider();
 	Line* getSegment();
+	Crosspoint* getCrosspoint();
 
 	bool isStartpoint();
 	bool isEndpoint();

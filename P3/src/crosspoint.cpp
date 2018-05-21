@@ -12,6 +12,14 @@ Point* Crosspoint::getPoint() {
 	return &crosspoint;
 }
 
+Line* Crosspoint::getLine1() {
+	return this->line1;
+}
+
+Line* Crosspoint::getLine2() {
+	return this->line2;
+}
+
 Point Crosspoint::calculateCrossPoint() {
 	double diffx3x1 = line2->getLeftPoint()->getX() - line1->getLeftPoint()->getX();
 	double diffx4x3 = line2->getRightPoint()->getX() - line2->getLeftPoint()->getX();
@@ -32,4 +40,14 @@ Point Crosspoint::calculateCrossPoint() {
 
 	double coordY = line1->getYAt(coordX);
 	return Point(coordX, coordY);
+}
+
+bool Crosspoint::operator==(Crosspoint& other) {
+	Line ol1 = *other.line1;
+	Line ol2 = *other.line2;
+
+	Line thL1 = *this->line1;
+	Line thL2 = *this->line2;
+
+	return ol1 == thL1 || ol1 == thL2 || ol2 == thL1 || ol2 == thL2;
 }

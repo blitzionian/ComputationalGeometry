@@ -12,6 +12,7 @@ public:
 	virtual ~Crosspoints();
 
 	void add(Crosspoint* crosspoint);
+	int size();
 
 private:
 	vector<Crosspoint*> crosspoints;

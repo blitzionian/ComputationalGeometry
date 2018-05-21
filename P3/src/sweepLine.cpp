@@ -1,5 +1,6 @@
 #include <sweepLine.hpp>
 #include <iostream>
+#include <algorithm>
 
 SweepLine::SweepLine(vector<Line*> lines) :
 		lines(lines) {
@@ -21,16 +22,12 @@ void SweepLine::handleStartPoint(Event eventToHandle) {
 
 	if (segment->cross(*segmentAbove)) {
 		Crosspoint* crosspoint = new Crosspoint(segment, segmentAbove);
-		this->crosspoints.add(crosspoint);
-
 		Event* ev = new Event(crosspoint);
 		this->eventQueue.push_back(*ev);
 	}
 
 	if (segment->cross(*segmentBelow)) {
 		Crosspoint* crosspoint = new Crosspoint(segment, segmentBelow);
-		this->crosspoints.add(crosspoint);
-
 		Event* ev = new Event(crosspoint);
 		this->eventQueue.push_back(*ev);
 	}
@@ -39,11 +36,71 @@ void SweepLine::handleStartPoint(Event eventToHandle) {
 }
 
 void SweepLine::handleEndPoint(Event eventToHandle) {
+	Line* segment = eventToHandle.getSegment();
 
+	list<Line*>::iterator slIter;
+	for (slIter = this->sweepLine.begin(); slIter != this->sweepLine.end(); slIter++) {
+		Line* line = *slIter;
+
+		if (*line == *segment) {
+			break;
+		}
+	}
+
+	list<Line*>::iterator above(slIter);
+	above++;
+	list<Line*>::iterator below(slIter);
+	below--;
+
+	this->sweepLine.erase(slIter);
+
+	Line* lineAbove = *above;
+	Line* lineBelow = *below;
+
+	if (lineAbove->cross(*lineBelow)) {
+		this->insertCrosspointToEventQueue(new Crosspoint(lineAbove, lineBelow));
+	}
+}
+
+void SweepLine::insertCrosspointToEventQueue(Crosspoint* crosspoint) {
+	list<Event>::iterator fountIter = find_if(this->eventQueue.begin(), this->eventQueue.end(),
+			[crosspoint](Event event) {
+				return *crosspoint == *event.getCrosspoint();
+			});
+
+	if (fountIter == this->eventQueue.end()) {
+		this->eventQueue.push_back(*new Event(crosspoint));
+		this->eventQueue.sort();
+	}
 }
 
 void SweepLine::handleIntersection(Event eventToHandle) {
+	Crosspoint* intersection = eventToHandle.getCrosspoint();
+	this->crosspoints.add(intersection);
 
+	Line* segment1 = intersection->getLine1();
+	Line* segment2 = intersection->getLine2();
+
+	list<Line*>::iterator segBelow = find_if(this->sweepLine.begin(), this->sweepLine.end(),
+			[segment1,segment2](Line* other) {
+				return *other == *segment1 || *other == *segment2;
+			});
+	list<Line*>::iterator segAbove(segBelow);
+	segAbove++;
+
+	swap(segBelow, segAbove);
+
+	list<Line*>::iterator below(segBelow);
+	below--;
+	if ((*segBelow)->cross(**below)) {
+		insertCrosspointToEventQueue(new Crosspoint(*segBelow, *below));
+	}
+
+	list<Line*>::iterator above(segAbove);
+	above--;
+	if ((*segAbove)->cross(**above)) {
+		insertCrosspointToEventQueue(new Crosspoint(*segAbove, *above));
+	}
 }
 
 list<Line*>::iterator SweepLine::insertIntoSweepLine(Line* segment) {
@@ -82,6 +139,7 @@ Crosspoints* SweepLine::calculateResult() {
 		this->eventQueue.pop_front();
 	}
 
+	this->crossCount = this->crosspoints.size();
 	return &this->crosspoints;
 }
 

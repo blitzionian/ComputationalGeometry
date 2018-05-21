@@ -34,6 +34,7 @@ private:
 	void handleIntersection(Event eventToHandle);
 
 	list<Line*>::iterator insertIntoSweepLine(Line* segment);
+	void insertCrosspointToEventQueue(Crosspoint* crosspoint);
 
 	void printSweepLine();
 };

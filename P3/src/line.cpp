@@ -147,6 +147,22 @@ Point* Line::getStartPoint() {
 	return this->startPoint;
 }
 
+bool Line::operator==(Line& other) {
+	Point* thisLeft = this->left;
+	Point* otherLeft = other.getLeftPoint();
+
+	if (*thisLeft == *otherLeft) {
+		Point thisRight = *this->right;
+		Point otherRight = *other.getRightPoint();
+
+		if (thisRight == otherRight) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 std::string Line::toString() {
 	return this->startPoint->toString() + " " + this->endPoint->toString();
 }
