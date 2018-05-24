@@ -66,8 +66,9 @@ double Line::getExpanseOverXLine() {
 	return height * width;
 }
 
-bool Line::cross(Line& lineToCheck) {
+bool Line::cross(Line lineToCheck) {
 	if (pointsEqual) {
+		cout << "test3" << endl;
 		if (!lineToCheck.isPoint()) {
 			return lineToCheck.cross(*this);
 		} else {

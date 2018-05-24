@@ -7,12 +7,19 @@ Crosspoints::Crosspoints() {
 Crosspoints::~Crosspoints() {
 }
 
-void Crosspoints::add(Crosspoint* crosspoint) {
-	find_if(this->crosspoints.begin(), this->crosspoints.end(), [crosspoint](Crosspoint* toCheck) {
-		return *toCheck == *crosspoint;
-	});
+bool Crosspoints::contains(Crosspoint crosspoint) {
+	vector<Crosspoint*>::iterator foundCrosspoint = find_if(this->crosspoints.begin(), this->crosspoints.end(),
+			[crosspoint](Crosspoint* toCheck) {
+				return *toCheck == crosspoint;
+			});
 
-	this->crosspoints.push_back(crosspoint);
+	return foundCrosspoint != this->crosspoints.end();
+}
+
+void Crosspoints::add(Crosspoint* crosspoint) {
+	if (contains(*crosspoint)) {
+		this->crosspoints.push_back(crosspoint);
+	}
 }
 
 int Crosspoints::size() {

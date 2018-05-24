@@ -26,7 +26,7 @@ public:
 	/**
 	 * Berechnet ob sich die Strecke mit einer anderen gegebenen Strecke schneidet.
 	 */
-	bool cross(Line& line);
+	bool cross(Line line);
 
 	/**
 	 * Berechnet ob die Strecke den gegebenen Punkt enthält,

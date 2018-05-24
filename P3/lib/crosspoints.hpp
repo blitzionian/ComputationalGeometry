@@ -13,6 +13,7 @@ public:
 
 	void add(Crosspoint* crosspoint);
 	int size();
+	bool contains(Crosspoint crosspoint);
 
 private:
 	vector<Crosspoint*> crosspoints;

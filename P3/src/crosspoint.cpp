@@ -51,3 +51,13 @@ bool Crosspoint::operator==(Crosspoint& other) {
 
 	return ol1 == thL1 || ol1 == thL2 || ol2 == thL1 || ol2 == thL2;
 }
+
+bool Crosspoint::operator==(const Crosspoint& other) {
+	Line ol1 = *other.line1;
+	Line ol2 = *other.line2;
+
+	Line thL1 = *this->line1;
+	Line thL2 = *this->line2;
+
+	return ol1 == thL1 || ol1 == thL2 || ol2 == thL1 || ol2 == thL2;
+}

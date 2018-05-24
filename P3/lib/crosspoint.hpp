@@ -14,7 +14,7 @@ public:
 	Line* getLine2();
 
 	bool operator==(Crosspoint& other);
-
+	bool operator==(const Crosspoint& other);
 private:
 	Line* line1;
 	Line* line2;
