@@ -22,15 +22,18 @@ bool isSpecialCase(Line lineToCheck);
 
 int main() {
 	calculateFile(FILE_1);
+	cout << endl;
 //	calculateFile(FILE_2);
+	cout << endl;
 //	calculateFile(FILE_3);
+	cout << endl;
 //	calculateFile(FILE_4);
 
 	return 0;
 }
 
 void calculateFile(string file) {
-	cout << endl << "Starte mit Berechnung File: " << file << endl << endl;
+	cout << "Starte mit Berechnung File: " << file << endl;
 
 	vector<Line*>* lines = new vector<Line*>();
 	readInputFile(file, lines);

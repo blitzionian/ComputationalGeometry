@@ -24,10 +24,11 @@ public:
 	bool isIntersection();
 
 	bool operator<(const Event& other);
+	bool operator==(const Event& other);
 
 private:
 	EventType eventType;
-	Line* line1;
+	Line* line;
 	Crosspoint* crosspoint;
 };
 

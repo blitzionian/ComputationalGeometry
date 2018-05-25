@@ -3,7 +3,7 @@
 #include <algorithm>
 
 SweepLine::SweepLine(vector<Line*> lines) :
-		lines(lines) {
+		lines(lines), eventQueue(lines) {
 }
 
 SweepLine::~SweepLine() {
@@ -12,8 +12,6 @@ SweepLine::~SweepLine() {
 void SweepLine::handleStartPoint(Event eventToHandle) {
 	Line* segment = eventToHandle.getSegment();
 	list<Line*>::iterator insertedElementIt = this->insertIntoSweepLine(segment);
-	//	cout << "Sweep Line after insert: " << endl;
-	//	this->printSweepLine();
 
 	list<Line*>::iterator previous(insertedElementIt);
 
@@ -23,16 +21,14 @@ void SweepLine::handleStartPoint(Event eventToHandle) {
 	if (segment->cross(*segmentAbove)) {
 		Crosspoint* crosspoint = new Crosspoint(segment, segmentAbove);
 		Event* ev = new Event(crosspoint);
-		this->eventQueue.push_back(*ev);
+		this->eventQueue.addEvent(*ev);
 	}
 
 	if (segment->cross(*segmentBelow)) {
 		Crosspoint* crosspoint = new Crosspoint(segment, segmentBelow);
 		Event* ev = new Event(crosspoint);
-		this->eventQueue.push_back(*ev);
+		this->eventQueue.addEvent(*ev);
 	}
-
-	this->eventQueue.sort();
 }
 
 void SweepLine::handleEndPoint(Event eventToHandle) {
@@ -58,23 +54,11 @@ void SweepLine::handleEndPoint(Event eventToHandle) {
 		Line* lineBelow = *below;
 
 		if (lineAbove->cross(*lineBelow)) {
-			this->insertCrosspointToEventQueue(new Crosspoint(lineAbove, lineBelow));
+			this->eventQueue.addEvent(*new Event(new Crosspoint(lineAbove, lineBelow)));
 		}
 	}
 
 	this->sweepLine.remove(*slIter);
-}
-
-void SweepLine::insertCrosspointToEventQueue(Crosspoint* crosspoint) {
-	list<Event>::iterator fountIter = find_if(this->eventQueue.begin(), this->eventQueue.end(),
-			[crosspoint](Event event) {
-				return *crosspoint == *event.getCrosspoint();
-			});
-
-	if (fountIter == this->eventQueue.end()) {
-		this->eventQueue.push_back(*new Event(crosspoint));
-		this->eventQueue.sort();
-	}
 }
 
 void SweepLine::handleIntersection(Event eventToHandle) {
@@ -98,7 +82,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 	below--;
 	if (segBelow != this->sweepLine.end() && segBelow != this->sweepLine.begin()) {
 		if ((*segBelow)->cross(**below)) {
-			insertCrosspointToEventQueue(new Crosspoint(*segBelow, *below));
+			this->eventQueue.addEvent(*new Event(new Crosspoint(*segBelow, *below)));
 		}
 	}
 
@@ -106,7 +90,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 	above--;
 	if (segAbove != this->sweepLine.end() && segAbove != this->sweepLine.begin()) {
 		if ((*segAbove)->cross(**above)) {
-			insertCrosspointToEventQueue(new Crosspoint(*segAbove, *above));
+			this->eventQueue.addEvent(*new Event(new Crosspoint(*segAbove, *above)));
 		}
 	}
 }
@@ -129,12 +113,10 @@ list<Line*>::iterator SweepLine::insertIntoSweepLine(Line* segment) {
 }
 
 Crosspoints* SweepLine::calculateResult() {
-	this->initEventQueue();
-
 	list<Event>::iterator eventIterator;
 
-	while (!this->eventQueue.empty()) {
-		Event nextEvent = this->eventQueue.front();
+	while (this->eventQueue.hasEvent()) {
+		Event nextEvent = this->eventQueue.getNextEvent();
 
 		if (nextEvent.isStartpoint()) {
 			handleStartPoint(nextEvent);
@@ -144,41 +126,15 @@ Crosspoints* SweepLine::calculateResult() {
 			handleIntersection(nextEvent);
 		}
 
-		this->eventQueue.pop_front();
+		this->eventQueue.removeNextEvent();
 	}
 
 	this->crossCount = this->crosspoints.size();
 	return &this->crosspoints;
 }
 
-void SweepLine::initEventQueue() {
-	vector<Line*>::iterator lineIterator;
-
-	for (lineIterator = this->lines.begin(); lineIterator != this->lines.end(); lineIterator++) {
-		Line* line = *lineIterator;
-
-		Event* eventStart = new Event(EventType::SEGMENT_START, line);
-		Event* eventEnd = new Event(EventType::SEGMENT_END, line);
-
-		this->eventQueue.push_back(*eventStart);
-		this->eventQueue.push_back(*eventEnd);
-	}
-
-	this->eventQueue.sort();
-}
-
 int SweepLine::getCrossCount() {
 	return this->crossCount;
-}
-
-void SweepLine::printEventQueue() {
-	list<Event>::iterator eventIterator;
-
-	for (eventIterator = this->eventQueue.begin(); eventIterator != this->eventQueue.end(); eventIterator++) {
-		Event event = *eventIterator;
-		Point* point = event.getPointToConsider();
-		cout << point->toString() << endl;
-	}
 }
 
 void SweepLine::printSweepLine() {

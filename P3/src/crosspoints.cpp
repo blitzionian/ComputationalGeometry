@@ -1,5 +1,6 @@
 #include "crosspoints.hpp"
 #include <algorithm>
+#include <iostream>
 
 Crosspoints::Crosspoints() {
 }
@@ -17,7 +18,7 @@ bool Crosspoints::contains(Crosspoint crosspoint) {
 }
 
 void Crosspoints::add(Crosspoint* crosspoint) {
-	if (contains(*crosspoint)) {
+	if (!contains(*crosspoint)) {
 		this->crosspoints.push_back(crosspoint);
 	}
 }

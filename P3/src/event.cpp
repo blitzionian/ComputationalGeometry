@@ -1,11 +1,11 @@
 #include "event.hpp"
 
 Event::Event(EventType eventType, Line* line) :
-		eventType(eventType), line1(line), crosspoint(NULL) {
+		eventType(eventType), line(line), crosspoint(NULL) {
 }
 
 Event::Event(Crosspoint* crosspoint) :
-		eventType(EventType::INTERSECTION), line1(NULL), crosspoint(crosspoint) {
+		eventType(EventType::INTERSECTION), line(NULL), crosspoint(crosspoint) {
 }
 
 Event::~Event() {
@@ -13,9 +13,9 @@ Event::~Event() {
 
 Point* Event::getPointToConsider(Event event) {
 	if (event.eventType == EventType::SEGMENT_START) {
-		return event.line1->getStartPoint();
+		return event.line->getStartPoint();
 	} else if (event.eventType == EventType::SEGMENT_END) {
-		return event.line1->getEndPoint();
+		return event.line->getEndPoint();
 	} else {
 		return event.crosspoint->getPoint();
 	}
@@ -42,7 +42,19 @@ Point* Event::getPointToConsider() {
 }
 
 Line* Event::getSegment() {
-	return this->line1;
+	return this->line;
+}
+
+bool Event::operator==(const Event& other) {
+	if (this->eventType != other.eventType) {
+		return false;
+	}
+
+	if (this->isIntersection()) {
+		return *this->crosspoint == *other.crosspoint;
+	} else {
+		return *this->getPointToConsider() == *getPointToConsider(other);
+	}
 }
 
 bool Event::operator<(const Event& other) {
