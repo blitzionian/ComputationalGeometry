@@ -5,7 +5,7 @@ namespace {
 
 	TEST(SweepLine, TestTriangle) {
 		Line line1(new Point(1, 1), new Point(4, 4));
-		Line line2(new Point(3, 4), new Point(6, 1));
+		Line line2(new Point(3.1, 4), new Point(6.1, 1));
 		Line line3(new Point(3, 2), new Point(6, 2));
 
 		vector<Line*> lines;
@@ -26,13 +26,13 @@ namespace {
 	TEST(SweepLine, Test2Triangles) {
 		// Triangle 1
 		Line* line1 = new Line(new Point(1, 1), new Point(4, 4));
-		Line* line2 = new Line(new Point(3, 4), new Point(6, 1));
+		Line* line2 = new Line(new Point(3.1, 4), new Point(6.1, 1));
 		Line* line3 = new Line(new Point(3, 2), new Point(6, 2));
 
 		// Triangle 2
-		Line* line4 = new Line(new Point(1, 11), new Point(4, 14));
-		Line* line5 = new Line(new Point(3, 14), new Point(6, 11));
-		Line* line6 = new Line(new Point(3, 12), new Point(6, 12));
+		Line* line4 = new Line(new Point(1.1, 11), new Point(4.1, 14));
+		Line* line5 = new Line(new Point(3.2, 14), new Point(6.2, 11));
+		Line* line6 = new Line(new Point(3.3, 12), new Point(6.3, 12));
 
 		vector<Line*> lines;
 		lines.push_back(line1);

@@ -13,18 +13,22 @@ void SweepLine::handleStartPoint(Event eventToHandle) {
 	Line* segment = eventToHandle.getSegment();
 	list<Line*>::iterator insertedElementIt = this->insertIntoSweepLine(segment);
 
-	list<Line*>::iterator previous(insertedElementIt);
+	list<Line*>::iterator below(insertedElementIt);
+	below--;
 
-	Line* segmentAbove = *(insertedElementIt++);
-	Line* segmentBelow = *(previous--);
+	list<Line*>::iterator above(insertedElementIt);
+	above++;
 
-	if (segment->cross(*segmentAbove)) {
+	Line* segmentAbove = *above;
+	Line* segmentBelow = *below;
+
+	if (above != this->sweepLine.end() && segment->cross(*segmentAbove)) {
 		Crosspoint* crosspoint = new Crosspoint(segment, segmentAbove);
 		Event* ev = new Event(crosspoint);
 		this->eventQueue.addEvent(*ev);
 	}
 
-	if (segment->cross(*segmentBelow)) {
+	if (insertedElementIt != this->sweepLine.begin() && segment->cross(*segmentBelow)) {
 		Crosspoint* crosspoint = new Crosspoint(segment, segmentBelow);
 		Event* ev = new Event(crosspoint);
 		this->eventQueue.addEvent(*ev);
@@ -46,14 +50,14 @@ void SweepLine::handleEndPoint(Event eventToHandle) {
 	list<Line*>::iterator above(slIter);
 	above++;
 
-	if (above != sweepLine.end() && slIter != sweepLine.begin()) {
+	if (above != sweepLine.end()) {
 		list<Line*>::iterator below(slIter);
 		below--;
 
 		Line* lineAbove = *above;
 		Line* lineBelow = *below;
 
-		if (lineAbove->cross(*lineBelow)) {
+		if (slIter != sweepLine.begin() && lineAbove->cross(*lineBelow)) {
 			this->eventQueue.addEvent(*new Event(new Crosspoint(lineAbove, lineBelow)));
 		}
 	}
@@ -129,12 +133,11 @@ Crosspoints* SweepLine::calculateResult() {
 		this->eventQueue.removeNextEvent();
 	}
 
-	this->crossCount = this->crosspoints.size();
 	return &this->crosspoints;
 }
 
 int SweepLine::getCrossCount() {
-	return this->crossCount;
+	return this->crosspoints.size();
 }
 
 void SweepLine::printSweepLine() {

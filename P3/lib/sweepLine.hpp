@@ -20,7 +20,6 @@ public:
 
 private:
 	vector<Line*> lines;
-	int crossCount = 0;
 
 	Crosspoints crosspoints;
 	list<Line*> sweepLine;
