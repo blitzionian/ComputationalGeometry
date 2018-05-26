@@ -80,7 +80,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 	list<Line*>::iterator segAbove(segBelow);
 	segAbove++;
 
-	swap(segBelow, segAbove);
+	swap(*segBelow, *segAbove);
 
 	list<Line*>::iterator below(segBelow);
 	below--;
