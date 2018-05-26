@@ -14,6 +14,7 @@ public:
 	void add(Crosspoint* crosspoint);
 	int size();
 	bool contains(Crosspoint crosspoint);
+	vector<Crosspoint*>* getCrosspoints();
 
 private:
 	vector<Crosspoint*> crosspoints;
