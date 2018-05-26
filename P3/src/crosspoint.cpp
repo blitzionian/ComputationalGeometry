@@ -49,7 +49,13 @@ bool Crosspoint::operator==(Crosspoint& other) {
 	Line thL1 = *this->line1;
 	Line thL2 = *this->line2;
 
-	return ol1 == thL1 || ol1 == thL2 || ol2 == thL1 || ol2 == thL2;
+	if (ol1 == thL1) {
+		return ol2 == thL2;
+	} else if (ol1 == thL2) {
+		return ol2 == thL1;
+	}
+
+	return false;
 }
 
 bool Crosspoint::operator==(const Crosspoint& other) {
@@ -59,5 +65,11 @@ bool Crosspoint::operator==(const Crosspoint& other) {
 	Line thL1 = *this->line1;
 	Line thL2 = *this->line2;
 
-	return ol1 == thL1 || ol1 == thL2 || ol2 == thL1 || ol2 == thL2;
+	if (ol1 == thL1) {
+		return ol2 == thL2;
+	} else if (ol1 == thL2) {
+		return ol2 == thL1;
+	}
+
+	return false;
 }

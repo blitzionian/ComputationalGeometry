@@ -15,7 +15,6 @@ bool Crosspoints::contains(Crosspoint crosspoint) {
 				return *toCheck == crosspoint;
 			});
 
-	Crosspoint* cp = *foundCrosspoint;
 	return foundCrosspoint != last;
 }
 

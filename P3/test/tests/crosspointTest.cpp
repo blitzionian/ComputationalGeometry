@@ -2,6 +2,16 @@
 #include <crosspoint.hpp>
 
 namespace {
+	TEST(Crosspoint_Test, opEqual) {
+		Crosspoint cp1(new Line(new Point(0, 0), new Point(1, 1)), new Line(new Point(0, 1), new Point(1, 0)));
+		Crosspoint cp2(new Line(new Point(0, 0), new Point(1, 1)), new Line(new Point(0, 1), new Point(1, 0)));
+
+		ASSERT_TRUE(cp1 == cp2);
+
+		Crosspoint cp3(new Line(new Point(0, 0), new Point(2, 1)), new Line(new Point(0, 1), new Point(1, 0)));
+		ASSERT_FALSE(cp1 == cp3);
+	}
+
 	TEST(Crosspoint_Test, Cross_Test1) {
 		Point startPoint1(0, 0);
 		Point endPoint1(1, 1);
