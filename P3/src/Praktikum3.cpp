@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 
 #include <line.hpp>
 #include <sweepLine.hpp>
@@ -19,6 +20,7 @@ void readInputFile(string file, vector<Line*>* lines);
 void calculateFile(string file);
 int64_t currentTime(void);
 bool isSpecialCase(Line lineToCheck);
+void searchAndFilterForDoublePoints(vector<Line*>* lines);
 
 int main() {
 	calculateFile(FILE_1);
@@ -37,6 +39,7 @@ void calculateFile(string file) {
 
 	vector<Line*>* lines = new vector<Line*>();
 	readInputFile(file, lines);
+	searchAndFilterForDoublePoints(lines);
 
 	int64_t start = currentTime();
 
@@ -47,6 +50,35 @@ void calculateFile(string file) {
 	int64_t duration = currentTime() - start;
 	cout << "Duration: " << duration << endl;
 	cout << "Count: " << sweepline.getCrossCount() << endl;
+}
+
+vector<Point>::iterator searchInVector(vector<Point> data, Point pointToSearch) {
+	return find(data.begin(), data.end(), pointToSearch);
+}
+
+bool vectorContains(vector<Point> data, Point pointToSearch) {
+	vector<Point>::iterator foundStartPoint = searchInVector(data, pointToSearch);
+
+	return foundStartPoint != data.end();
+}
+
+void searchAndFilterForDoublePoints(vector<Line*>* lines) {
+	vector<Point> pointList;
+
+	vector<Line*>::iterator lineIter;
+	for (lineIter = lines->begin(); lineIter != lines->end(); lineIter++) {
+		Line* line = *lineIter;
+
+		bool containsStart = vectorContains(pointList, *line->getStartPoint());
+		bool containsEnd = vectorContains(pointList, *line->getEndPoint());
+
+		if (containsStart || containsEnd) {
+			lines->erase(lineIter);
+		} else {
+			pointList.push_back(*line->getStartPoint());
+			pointList.push_back(*line->getEndPoint());
+		}
+	}
 }
 
 bool isSpecialCase(Line lineToCheck) {
