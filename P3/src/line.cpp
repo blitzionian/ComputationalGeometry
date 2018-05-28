@@ -119,3 +119,48 @@ std::string Line::toString() {
 bool Line::equals(Line & other) {
 	return *(getStartPoint()) == *(other.getStartPoint()) && *(getEndPoint()) == *(other.getEndPoint());
 }
+
+Line::equation Line::eq() {
+    double m = (right->getY() - left->getY()) / (right->getX() - left->getX());
+    double b = left->getY() - (m * left->getY());
+    return equation {m,b};
+}
+
+// see: https://de.wikipedia.org/wiki/Schnittpunkt
+Point * Line::intersection_point(Line *other) {
+    if(cross(*other)){
+        double x1 = getStartPoint()->getX();
+        double x2 = getEndPoint()->getX();
+        double x3 = other->getStartPoint()->getX();
+        double x4 = other->getEndPoint()->getX();
+        double y1 = getStartPoint()->getY();
+        double y2 = getEndPoint()->getY();
+        double y3 = other->getStartPoint()->getY();
+        double y4 = other->getEndPoint()->getY();
+        double xsn = ((y4 - y3) * (x2 - x1)) - ((y2 - y1) * (x4 - x3));
+        if(0 == xsn) {
+            return nullptr;
+        }
+        double ysn = ((y4 - y3) * (x2 - x1)) - ((y2 - y1) * (x4 - x3));
+        if(0 == ysn) {
+            return nullptr;
+        }
+        double xsz = ((x4 - x3)*((x2*y1) - (x1*y2))) - ((x2-x1)*((x4*y3)-(x3*y4)));
+        double ysz = ((y1 - y2) * ((x4 * y3) - (x3 * y4))) - ((y3 - y4) * ((x2 * y1) - (x1 * y2)));
+        double xs = xsz / xsn;
+        double ys = ysz / ysn;
+        return new Point(xs,ys);
+    } else {
+        return nullptr;
+    }
+}
+
+Line* Line::segment(Point *start, Point *end) {
+    Line * result = new Line();
+    if(start->getY() <= end->getX()){
+        result->set_points(start,end);
+    } else {
+        result->set_points(end,start);
+    }
+    return result;
+}

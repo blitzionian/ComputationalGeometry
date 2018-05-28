@@ -2,12 +2,18 @@
 // Created by mroeder on 18.05.18.
 //
 #include <algorithm>
+#include <fstream>
 #include <line_sweep.hpp>
-#include <event_queue.hpp>
+#include <sweep_line_data.hpp>
 
 inline void remove_line(std::vector<Line *> & data, Line * to_remove);
 inline bool same_end_points(Line * left, Line * right);
 inline bool overlap(Line * left, Line * right);
+inline void insert_if_intersecting(line_sweep::SweepLineData & data, Line * segA, Line * segB);
+inline void treat_start(line_sweep::SweepLineData & x, line_sweep::SweepLineData & y, line_sweep::SweepLineData::iterator & current);
+inline void treat_end(line_sweep::SweepLineData & x, line_sweep::SweepLineData & y, line_sweep::SweepLineData::iterator & current);
+inline void treat_intersection(line_sweep::SweepLineData & x, line_sweep::SweepLineData & y, std::vector<Point*> & intersections,
+                               line_sweep::SweepLineData::iterator & current);
 
 // TODO: (@Markus) Review & correct
 std::vector<Line*> line_sweep::filter_special_cases(std::vector<Line *> &in) {
@@ -33,29 +39,47 @@ std::vector<Line*> line_sweep::filter_special_cases(std::vector<Line *> &in) {
     return out;
 }
 
-// TODO: implement sweep line algorithm
+typedef line_sweep::SweepLineData::node sl_node;
 std::vector<Point*> line_sweep::intersections(std::vector<Line*> & segments) {
-    Event_Queue x(segments);
-    std::vector<Line*> sl;
-    std::vector<Point*> l;
+    SweepLineData x(segments,[](sl_node & left, sl_node & right) {
+        return left.point->getX() < right.point->getX();
+    });
+    SweepLineData y(segments.size(),[](sl_node & top, sl_node & bottom) {
+        return top.point->getX() < bottom.point->getX();
+    });
+    std::vector<Point*> intersections;
     while(!x.empty()) {
-        Event_Queue::node e = x.pop();
-        switch(e.event) {
+        auto current = x.begin();
+        switch(current->event) {
             case SEGMENT_START: {
-                Line *seg_e = e.line;
-                sl.push_back(seg_e);
+                treat_start(x,y,current);
                 break;
             }
             case SEGMENT_END: {
+                treat_end(x,y,current);
                 break;
             }
             case INTERSECTION: {
+                treat_intersection(x,y,intersections,current);
                 break;
             }
         }
+        x.pop();
     }
 
-    return l;
+    return intersections;
+}
+
+std::vector<Line*> line_sweep::from_file(std::string &path) {
+    std::vector<Line*> result;
+    std::ifstream infile(path.c_str());
+    double x1, y1, x2, y2;
+    while(infile >> x1 >> y1 >> x2 >> y2) {
+        auto first = new Point(x1,y1);
+        auto second = new Point(x2,y2);
+        result.push_back(Line::segment(first,second));
+    }
+    return result;
 }
 
 inline bool same_end_points(Line * left, Line * right) {
@@ -72,6 +96,60 @@ inline bool overlap(Line * left, Line * right) {
         answer &= left -> contains(*(right->getStartPoint())) || left -> contains(*(right->getEndPoint()));
     }
     return answer;
+}
+
+inline void insert_if_intersecting(line_sweep::SweepLineData & data, Line * segA, Line * segB) {
+    Point * i = segA->intersection_point(segB);
+    if(i) {
+        if(!data.contains(i)) {
+            auto in = data.insert(line_sweep::event_type::INTERSECTION, i, nullptr);
+            (*in).top = segA;
+            (*in).bottom = segB;
+        }
+    }
+}
+
+inline void treat_start(line_sweep::SweepLineData & x, line_sweep::SweepLineData & y, line_sweep::SweepLineData::iterator & current) {
+    Line * segE = current->line;
+    auto ynode = y.insert(line_sweep::event_type::SEGMENT_START,current->point,segE);
+    line_sweep::SweepLineData::neighbours n = y.next_neighbours(ynode);
+    if(n.first != y.end()) {
+        Line * segA = (*n.first).line;
+        insert_if_intersecting(x,segA,segE);
+    }
+    if(n.second != y.end()) {
+        Line * segB = (*n.second).line;
+        insert_if_intersecting(x,segE,segB);
+    }
+}
+
+inline void treat_end(line_sweep::SweepLineData & x, line_sweep::SweepLineData & y, line_sweep::SweepLineData::iterator & current) {
+    Line * segE = current->line;
+    line_sweep::SweepLineData::neighbours n = y.next_neighbours(current);
+    if(n.first != y.end() && n.second != y.end()) {
+        Line * segA = (*n.first).line;
+        Line * segB = (*n.second).line;
+        insert_if_intersecting(x,segA,segB);
+    }
+    y.remove(segE);
+}
+
+inline void treat_intersection(line_sweep::SweepLineData & x, line_sweep::SweepLineData & y, std::vector<Point*> & intersections,
+                               line_sweep::SweepLineData::iterator & current) {
+    intersections.push_back(current->point);
+    auto top = y.find_by_line(current->top);
+    auto bottom = y.find_by_line(current->bottom);
+    if(top != y.end() && bottom != y.end()){
+        y.swap(top,bottom);
+        auto segA = y.next_neighbours(bottom).first;
+        if(segA != y.end()) {
+            insert_if_intersecting(x,bottom->line,segA->line);
+        }
+        auto segB = y.next_neighbours(top).second;
+        if(segB != y.end()) {
+            insert_if_intersecting(x,top->line,segB->line);
+        }
+    }
 }
 
 

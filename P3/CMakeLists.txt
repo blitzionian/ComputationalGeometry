@@ -21,7 +21,7 @@ add_executable(P3
         src/line.cpp
         src/point.cpp
         src/Praktikum3.cpp
-        src/line_sweep.cpp lib/event_queue.hpp src/event_queue.cpp)
+        src/line_sweep.cpp lib/event_queue.hpp src/event_queue.cpp lib/sweep_line_data.hpp src/sweep_line_data.cpp)
 
 add_executable(P3_Test
         input/s_100000_1.dat
@@ -39,4 +39,4 @@ add_executable(P3_Test
         test/tests/AllTests.cpp
         test/tests/event_test.cpp
         test/tests/lineTest.cpp
-        src/line_sweep.cpp lib/event_queue.hpp src/event_queue.cpp)
+        src/line_sweep.cpp lib/event_queue.hpp src/event_queue.cpp lib/sweep_line_data.hpp src/sweep_line_data.cpp)

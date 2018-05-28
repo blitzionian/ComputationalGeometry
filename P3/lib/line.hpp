@@ -7,6 +7,12 @@
 
 class Line {
 public:
+
+    struct equation {
+        double m;
+        double b;
+    };
+
     Line();
 	Line(Point* startPoint, Point* endPoint);
 	virtual ~Line();
@@ -47,7 +53,11 @@ public:
 	 */
 	double ccw(Point* pointToConsider);
 
-	void set_points(Point * start, Point * end);
+    virtual void set_points(Point * start, Point * end);
+    equation eq();
+    Point * intersection_point(Line * other);
+
+    static Line* segment(Point * start, Point * end);
 
 private:
 	Point* startPoint;
