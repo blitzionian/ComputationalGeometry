@@ -107,4 +107,26 @@ namespace {
 		ASSERT_DOUBLE_EQ(1.75, cross->getX());
 		ASSERT_DOUBLE_EQ(1.75, cross->getY());
 	}
+
+	TEST(Crosspoint_Test, Cross_Test7) {
+		Point startPoint1(170, 200);
+		Point endPoint1(450, 320);
+		Line line1(&startPoint1, &endPoint1);
+
+		Point startPoint2(80, 330);
+		Point endPoint2(420, 180);
+		Line line2(&startPoint2, &endPoint2);
+
+		Crosspoint crosspoint(&line1, &line2);
+		Point* cross = crosspoint.getPoint();
+
+		ASSERT_DOUBLE_EQ(273.81642512077292, cross->getX());
+		ASSERT_DOUBLE_EQ(244.49275362318838, cross->getY());
+
+		Crosspoint crosspoint2(&line2, &line1);
+		Point* cross2 = crosspoint2.getPoint();
+
+		ASSERT_DOUBLE_EQ(273.81642512077292, cross2->getX());
+		ASSERT_DOUBLE_EQ(244.49275362318838, cross2->getY());
+	}
 }

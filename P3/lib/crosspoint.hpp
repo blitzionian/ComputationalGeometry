@@ -19,9 +19,9 @@ private:
 	Line* line1;
 	Line* line2;
 
-	Point crosspoint;
+	Point* crosspoint;
 
-	Point calculateCrossPoint();
+	Point* calculateCrossPoint();
 };
 
 #endif /* SRC_CROSSPOINT_HPP_ */

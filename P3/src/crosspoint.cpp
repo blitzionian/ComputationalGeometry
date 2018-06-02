@@ -1,15 +1,26 @@
 #include <crosspoint.hpp>
 #include <math.h>
 
-Crosspoint::Crosspoint(Line* line1, Line* line2) :
-		line1(line1), line2(line2), crosspoint(calculateCrossPoint()) {
+Crosspoint::Crosspoint(Line* line1, Line* line2) {
+	Point* pL1 = line1->getLeftPoint();
+	Point* pL2 = line2->getLeftPoint();
+
+	if (pL1->getX() > pL2->getX()) {
+		this->line1 = line1;
+		this->line2 = line2;
+	} else {
+		this->line1 = line2;
+		this->line2 = line1;
+	}
+
+	crosspoint = calculateCrossPoint();
 }
 
 Crosspoint::~Crosspoint() {
 }
 
 Point* Crosspoint::getPoint() {
-	return &crosspoint;
+	return crosspoint;
 }
 
 Line* Crosspoint::getLine1() {
@@ -20,7 +31,7 @@ Line* Crosspoint::getLine2() {
 	return this->line2;
 }
 
-Point Crosspoint::calculateCrossPoint() {
+Point* Crosspoint::calculateCrossPoint() {
 	double diffx3x1 = line2->getLeftPoint()->getX() - line1->getLeftPoint()->getX();
 	double diffx4x3 = line2->getRightPoint()->getX() - line2->getLeftPoint()->getX();
 	double diffx2x1 = line1->getRightPoint()->getX() - line1->getLeftPoint()->getX();
@@ -39,7 +50,7 @@ Point Crosspoint::calculateCrossPoint() {
 	}
 
 	double coordY = line1->getYAt(coordX);
-	return Point(coordX, coordY);
+	return new Point(coordX, coordY);
 }
 
 bool Crosspoint::operator==(Crosspoint& other) {

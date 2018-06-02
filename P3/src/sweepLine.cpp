@@ -50,14 +50,14 @@ void SweepLine::handleEndPoint(Event eventToHandle) {
 	list<Line*>::iterator above(slIter);
 	above++;
 
-	if (above != sweepLine.end()) {
+	if (above != sweepLine.end() && slIter != sweepLine.begin()) {
 		list<Line*>::iterator below(slIter);
 		below--;
 
 		Line* lineAbove = *above;
 		Line* lineBelow = *below;
 
-		if (slIter != sweepLine.begin() && lineAbove->cross(*lineBelow)) {
+		if (lineAbove->cross(*lineBelow)) {
 			this->eventQueue.addEvent(*new Event(new Crosspoint(lineAbove, lineBelow)));
 		}
 	}
