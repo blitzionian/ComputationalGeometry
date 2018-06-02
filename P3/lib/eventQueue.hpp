@@ -21,6 +21,7 @@ public:
 
 private:
 	list<Event> eventQueue;
+	list<Event> removedIntersections;
 
 	void addCrosspoint(Event event);
 	void add(Event event);
