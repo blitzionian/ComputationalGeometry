@@ -25,11 +25,11 @@ void searchAndFilterForDoublePoints(vector<Line*>* lines);
 int main() {
 	calculateFile(FILE_1);
 	cout << endl;
-//	calculateFile(FILE_2);
+	calculateFile(FILE_2);
 	cout << endl;
-//	calculateFile(FILE_3);
+	calculateFile(FILE_3);
 	cout << endl;
-//	calculateFile(FILE_4);
+	calculateFile(FILE_4);
 
 	return 0;
 }
