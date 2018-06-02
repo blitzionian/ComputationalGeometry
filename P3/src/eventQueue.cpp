@@ -47,7 +47,6 @@ void EventQueue::initEventQueue(vector<Line*> lines) {
 
 	for (lineIterator = lines.begin(); lineIterator != lines.end(); lineIterator++) {
 		Line* line = *lineIterator;
-//		cout << line->toString() << endl;
 
 		Event* eventStart = new Event(EventType::SEGMENT_START, line);
 		Event* eventEnd = new Event(EventType::SEGMENT_END, line);

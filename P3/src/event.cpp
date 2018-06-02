@@ -13,9 +13,9 @@ Event::~Event() {
 
 Point* Event::getPointToConsider(Event event) {
 	if (event.eventType == EventType::SEGMENT_START) {
-		return event.line->getStartPoint();
+		return event.line->getLeftLowerPoint();
 	} else if (event.eventType == EventType::SEGMENT_END) {
-		return event.line->getEndPoint();
+		return event.line->getRightUpperPoint();
 	} else {
 		return event.crosspoint->getPoint();
 	}

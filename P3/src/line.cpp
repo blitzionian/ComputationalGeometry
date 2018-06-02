@@ -30,6 +30,22 @@ Line::Line(Point* startPoint, Point* endPoint) :
 Line::~Line() {
 }
 
+Point* Line::getLeftLowerPoint() {
+	if (*this->left < *this->right) {
+		return this->left;
+	}
+
+	return this->right;
+}
+
+Point* Line::getRightUpperPoint() {
+	if (*this->left < *this->right) {
+		return this->right;
+	}
+
+	return this->left;
+}
+
 double Line::calculateSteigung() {
 	double diffY = this->right->getY() - this->left->getY();
 	double diffX = this->right->getX() - this->left->getX();

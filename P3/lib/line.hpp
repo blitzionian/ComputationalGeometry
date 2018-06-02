@@ -16,6 +16,9 @@ public:
 	Point* getLeftPoint();
 	Point* getRightPoint();
 
+	Point* getLeftLowerPoint();
+	Point* getRightUpperPoint();
+
 	double getYAt(double x);
 	double getSteigung();
 	double getLength();

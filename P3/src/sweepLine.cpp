@@ -100,8 +100,9 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 }
 
 list<Line*>::iterator SweepLine::insertIntoSweepLine(Line* segment) {
-	double xPosition = segment->getStartPoint()->getX();
-	double yValue = segment->getStartPoint()->getY();
+	Point* startPoint = segment->getLeftLowerPoint();
+	double xPosition = startPoint->getX();
+	double yValue = startPoint->getY();
 
 	list<Line*>::iterator slIter;
 	for (slIter = this->sweepLine.begin(); slIter != this->sweepLine.end(); slIter++) {
