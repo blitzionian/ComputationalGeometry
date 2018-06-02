@@ -26,6 +26,14 @@ namespace {
 		ASSERT_DOUBLE_EQ(1.25, line.getYAt(0.5));
 	}
 
+	TEST(Line_Test, YAt4) {
+		Point startPoint(80, 330);
+		Point endPoint(420, 180);
+		Line line(&startPoint, &endPoint);
+
+		ASSERT_DOUBLE_EQ(303.52941176470586, line.getYAt(140));
+	}
+
 	TEST(Line_Test, Steigung1) {
 		Point startPoint(0, 0);
 		Point endPoint(1, 1);

@@ -3,6 +3,28 @@
 
 namespace {
 
+	TEST(SweepLine, TestBeliebig) {
+		Line line1(new Point(140, 270), new Point(230, 240));
+		Line line2(new Point(80, 330), new Point(420, 180));
+		Line line3(new Point(170, 200), new Point(450, 320));
+		Line line4(new Point(240, 330), new Point(370, 170));
+
+		vector<Line*> lines;
+//		lines.push_back(&line1);
+		lines.push_back(&line2);
+		lines.push_back(&line3);
+		lines.push_back(&line4);
+
+		SweepLine sl(lines);
+		Crosspoints* cps = sl.calculateResult();
+
+		ASSERT_EQ(sl.getCrossCount(), 3);
+
+		ASSERT_TRUE(cps->contains(Crosspoint(&line2, &line3)));
+		ASSERT_TRUE(cps->contains(Crosspoint(&line3, &line4)));
+		ASSERT_TRUE(cps->contains(Crosspoint(&line4, &line2)));
+	}
+
 	TEST(SweepLine, TestTriangle) {
 		Line line1(new Point(1, 1), new Point(4, 4));
 		Line line2(new Point(3.1, 4), new Point(6.1, 1));
@@ -92,9 +114,9 @@ namespace {
 		lines.push_back(&line1);
 		lines.push_back(&line2);
 		lines.push_back(&line3);
-//		lines.push_back(&line4);
-//		lines.push_back(&line5);
-//		lines.push_back(&line6);
+		lines.push_back(&line4);
+		lines.push_back(&line5);
+		lines.push_back(&line6);
 
 		SweepLine sl(lines);
 		Crosspoints* cps = sl.calculateResult();
@@ -105,10 +127,46 @@ namespace {
 		ASSERT_TRUE(cps->contains(Crosspoint(&line1, &line3)));
 		ASSERT_TRUE(cps->contains(Crosspoint(&line3, &line2)));
 
+		ASSERT_TRUE(cps->contains(Crosspoint(&line4, &line5)));
+		ASSERT_TRUE(cps->contains(Crosspoint(&line5, &line6)));
+		ASSERT_TRUE(cps->contains(Crosspoint(&line6, &line4)));
+
+		ASSERT_FALSE(cps->contains(Crosspoint(&line1, &line4)));
+	}
+
+//	TEST(SweepLine, Test2Triangles3) {
+//		// Triangle 1
+//		Line line1(new Point(100, 100), new Point(400, 400));
+//		Line line2(new Point(310, 400), new Point(610, 100));
+//		Line line3(new Point(110, 200), new Point(600, 2100));
+//
+//		// Triangle 2
+//		Line line4 = Line(new Point(120, 1100), new Point(410, 1400));
+//		Line line5 = Line(new Point(320, 1400), new Point(620, 1100));
+//		Line line6 = Line(new Point(130, 1200), new Point(630, 1210));
+//
+//		vector<Line*> lines;
+//		lines.push_back(&line1);
+//		lines.push_back(&line2);
+//		lines.push_back(&line3);
+//
+//		lines.push_back(&line4);
+//		lines.push_back(&line5);
+//		lines.push_back(&line6);
+//
+//		SweepLine sl(lines);
+//		Crosspoints* cps = sl.calculateResult();
+//
+//		ASSERT_EQ(sl.getCrossCount(), 6);
+//
+//		ASSERT_TRUE(cps->contains(Crosspoint(&line1, &line2)));
+//		ASSERT_TRUE(cps->contains(Crosspoint(&line1, &line3)));
+//		ASSERT_TRUE(cps->contains(Crosspoint(&line3, &line2)));
+//
 //		ASSERT_TRUE(cps->contains(Crosspoint(&line4, &line5)));
 //		ASSERT_TRUE(cps->contains(Crosspoint(&line5, &line6)));
 //		ASSERT_TRUE(cps->contains(Crosspoint(&line6, &line4)));
-
+//
 //		ASSERT_FALSE(cps->contains(Crosspoint(&line1, &line4)));
-	}
+//	}
 }

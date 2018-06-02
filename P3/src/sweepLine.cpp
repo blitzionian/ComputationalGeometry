@@ -72,29 +72,40 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 	Line* segment1 = intersection->getLine1();
 	Line* segment2 = intersection->getLine2();
 
-	list<Line*>::iterator segBelow = find_if(this->sweepLine.begin(), this->sweepLine.end(),
+	list<Line*>::iterator iterBelow = find_if(this->sweepLine.begin(), this->sweepLine.end(),
 			[segment1,segment2](Line* other) {
 				return *other == *segment1 || *other == *segment2;
 			});
 
-	list<Line*>::iterator segAbove(segBelow);
-	segAbove++;
+	list<Line*>::iterator iterAbove(iterBelow);
+	iterAbove++;
 
-	swap(*segBelow, *segAbove);
+	Line* segE1 = *iterAbove;
+	Line* segE2 = *iterBelow;
 
-	list<Line*>::iterator below(segBelow);
-	below--;
-	if (segBelow != this->sweepLine.end() && segBelow != this->sweepLine.begin()) {
-		if ((*segBelow)->cross(**below)) {
-			this->eventQueue.addEvent(*new Event(new Crosspoint(*segBelow, *below)));
+	swap(*iterBelow, *iterAbove);
+
+	if (iterAbove != this->sweepLine.end()) {
+		list<Line*>::iterator above(iterAbove);
+		above++;
+
+		if (above != this->sweepLine.end()) {
+			Line *segA = *above;
+
+			if (segE2->cross(*segA)) {
+				this->eventQueue.addEvent(*new Event(new Crosspoint(segE2, segA)));
+			}
 		}
 	}
 
-	list<Line*>::iterator above(segAbove);
-	above--;
-	if (segAbove != this->sweepLine.end() && segAbove != this->sweepLine.begin()) {
-		if ((*segAbove)->cross(**above)) {
-			this->eventQueue.addEvent(*new Event(new Crosspoint(*segAbove, *above)));
+	if (iterBelow != this->sweepLine.begin()) {
+		list<Line*>::iterator below(iterBelow);
+		below--;
+
+		Line *segB = *below;
+
+		if (segE1->cross(*segB)) {
+			this->eventQueue.addEvent(*new Event(new Crosspoint(segE1, segB)));
 		}
 	}
 }
