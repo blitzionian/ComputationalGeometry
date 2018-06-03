@@ -67,11 +67,7 @@ vector<Line*>* searchAndFilterForDoublePoints(vector<Line*>* lines) {
 	return filteredLines;
 }
 
-bool isSpecialCase(Line lineToCheck) {
-	if (lineToCheck.isPoint()) {
-		return true;
-	}
-
+bool isParallelToYAxis(Line lineToCheck) {
 	Point* startPoint = lineToCheck.getStartPoint();
 	Point* endPoit = lineToCheck.getEndPoint();
 
@@ -80,6 +76,14 @@ bool isSpecialCase(Line lineToCheck) {
 	}
 
 	return false;
+}
+
+bool isSpecialCase(Line lineToCheck) {
+	if (lineToCheck.isPoint()) {
+		return true;
+	}
+
+	return isParallelToYAxis(lineToCheck);
 }
 
 void readInputFile(string file, vector<Line*>* lines) {

@@ -22,7 +22,7 @@ public:
 
 private:
 	list<Event> eventQueue;
-	list<Event> removedIntersections;
+	list<Event> removedEvents;
 
 	void addCrosspoint(Event event);
 	void add(Event event, bool sort = true);

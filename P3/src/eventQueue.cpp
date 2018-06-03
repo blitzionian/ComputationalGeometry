@@ -26,10 +26,10 @@ void EventQueue::addCrosspoint(Event eventToAdd) {
 
 	if (foundIterInQueue == this->eventQueue.end()) {
 
-		list<Event>::iterator foundIterInOldIntersections = find(this->removedIntersections.begin(),
-				this->removedIntersections.end(), eventToAdd);
+		list<Event>::iterator foundIterInOldIntersections = find(this->removedEvents.begin(),
+				this->removedEvents.end(), eventToAdd);
 
-		if (foundIterInOldIntersections == this->removedIntersections.end()) {
+		if (foundIterInOldIntersections == this->removedEvents.end()) {
 			this->add(eventToAdd);
 		}
 	}
@@ -52,7 +52,7 @@ bool EventQueue::hasEvent() {
 }
 
 void EventQueue::removeNextEvent() {
-	this->removedIntersections.push_back(this->eventQueue.front());
+	this->removedEvents.push_back(this->eventQueue.front());
 	this->eventQueue.pop_front();
 }
 
