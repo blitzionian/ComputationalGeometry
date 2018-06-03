@@ -5,6 +5,8 @@
 #include <chrono>
 #include "line.hpp"
 
+#include <line_sweep.hpp>
+
 using namespace std;
 using namespace std::chrono;
 
@@ -13,70 +15,31 @@ const string FILE_2 = "input/s_10000_1.dat";
 const string FILE_3 = "input/s_100000_1.dat";
 const string FILE_4 = "input/s_1000_10.dat";
 
-void readInputFile(string file, vector<Line*>* lines);
 void calculateFile(string file);
 int64_t currentTime(void);
 
 int main() {
 	calculateFile(FILE_1);
-//	calculateFile(FILE_2);
-//	calculateFile(FILE_3);
-//	calculateFile(FILE_4);
+	calculateFile(FILE_2);
+	calculateFile(FILE_3);
+	calculateFile(FILE_4);
 
 	return 0;
 }
 
 void calculateFile(string file) {
 	cout << endl << "Starte mit Berechnung File: " << file << endl << endl;
-	int count = 0;
 
-	std::vector<Line*> lines;
-	readInputFile(file, &lines);
+	std::vector<Line*> lines = line_sweep::from_file(file);
+	line_sweep::filter_special_cases(lines);
 
 	int64_t start = currentTime();
 
-	// TODO impelment sweep line.
+	vector<Point*> intersections = line_sweep::intersections(lines);
 
 	int64_t duration = currentTime() - start;
 	cout << "Duration: " << duration << endl;
-	cout << "Count: " << count << endl;
-}
-
-void readInputFile(string file, vector<Line*>* lines) {
-	ifstream inStream;
-	inStream.open(file);
-
-	while (!inStream.eof()) {
-		string lineFromFile;
-		getline(inStream, lineFromFile);
-
-		if (lineFromFile.empty()) {
-			continue;
-		}
-
-		istringstream tmp(lineFromFile);
-
-		double x1;
-		tmp >> x1;
-
-		double y1;
-		tmp >> y1;
-
-		double x2;
-		tmp >> x2;
-
-		double y2;
-		tmp >> y2;
-
-		Point *p1 = new Point(x1, y1);
-		Point *p2 = new Point(x2, y2);
-
-		Line *line = new Line(p1, p2);
-
-		lines->push_back(line);
-	}
-
-	inStream.close();
+	cout << "Count: " << intersections.size() << endl;
 }
 
 int64_t currentTime() {
