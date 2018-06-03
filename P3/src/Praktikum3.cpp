@@ -15,11 +15,11 @@ const string FILE_3 = "input/s_100000_1.dat";
 const string FILE_4 = "input/s_1000_10.dat";
 
 int main() {
-//	calculateFile(FILE_1);
+	calculateFile(FILE_1);
 	cout << endl;
-//	calculateFile(FILE_2);
+	calculateFile(FILE_2);
 	cout << endl;
-//	calculateFile(FILE_3);
+	calculateFile(FILE_3);
 	cout << endl;
 	calculateFile(FILE_4);
 

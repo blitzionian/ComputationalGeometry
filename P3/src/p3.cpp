@@ -5,6 +5,7 @@
 #include <fstream>
 #include <chrono>
 #include <algorithm>
+#include <set>
 
 #include <sweepLine.hpp>
 
@@ -34,24 +35,35 @@ bool vectorContains(vector<Point> data, Point pointToSearch) {
 	return foundStartPoint != data.end();
 }
 
+bool setContains(set<Point> data, Point pointToSearch) {
+	set<Point>::iterator foundStartPoint = data.find(pointToSearch);
+	return foundStartPoint != data.end();
+}
+
 vector<Line*>* searchAndFilterForDoublePoints(vector<Line*>* lines) {
 	cout << "Start filter" << endl;
-	vector<Point> pointList;
+	set<Point> pointSet;
 
 	vector<Line*>* filteredLines = new vector<Line*>();
 
 	vector<Line*>::iterator lineIter;
+	int i = 0;
 	for (lineIter = lines->begin(); lineIter != lines->end(); lineIter++) {
+		i++;
+		if (i % 1000 == 0)
+			cout << "i: " << i << endl;
 		Line* line = *lineIter;
 
-		bool containsStart = vectorContains(pointList, *line->getStartPoint());
-		bool containsEnd = vectorContains(pointList, *line->getEndPoint());
+		bool containsStart = setContains(pointSet, *line->getStartPoint());
+		if (!containsStart) {
+			bool containsEnd = setContains(pointSet, *line->getEndPoint());
 
-		if (!containsStart && !containsEnd) {
-			pointList.push_back(*line->getStartPoint());
-			pointList.push_back(*line->getEndPoint());
+			if (!containsEnd) {
+				pointSet.insert(*line->getStartPoint());
+				pointSet.insert(*line->getEndPoint());
 
-			filteredLines->push_back(line);
+				filteredLines->push_back(line);
+			}
 		}
 	}
 

@@ -23,7 +23,7 @@ std::string Point::toString() {
 	return strs.str();
 }
 
-bool Point::operator<(const Point& other) {
+bool Point::operator<(const Point& other) const {
 	if (this->x < other.x) {
 		return true;
 	}
@@ -37,6 +37,10 @@ bool Point::operator<(const Point& other) {
 	return false;
 }
 
-bool Point::operator ==(Point const& other) {
+bool Point::operator ==(Point const& other) const {
+	return this->x == other.x && this->y == other.y;
+}
+
+bool Point::operator ==(Point& other) const {
 	return this->x == other.x && this->y == other.y;
 }
