@@ -47,11 +47,7 @@ vector<Line*>* searchAndFilterForDoublePoints(vector<Line*>* lines) {
 	vector<Line*>* filteredLines = new vector<Line*>();
 
 	vector<Line*>::iterator lineIter;
-	int i = 0;
 	for (lineIter = lines->begin(); lineIter != lines->end(); lineIter++) {
-		i++;
-		if (i % 1000 == 0)
-			cout << "i: " << i << endl;
 		Line* line = *lineIter;
 
 		bool containsStart = setContains(pointSet, *line->getStartPoint());
