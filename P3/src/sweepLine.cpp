@@ -129,6 +129,8 @@ list<Line*>::iterator SweepLine::insertIntoSweepLine(Line* segment) {
 }
 
 Crosspoints* SweepLine::calculateResult() {
+	cout << "Anzahl Start Events: " << this->eventQueue.size() << endl;
+
 	list<Event>::iterator eventIterator;
 
 	while (this->eventQueue.hasEvent()) {

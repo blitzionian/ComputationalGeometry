@@ -13,10 +13,11 @@ public:
 	virtual ~EventQueue();
 
 	Event getNextEvent();
-	void addEvent(Event eventToAdd);
+	void addEvent(Event eventToAdd, bool sort = true);
 	bool hasEvent();
 	void removeNextEvent();
 
+	int size();
 	void print();
 
 private:
@@ -24,7 +25,7 @@ private:
 	list<Event> removedIntersections;
 
 	void addCrosspoint(Event event);
-	void add(Event event);
+	void add(Event event, bool sort = true);
 	void initEventQueue(vector<Line*> lines);
 };
 

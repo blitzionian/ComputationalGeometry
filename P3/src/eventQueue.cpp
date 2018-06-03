@@ -13,11 +13,11 @@ Event EventQueue::getNextEvent() {
 	return this->eventQueue.front();
 }
 
-void EventQueue::addEvent(Event eventToAdd) {
+void EventQueue::addEvent(Event eventToAdd, bool sort) {
 	if (eventToAdd.isIntersection()) {
 		addCrosspoint(eventToAdd);
 	} else {
-		add(eventToAdd);
+		add(eventToAdd, sort);
 	}
 }
 
@@ -35,9 +35,16 @@ void EventQueue::addCrosspoint(Event eventToAdd) {
 	}
 }
 
-void EventQueue::add(Event event) {
+int EventQueue::size() {
+	return this->eventQueue.size();
+}
+
+void EventQueue::add(Event event, bool sort) {
 	this->eventQueue.push_back(event);
-	this->eventQueue.sort();
+
+	if (sort) {
+		this->eventQueue.sort();
+	}
 }
 
 bool EventQueue::hasEvent() {
@@ -50,6 +57,7 @@ void EventQueue::removeNextEvent() {
 }
 
 void EventQueue::initEventQueue(vector<Line*> lines) {
+	cout << "Start init event queue, Size: " << lines.size() << endl;
 	vector<Line*>::iterator lineIterator;
 
 	for (lineIterator = lines.begin(); lineIterator != lines.end(); lineIterator++) {
@@ -58,9 +66,13 @@ void EventQueue::initEventQueue(vector<Line*> lines) {
 		Event* eventStart = new Event(EventType::SEGMENT_START, line);
 		Event* eventEnd = new Event(EventType::SEGMENT_END, line);
 
-		this->addEvent(*eventStart);
-		this->addEvent(*eventEnd);
+		this->addEvent(*eventStart, false);
+		this->addEvent(*eventEnd, false);
 	}
+
+	this->eventQueue.sort();
+
+	cout << "Ende init event queue" << endl;
 }
 
 void EventQueue::print() {
