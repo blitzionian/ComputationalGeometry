@@ -17,6 +17,7 @@ void calculateFile(string file) {
 	vector<Line*>* lines = new vector<Line*>();
 	readInputFile(file, lines);
 	lines = searchAndFilterForDoublePoints(lines);
+	lines = filterOverlappingLines(lines);
 
 	int64_t start = currentTime();
 
@@ -27,6 +28,33 @@ void calculateFile(string file) {
 	int64_t duration = currentTime() - start;
 	cout << "Duration: " << duration << endl;
 	cout << "Count: " << sweepline.getCrossCount() << endl;
+}
+
+vector<Line*>* filterOverlappingLines(vector<Line*>* lines) {
+	vector<Line*>* filteredLines = new vector<Line*>();
+
+	for (size_t outerIndex = 0; outerIndex < lines->size(); outerIndex++) {
+		Line* outerLine = lines->at(outerIndex);
+		bool overlap = false;
+
+		for (size_t innerIndex = outerIndex + 1; innerIndex < lines->size(); innerIndex++) {
+			Line* innerLine = lines->at(innerIndex);
+			Point* p1 = innerLine->getStartPoint();
+			Point* p2 = innerLine->getEndPoint();
+
+			if (outerLine->containsReal(p1) || outerLine->containsReal(p2)) {
+				overlap = true;
+				cout << "contains" << endl;
+				break;
+			}
+		}
+
+		if (!overlap) {
+			filteredLines->push_back(outerLine);
+		}
+	}
+
+	return filteredLines;
 }
 
 bool vectorContains(vector<Point> data, Point pointToSearch) {
@@ -47,16 +75,21 @@ vector<Line*>* searchAndFilterForDoublePoints(vector<Line*>* lines) {
 	vector<Line*>* filteredLines = new vector<Line*>();
 
 	vector<Line*>::iterator lineIter;
-	for (lineIter = lines->begin(); lineIter != lines->end(); lineIter++) {
+	vector<Line*>::iterator end = lines->end();
+
+	for (lineIter = lines->begin(); lineIter != end; ++lineIter) {
 		Line* line = *lineIter;
 
-		bool containsStart = setContains(pointSet, *line->getStartPoint());
+		Point startPoint = *line->getStartPoint();
+
+		bool containsStart = setContains(pointSet, startPoint);
 		if (!containsStart) {
-			bool containsEnd = setContains(pointSet, *line->getEndPoint());
+			Point endPoint = *line->getEndPoint();
+			bool containsEnd = setContains(pointSet, endPoint);
 
 			if (!containsEnd) {
-				pointSet.insert(*line->getStartPoint());
-				pointSet.insert(*line->getEndPoint());
+				pointSet.insert(startPoint);
+				pointSet.insert(endPoint);
 
 				filteredLines->push_back(line);
 			}

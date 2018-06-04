@@ -12,5 +12,6 @@ int64_t currentTime(void);
 bool isSpecialCase(Line lineToCheck);
 vector<Line*>* searchAndFilterForDoublePoints(vector<Line*>* lines);
 bool vectorContains(vector<Point> data, Point pointToSearch);
+vector<Line*>* filterOverlappingLines(vector<Line*>* lines);
 
 #endif /* LIB_P3_HPP_ */
