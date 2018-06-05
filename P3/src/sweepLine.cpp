@@ -74,11 +74,11 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 
 	list<Line*>::iterator iterBelow = find_if(this->sweepLine.begin(), this->sweepLine.end(),
 			[segment1,segment2](Line* other) {
-				return *other == *segment1 || *other == *segment2;
+				return other == segment1 || other == segment2;
 			});
 
 	list<Line*>::iterator iterAbove(iterBelow);
-	iterAbove++;
+	++iterAbove;
 
 	Line* segE1 = *iterAbove;
 	Line* segE2 = *iterBelow;
@@ -87,7 +87,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 
 	if (iterAbove != this->sweepLine.end()) {
 		list<Line*>::iterator above(iterAbove);
-		above++;
+		++above;
 
 		if (above != this->sweepLine.end()) {
 			Line *segA = *above;
@@ -100,7 +100,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 
 	if (iterBelow != this->sweepLine.begin()) {
 		list<Line*>::iterator below(iterBelow);
-		below--;
+		--below;
 
 		Line *segB = *below;
 
