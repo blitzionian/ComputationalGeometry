@@ -54,33 +54,9 @@ Point* Crosspoint::calculateCrossPoint() {
 }
 
 bool Crosspoint::operator==(Crosspoint& other) {
-	Line ol1 = *other.line1;
-	Line ol2 = *other.line2;
-
-	Line thL1 = *this->line1;
-	Line thL2 = *this->line2;
-
-	if (ol1 == thL1) {
-		return ol2 == thL2;
-	} else if (ol1 == thL2) {
-		return ol2 == thL1;
-	}
-
-	return false;
+	return *this->crosspoint == *other.crosspoint;
 }
 
 bool Crosspoint::operator==(const Crosspoint& other) {
-	Line ol1 = *other.line1;
-	Line ol2 = *other.line2;
-
-	Line thL1 = *this->line1;
-	Line thL2 = *this->line2;
-
-	if (ol1 == thL1) {
-		return ol2 == thL2;
-	} else if (ol1 == thL2) {
-		return ol2 == thL1;
-	}
-
-	return false;
+	return *this->crosspoint == *other.crosspoint;
 }
