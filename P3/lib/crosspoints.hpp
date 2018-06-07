@@ -11,7 +11,7 @@ public:
 	Crosspoints();
 	virtual ~Crosspoints();
 
-	void add(Crosspoint* crosspoint);
+	bool add(Crosspoint* crosspoint);
 	int size();
 	bool contains(Crosspoint crosspoint);
 	vector<Crosspoint*>* getCrosspoints();

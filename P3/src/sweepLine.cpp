@@ -9,6 +9,14 @@ SweepLine::SweepLine(vector<Line*> lines) :
 SweepLine::~SweepLine() {
 }
 
+void SweepLine::insertIntoEventQueueIfCross(Line* seg1, Line* seg2) {
+	if (seg1->cross(*seg2)) {
+		Crosspoint* crosspoint = new Crosspoint(seg1, seg2);
+		Event* ev = new Event(crosspoint);
+		this->eventQueue.addEvent(*ev);
+	}
+}
+
 void SweepLine::handleStartPoint(Event eventToHandle) {
 	Line* segment = eventToHandle.getSegment();
 	list<Line*>::iterator insertedElementIt = this->insertIntoSweepLine(segment);
@@ -22,16 +30,12 @@ void SweepLine::handleStartPoint(Event eventToHandle) {
 	Line* segmentAbove = *above;
 	Line* segmentBelow = *below;
 
-	if (above != this->sweepLine.end() && segment->cross(*segmentAbove)) {
-		Crosspoint* crosspoint = new Crosspoint(segment, segmentAbove);
-		Event* ev = new Event(crosspoint);
-		this->eventQueue.addEvent(*ev);
+	if (above != this->sweepLine.end()) {
+		insertIntoEventQueueIfCross(segment, segmentAbove);
 	}
 
-	if (insertedElementIt != this->sweepLine.begin() && segment->cross(*segmentBelow)) {
-		Crosspoint* crosspoint = new Crosspoint(segment, segmentBelow);
-		Event* ev = new Event(crosspoint);
-		this->eventQueue.addEvent(*ev);
+	if (insertedElementIt != this->sweepLine.begin()) {
+		insertIntoEventQueueIfCross(segment, segmentBelow);
 	}
 }
 
@@ -57,9 +61,7 @@ void SweepLine::handleEndPoint(Event eventToHandle) {
 		Line* lineAbove = *above;
 		Line* lineBelow = *below;
 
-		if (lineAbove->cross(*lineBelow)) {
-			this->eventQueue.addEvent(*new Event(new Crosspoint(lineAbove, lineBelow)));
-		}
+		insertIntoEventQueueIfCross(lineAbove, lineBelow);
 	}
 
 	this->sweepLine.remove(*slIter);
@@ -92,9 +94,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 		if (above != this->sweepLine.end()) {
 			Line *segA = *above;
 
-			if (segE2->cross(*segA)) {
-				this->eventQueue.addEvent(*new Event(new Crosspoint(segE2, segA)));
-			}
+			insertIntoEventQueueIfCross(segE2, segA);
 		}
 	}
 
@@ -104,9 +104,7 @@ void SweepLine::handleIntersection(Event eventToHandle) {
 
 		Line *segB = *below;
 
-		if (segE1->cross(*segB)) {
-			this->eventQueue.addEvent(*new Event(new Crosspoint(segE1, segB)));
-		}
+		insertIntoEventQueueIfCross(segE1, segB);
 	}
 }
 

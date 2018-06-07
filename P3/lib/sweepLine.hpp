@@ -29,6 +29,7 @@ private:
 	void handleEndPoint(Event eventToHandle);
 	void handleIntersection(Event eventToHandle);
 
+	void insertIntoEventQueueIfCross(Line* seg1, Line* seg2);
 	list<Line*>::iterator insertIntoSweepLine(Line* segment);
 
 	void printSweepLine();

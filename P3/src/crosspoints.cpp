@@ -18,10 +18,13 @@ bool Crosspoints::contains(Crosspoint crosspoint) {
 	return foundCrosspoint != last;
 }
 
-void Crosspoints::add(Crosspoint* crosspoint) {
+bool Crosspoints::add(Crosspoint* crosspoint) {
 	if (!contains(*crosspoint)) {
 		this->crosspoints.push_back(crosspoint);
+		return true;
 	}
+
+	return false;
 }
 
 int Crosspoints::size() {
