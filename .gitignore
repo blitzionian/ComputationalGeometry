@@ -2,4 +2,6 @@ Debug
 .settings
 .project
 .cproject
+cmake-build-debug
+.idea
 Release
