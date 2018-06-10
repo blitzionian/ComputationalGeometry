@@ -42,15 +42,15 @@ void EventQueue::add(Event event, bool sort) {
 }
 
 bool EventQueue::hasEvent() {
-	this->eventsReaded++;
-	if (this->eventsReaded % 1000 == 0) {
-		cout << "Events readed: " << this->eventsReaded << endl;
-	}
-
 	return this->eventQueue.size() > 0;
 }
 
 void EventQueue::removeNextEvent() {
+	this->eventsReaded++;
+	if (this->eventsReaded % 1000 == 0) {
+		cout << "Events readed: " << this->eventsReaded << "; Size: " << this->eventQueue.size() << endl;
+	}
+
 	this->eventQueue.pop_front();
 }
 
