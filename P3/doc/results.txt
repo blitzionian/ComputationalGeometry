@@ -1,37 +1,43 @@
 ##### P1 #####
 
 Starte mit Berechnung File: input/s_1000_1.dat
-Duration: 11
+Duration: 34
 Count: 11
 
+Starte mit Berechnung File: input/s_1000_10.dat
+Duration: 21
+Count: 796
+
 Starte mit Berechnung File: input/s_10000_1.dat
-Duration: 1061
+Duration: 1733
 Count: 732
 
 Starte mit Berechnung File: input/s_100000_1.dat
-Duration: 121338
+Duration: 190229
 Count: 77126
 
 ##### P3 #####
 
 Starte mit Berechnung File: input/s_1000_1.dat
-Anzahl Start Events: 1994
-Duration: 1
+Anzahl Start Events: 1984
+Duration: 3
 Count: 4
 
 Starte mit Berechnung File: input/s_1000_10.dat
-Anzahl Start Events: 1988
-Duration: 94
-Count: 796
+Anzahl Start Events: 1976
+Duration: 6
+Count: 784
 
 Starte mit Berechnung File: input/s_10000_1.dat
-Anzahl Start Events: 19990
-Duration: 1152
-Count: 725
+Anzahl Start Events: 18810
+Duration: 49
+Count: 637
 
 Starte mit Berechnung File: input/s_100000_1.dat
 Anzahl Start Events: 118390
-Duration: 2024
+Duration: 10093
 Count: 26896
+
+
 
 
