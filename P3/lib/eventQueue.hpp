@@ -23,7 +23,6 @@ public:
 
 private:
 	set<Event> eventQueue;
-	int eventsReaded = 0;
 
 	void addCrosspoint(Event event);
 	void add(Event event, bool sort = true);

@@ -23,7 +23,6 @@ void EventQueue::addEvent(Event eventToAdd, bool sort) {
 
 void EventQueue::addCrosspoint(Event eventToAdd) {
 	set<Event>::iterator foundIterInQueue = this->eventQueue.find(eventToAdd);
-//	set<Event>::iterator foundIterInQueue = find(this->eventQueue.begin(), this->eventQueue.end(), eventToAdd);
 
 	if (foundIterInQueue == this->eventQueue.end()) {
 		this->add(eventToAdd);
@@ -36,10 +35,6 @@ int EventQueue::size() {
 
 void EventQueue::add(Event event, bool sort) {
 	this->eventQueue.insert(event);
-//
-//	if (sort) {
-//		this->eventQueue.sort();
-//	}
 }
 
 bool EventQueue::hasEvent() {
@@ -47,11 +42,6 @@ bool EventQueue::hasEvent() {
 }
 
 void EventQueue::removeNextEvent() {
-//	this->eventsReaded++;
-//	if (this->eventsReaded % 1000 == 0) {
-//		cout << "Events readed: " << this->eventsReaded << "; Size: " << this->eventQueue.size() << endl;
-//	}
-
 	this->eventQueue.erase(this->eventQueue.begin());
 }
 
