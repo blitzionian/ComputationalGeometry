@@ -57,8 +57,8 @@ bool Event::operator==(const Event& other) {
 	}
 }
 
-bool Event::operator<(const Event& other) {
-	Point* thisPoint = this->getPointToConsider();
+bool Event::operator<(const Event& other) const {
+	Point* thisPoint = getPointToConsider(*this);
 	Point* otherPoint = getPointToConsider(other);
 
 	return *thisPoint < *otherPoint;

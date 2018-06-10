@@ -23,7 +23,7 @@ public:
 	bool isEndpoint();
 	bool isIntersection();
 
-	bool operator<(const Event& other);
+	bool operator<(const Event& other) const;
 	bool operator==(const Event& other);
 
 private:

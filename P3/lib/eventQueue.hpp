@@ -2,6 +2,7 @@
 #define LIB_EVENTQUEUE_HPP_
 
 #include<list>
+#include<set>
 #include<event.hpp>
 
 using namespace std;
@@ -21,7 +22,7 @@ public:
 	void print();
 
 private:
-	list<Event> eventQueue;
+	set<Event> eventQueue;
 	int eventsReaded = 0;
 
 	void addCrosspoint(Event event);

@@ -10,7 +10,7 @@ EventQueue::~EventQueue() {
 }
 
 Event EventQueue::getNextEvent() {
-	return this->eventQueue.front();
+	return *this->eventQueue.begin();
 }
 
 void EventQueue::addEvent(Event eventToAdd, bool sort) {
@@ -22,7 +22,8 @@ void EventQueue::addEvent(Event eventToAdd, bool sort) {
 }
 
 void EventQueue::addCrosspoint(Event eventToAdd) {
-	list<Event>::iterator foundIterInQueue = find(this->eventQueue.begin(), this->eventQueue.end(), eventToAdd);
+	set<Event>::iterator foundIterInQueue = this->eventQueue.find(eventToAdd);
+//	set<Event>::iterator foundIterInQueue = find(this->eventQueue.begin(), this->eventQueue.end(), eventToAdd);
 
 	if (foundIterInQueue == this->eventQueue.end()) {
 		this->add(eventToAdd);
@@ -34,11 +35,11 @@ int EventQueue::size() {
 }
 
 void EventQueue::add(Event event, bool sort) {
-	this->eventQueue.push_back(event);
-
-	if (sort) {
-		this->eventQueue.sort();
-	}
+	this->eventQueue.insert(event);
+//
+//	if (sort) {
+//		this->eventQueue.sort();
+//	}
 }
 
 bool EventQueue::hasEvent() {
@@ -51,7 +52,7 @@ void EventQueue::removeNextEvent() {
 //		cout << "Events readed: " << this->eventsReaded << "; Size: " << this->eventQueue.size() << endl;
 //	}
 
-	this->eventQueue.pop_front();
+	this->eventQueue.erase(this->eventQueue.begin());
 }
 
 void EventQueue::initEventQueue(vector<Line*> lines) {
@@ -68,13 +69,11 @@ void EventQueue::initEventQueue(vector<Line*> lines) {
 		this->addEvent(*eventEnd, false);
 	}
 
-	this->eventQueue.sort();
-
 	cout << "Ende init event queue" << endl;
 }
 
 void EventQueue::print() {
-	list<Event>::iterator eventIterator;
+	set<Event>::iterator eventIterator;
 
 	for (eventIterator = this->eventQueue.begin(); eventIterator != this->eventQueue.end(); eventIterator++) {
 		Event event = *eventIterator;

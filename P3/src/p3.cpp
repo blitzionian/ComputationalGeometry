@@ -16,7 +16,6 @@ void calculateFile(string file) {
 
 	vector<Line*>* lines = new vector<Line*>();
 	readInputFile(file, lines);
-	lines = searchAndFilterForDoublePoints(lines);
 	lines = filterOverlappingLines(lines);
 
 	int64_t start = currentTime();
@@ -57,49 +56,6 @@ vector<Line*>* filterOverlappingLines(vector<Line*>* lines) {
 	return filteredLines;
 }
 
-bool vectorContains(vector<Point> data, Point pointToSearch) {
-	vector<Point>::iterator foundStartPoint = find(data.begin(), data.end(), pointToSearch);
-
-	return foundStartPoint != data.end();
-}
-
-bool setContains(set<Point> data, Point pointToSearch) {
-	set<Point>::iterator foundStartPoint = data.find(pointToSearch);
-	return foundStartPoint != data.end();
-}
-
-vector<Line*>* searchAndFilterForDoublePoints(vector<Line*>* lines) {
-	cout << "Start filter" << endl;
-	set<Point> pointSet;
-
-	vector<Line*>* filteredLines = new vector<Line*>();
-
-	vector<Line*>::iterator lineIter;
-	vector<Line*>::iterator end = lines->end();
-
-	for (lineIter = lines->begin(); lineIter != end; ++lineIter) {
-		Line* line = *lineIter;
-
-		Point startPoint = *line->getStartPoint();
-
-		bool containsStart = setContains(pointSet, startPoint);
-		if (!containsStart) {
-			Point endPoint = *line->getEndPoint();
-			bool containsEnd = setContains(pointSet, endPoint);
-
-			if (!containsEnd) {
-				pointSet.insert(startPoint);
-				pointSet.insert(endPoint);
-
-				filteredLines->push_back(line);
-			}
-		}
-	}
-
-	cout << "End filter, Size: " << filteredLines->size() << endl;
-	return filteredLines;
-}
-
 bool isParallelToYAxis(Line lineToCheck) {
 	Point* startPoint = lineToCheck.getStartPoint();
 	Point* endPoit = lineToCheck.getEndPoint();
@@ -122,6 +78,8 @@ bool isSpecialCase(Line lineToCheck) {
 void readInputFile(string file, vector<Line*>* lines) {
 	ifstream inStream;
 	inStream.open(file);
+
+	set<double> xCoordSet;
 
 	while (!inStream.eof()) {
 		string lineFromFile;
@@ -151,7 +109,16 @@ void readInputFile(string file, vector<Line*>* lines) {
 		Line *line = new Line(p1, p2);
 
 		if (!isSpecialCase(*line)) {
-			lines->push_back(line);
+			set<double>::iterator end = xCoordSet.end();
+			set<double>::iterator foundX1 = xCoordSet.find(x1);
+			if (foundX1 == end) {
+				set<double>::iterator foundX2 = xCoordSet.find(x2);
+				if (foundX2 == end) {
+					xCoordSet.insert(x1);
+					xCoordSet.insert(x2);
+					lines->push_back(line);
+				}
+			}
 		}
 	}
 
