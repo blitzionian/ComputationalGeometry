@@ -31,6 +31,7 @@ Count: 725
 
 Starte mit Berechnung File: input/s_100000_1.dat
 Anzahl Start Events: 118390
-Duration: 650904
+Duration: 2024
 Count: 26896
+
 
