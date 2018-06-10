@@ -31,7 +31,7 @@ int main() {
 //	cout << endl;
 //	calculateFile(FILE_3);
 //	cout << endl;
-//	calculateFile(FILE_4);
+	calculateFile(FILE_4);
 
 //	cout << endl;
 //	calculateFile(FILE_TEST1);
@@ -50,7 +50,7 @@ int main() {
 //	cout << endl;
 //	calculateFile(FILE_TEST8);
 //	cout << endl;
-	calculateFile(FILE_TEST9);
+//	calculateFile(FILE_TEST9);
 
 	return 0;
 }

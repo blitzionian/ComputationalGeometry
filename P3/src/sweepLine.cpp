@@ -12,8 +12,11 @@ SweepLine::~SweepLine() {
 void SweepLine::insertIntoEventQueueIfCross(Line* seg1, Line* seg2) {
 	if (seg1->cross(*seg2)) {
 		Crosspoint* crosspoint = new Crosspoint(seg1, seg2);
-		Event* ev = new Event(crosspoint);
-		this->eventQueue.addEvent(*ev);
+
+		if (crosspoint->getPoint()->getX() > this->currentXPosition) {
+			Event* ev = new Event(crosspoint);
+			this->eventQueue.addEvent(*ev);
+		}
 	}
 }
 
@@ -133,6 +136,7 @@ Crosspoints* SweepLine::calculateResult() {
 
 	while (this->eventQueue.hasEvent()) {
 		Event nextEvent = this->eventQueue.getNextEvent();
+		this->setCurrentXPosition(nextEvent);
 
 		if (nextEvent.isStartpoint()) {
 			handleStartPoint(nextEvent);
@@ -146,6 +150,11 @@ Crosspoints* SweepLine::calculateResult() {
 	}
 
 	return &this->crosspoints;
+}
+
+void SweepLine::setCurrentXPosition(Event event) {
+	Point* point = event.getPointToConsider();
+	this->currentXPosition = point->getX();
 }
 
 int SweepLine::getCrossCount() {

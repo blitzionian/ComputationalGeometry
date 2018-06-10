@@ -46,10 +46,10 @@ bool EventQueue::hasEvent() {
 }
 
 void EventQueue::removeNextEvent() {
-	this->eventsReaded++;
-	if (this->eventsReaded % 1000 == 0) {
-		cout << "Events readed: " << this->eventsReaded << "; Size: " << this->eventQueue.size() << endl;
-	}
+//	this->eventsReaded++;
+//	if (this->eventsReaded % 1000 == 0) {
+//		cout << "Events readed: " << this->eventsReaded << "; Size: " << this->eventQueue.size() << endl;
+//	}
 
 	this->eventQueue.pop_front();
 }

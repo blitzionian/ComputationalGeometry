@@ -24,6 +24,7 @@ private:
 	Crosspoints crosspoints;
 	list<Line*> sweepLine;
 	EventQueue eventQueue;
+	double currentXPosition = 0;
 
 	void handleStartPoint(Event eventToHandle);
 	void handleEndPoint(Event eventToHandle);
@@ -31,6 +32,8 @@ private:
 
 	void insertIntoEventQueueIfCross(Line* seg1, Line* seg2);
 	list<Line*>::iterator insertIntoSweepLine(Line* segment);
+
+	void setCurrentXPosition(Event event);
 
 	void printSweepLine();
 };
