@@ -1,0 +1,74 @@
+
+Convex hull of 1000 points in 7-d:
+
+  Number of vertices: 623
+  Number of facets: 221247
+  Number of non-simplicial facets: 4
+
+Statistics for: rbox 1000 D7 B10 | qconvex
+
+  Number of points processed: 731
+  Number of hyperplanes created: 1284286
+  Number of distance tests for qhull: 3267805
+  Number of distance tests for merging: 10892305
+  Number of distance tests for checking: 2532241
+  Number of merged facets: 28
+  CPU seconds to compute hull (after input): 3.274
+
+
+Convex hull of 10000 points in 7-d:
+
+  Number of vertices: 2971
+  Number of facets: 1336064
+  Number of non-simplicial facets: 191
+
+Statistics for: rbox 10000 D7 B10 | qconvex
+
+  Number of points processed: 4040
+  Number of hyperplanes created: 10799723
+  Number of distance tests for qhull: 86850487
+  Number of distance tests for merging: 103949183
+  Number of distance tests for checking: 15295213
+  Number of merged facets: 2827
+  CPU seconds to compute hull (after input): 46.65
+  Maximum distance of point above facet: 1.3e-13 (0.2x)
+  Maximum distance of vertex below facet: -1.1e-13 (0.2x)
+
+
+Convex hull of 100000 points in 7-d:
+
+  Number of vertices: 10272
+  Number of facets: 4964238
+  Number of non-simplicial facets: 4723
+
+Statistics for: rbox 100000 D7 B10 | qconvex
+
+  Number of points processed: 16271
+  Number of hyperplanes created: 49464197
+  Number of distance tests for qhull: 1185149595
+  Number of distance tests for merging: 512849314
+  Number of distance tests for checking: 56868237
+  Number of merged facets: 68409
+  CPU seconds to compute hull (after input): 323.5
+  Maximum distance of point above facet: 2.6e-13 (0.4x)
+  Maximum distance of vertex below facet: -3e-13 (0.4x)
+
+
+Convex hull of 1000000 points in 7-d:
+
+  Number of vertices: 28728
+  Number of facets: 14022223
+  Number of non-simplicial facets: 79524
+
+Statistics for: rbox 1000000 D7 B10 | qconvex
+
+  Number of points processed: 52469
+  Number of hyperplanes created: 166948777
+  Number of distance tests for qhull: -747661165
+  Number of distance tests for merging: 1761107711
+  Number of distance tests for checking: 162882941
+  Number of merged facets: 1401735
+  CPU seconds to compute hull (after input): 1956
+  Maximum distance of point above facet: 3e-13 (0.4x)
+  Maximum distance of vertex below facet: -3e-13 (0.4x)
+
