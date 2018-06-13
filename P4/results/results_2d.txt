@@ -1,0 +1,52 @@
+
+Convex hull of 1000 points in 2-d:
+
+  Number of vertices: 12
+  Number of facets: 12
+
+Statistics for: rbox 1000 D2 B10 | qconvex
+
+  Number of points processed: 12
+  Number of hyperplanes created: 22
+  Number of distance tests for qhull: 6606
+  CPU seconds to compute hull (after input): 0.000498
+
+
+Convex hull of 10000 points in 2-d:
+
+  Number of vertices: 23
+  Number of facets: 23
+
+Statistics for: rbox 10000 D2 B10 | qconvex
+
+  Number of points processed: 23
+  Number of hyperplanes created: 44
+  Number of distance tests for qhull: 65972
+  CPU seconds to compute hull (after input): 0.003721
+
+
+Convex hull of 100000 points in 2-d:
+
+  Number of vertices: 28
+  Number of facets: 28
+
+Statistics for: rbox 100000 D2 B10 | qconvex
+
+  Number of points processed: 28
+  Number of hyperplanes created: 54
+  Number of distance tests for qhull: 618416
+  CPU seconds to compute hull (after input): 0.007211
+
+
+Convex hull of 1000000 points in 2-d:
+
+  Number of vertices: 24
+  Number of facets: 24
+
+Statistics for: rbox 1000000 D2 B10 | qconvex
+
+  Number of points processed: 24
+  Number of hyperplanes created: 46
+  Number of distance tests for qhull: 6452268
+  CPU seconds to compute hull (after input): 0.07139
+

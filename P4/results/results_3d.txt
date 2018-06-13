@@ -1,0 +1,60 @@
+
+Convex hull of 1000 points in 3-d:
+
+  Number of vertices: 73
+  Number of facets: 142
+
+Statistics for: rbox 1000 D3 B10 | qconvex
+
+  Number of points processed: 81
+  Number of hyperplanes created: 368
+  Number of distance tests for qhull: 12884
+  CPU seconds to compute hull (after input): 0.001642
+
+
+Convex hull of 10000 points in 3-d:
+
+  Number of vertices: 126
+  Number of facets: 248
+
+Statistics for: rbox 10000 D3 B10 | qconvex
+
+  Number of points processed: 158
+  Number of hyperplanes created: 786
+  Number of distance tests for qhull: 145761
+  CPU seconds to compute hull (after input): 0.001983
+
+
+Convex hull of 100000 points in 3-d:
+
+  Number of vertices: 188
+  Number of facets: 366
+  Number of non-simplicial facets: 3
+
+Statistics for: rbox 100000 D3 B10 | qconvex
+
+  Number of points processed: 242
+  Number of hyperplanes created: 1200
+  Number of distance tests for qhull: 1209483
+  Number of distance tests for merging: 5046
+  Number of distance tests for checking: 2372
+  Number of merged facets: 10
+  CPU seconds to compute hull (after input): 0.01447
+
+
+Convex hull of 1000000 points in 3-d:
+
+  Number of vertices: 279
+  Number of facets: 520
+  Number of non-simplicial facets: 5
+
+Statistics for: rbox 1000000 D3 B10 | qconvex
+
+  Number of points processed: 330
+  Number of hyperplanes created: 1508
+  Number of distance tests for qhull: 11168212
+  Number of distance tests for merging: 7389
+  Number of distance tests for checking: 6249
+  Number of merged facets: 48
+  CPU seconds to compute hull (after input): 0.146
+

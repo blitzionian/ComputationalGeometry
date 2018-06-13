@@ -1,0 +1,66 @@
+
+Convex hull of 1000 points in 5-d:
+
+  Number of vertices: 309
+  Number of facets: 5958
+
+Statistics for: rbox 1000 D5 B10 | qconvex
+
+  Number of points processed: 421
+  Number of hyperplanes created: 29541
+  Number of distance tests for qhull: 168698
+  CPU seconds to compute hull (after input): 0.05247
+
+
+Convex hull of 10000 points in 5-d:
+
+  Number of vertices: 991
+  Number of facets: 20764
+
+Statistics for: rbox 10000 D5 B10 | qconvex
+
+  Number of points processed: 1408
+  Number of hyperplanes created: 116032
+  Number of distance tests for qhull: 1755717
+  Number of distance tests for merging: 503047
+  Number of distance tests for checking: 184185
+  Number of merged facets: 2
+  CPU seconds to compute hull (after input): 0.1049
+
+
+Convex hull of 100000 points in 5-d:
+
+  Number of vertices: 2375
+  Number of facets: 50885
+  Number of non-simplicial facets: 44
+
+Statistics for: rbox 100000 D5 B10 | qconvex
+
+  Number of points processed: 3921
+  Number of hyperplanes created: 372175
+  Number of distance tests for qhull: 18829012
+  Number of distance tests for merging: 2466131
+  Number of distance tests for checking: 451329
+  Number of merged facets: 376
+  CPU seconds to compute hull (after input): 0.5466
+  Maximum distance of point above facet: 6.5e-14 (0.2x)
+
+
+Convex hull of 1000000 points in 5-d:
+
+  Number of vertices: 4379
+  Number of facets: 91234
+  Number of non-simplicial facets: 406
+
+Statistics for: rbox 1000000 D5 B10 | qconvex
+
+  Number of points processed: 7900
+  Number of hyperplanes created: 743215
+  Number of distance tests for qhull: 145230210
+  Number of distance tests for merging: 5470684
+  Number of distance tests for checking: 881972
+  Number of merged facets: 6822
+  CPU seconds to compute hull (after input): 2.528
+  Maximum distance of point above facet: 1.2e-13 (0.4x)
+  Maximum distance of vertex below facet: -9.1e-14 (0.3x)
+

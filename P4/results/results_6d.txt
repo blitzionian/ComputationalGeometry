@@ -1,0 +1,72 @@
+
+Convex hull of 1000 points in 6-d:
+
+  Number of vertices: 479
+  Number of facets: 38371
+  Number of non-simplicial facets: 1
+
+Statistics for: rbox 1000 D6 B10 | qconvex
+
+  Number of points processed: 589
+  Number of hyperplanes created: 220734
+  Number of distance tests for qhull: 743736
+  Number of distance tests for merging: 1620098
+  Number of distance tests for checking: 390763
+  Number of merged facets: 6
+  CPU seconds to compute hull (after input): 0.2577
+
+
+Convex hull of 10000 points in 6-d:
+
+  Number of vertices: 1780
+  Number of facets: 156734
+  Number of non-simplicial facets: 16
+
+Statistics for: rbox 10000 D6 B10 | qconvex
+
+  Number of points processed: 2577
+  Number of hyperplanes created: 1102714
+  Number of distance tests for qhull: 11939729
+  Number of distance tests for merging: 8488709
+  Number of distance tests for checking: 1594129
+  Number of merged facets: 158
+  CPU seconds to compute hull (after input): 1.99
+
+
+Convex hull of 100000 points in 6-d:
+
+  Number of vertices: 5424
+  Number of facets: 514790
+  Number of non-simplicial facets: 491
+
+Statistics for: rbox 100000 D6 B10 | qconvex
+
+  Number of points processed: 8847
+  Number of hyperplanes created: 4448147
+  Number of distance tests for qhull: 129036713
+  Number of distance tests for merging: 37558299
+  Number of distance tests for checking: 5240049
+  Number of merged facets: 5059
+  CPU seconds to compute hull (after input): 12.1
+  Maximum distance of point above facet: 2.1e-13 (0.4x)
+  Maximum distance of vertex below facet: -2e-13 (0.4x)
+
+
+Convex hull of 1000000 points in 6-d:
+
+  Number of vertices: 12449
+  Number of facets: 1173875
+  Number of non-simplicial facets: 6518
+
+Statistics for: rbox 1000000 D6 B10 | qconvex
+
+  Number of points processed: 23149
+  Number of hyperplanes created: 11880144
+  Number of distance tests for qhull: 1263824317
+  Number of distance tests for merging: 108769466
+  Number of distance tests for checking: 12319652
+  Number of merged facets: 90919
+  CPU seconds to compute hull (after input): 53.41
+  Maximum distance of point above facet: 1.7e-13 (0.3x)
+  Maximum distance of vertex below facet: -1.8e-13 (0.4x)
+
