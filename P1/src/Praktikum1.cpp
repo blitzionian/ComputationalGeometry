@@ -11,6 +11,7 @@ using namespace std::chrono;
 const string FILE_1 = "input/s_1000_1.dat";
 const string FILE_2 = "input/s_10000_1.dat";
 const string FILE_3 = "input/s_100000_1.dat";
+const string FILE_4 = "input/s_1000_10.dat";
 
 void readInputFile(string file, vector<Line*>* lines);
 void calculateFile(string file);
@@ -20,6 +21,7 @@ int main() {
 	calculateFile(FILE_1);
 	calculateFile(FILE_2);
 	calculateFile(FILE_3);
+	calculateFile(FILE_4);
 
 	return 0;
 }

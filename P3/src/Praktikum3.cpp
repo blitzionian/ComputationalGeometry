@@ -25,12 +25,12 @@ const string FILE_TEST8 = "input/s_6250_2.dat";
 const string FILE_TEST9 = "input/problem1.dat";
 
 int main() {
-//	calculateFile(FILE_1);
-//	cout << endl;
-//	calculateFile(FILE_2);
-//	cout << endl;
-//	calculateFile(FILE_3);
-//	cout << endl;
+	calculateFile(FILE_1);
+	cout << endl;
+	calculateFile(FILE_2);
+	cout << endl;
+	calculateFile(FILE_3);
+	cout << endl;
 	calculateFile(FILE_4);
 
 //	cout << endl;
