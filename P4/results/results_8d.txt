@@ -1,0 +1,55 @@
+
+Convex hull of 1000 points in 8-d:
+
+  Number of vertices: 767
+  Number of facets: 1309651
+  Number of non-simplicial facets: 16
+
+Statistics for: rbox 1000 D8 B10 | qconvex
+
+  Number of points processed: 863
+  Number of hyperplanes created: 9094926
+  Number of distance tests for qhull: 21120531
+  Number of distance tests for merging: 94895005
+  Number of distance tests for checking: 16618697
+  Number of merged facets: 418
+  CPU seconds to compute hull (after input): 65.96
+
+
+Convex hull of 10000 points in 8-d:
+
+  Number of vertices: 4279
+  Number of facets: 10643114
+  Number of non-simplicial facets: 1535
+
+Statistics for: rbox 10000 D8 B10 | qconvex
+
+  Number of points processed: 5341
+  Number of hyperplanes created: 83139778
+  Number of distance tests for qhull: 515391387
+  Number of distance tests for merging: 970867102
+  Number of distance tests for checking: 135114767
+  Number of merged facets: 22630
+  CPU seconds to compute hull (after input): 1123
+  Maximum distance of point above facet: 2.2e-13 (0.2x)
+  Maximum distance of vertex below facet: -1.8e-13 (0.2x)
+
+
+Convex hull of 100000 points in 8-d:
+
+  Number of vertices: 17839
+  Number of facets: 50474278
+  Number of non-simplicial facets: 47682
+
+Statistics for: rbox 100000 D8 B10 | qconvex
+
+  Number of points processed: 25923
+  Number of hyperplanes created: 511019149
+  Number of distance tests for qhull: 281658225
+  Number of distance tests for merging: 1704914405
+  Number of distance tests for checking: 641214587
+  Number of merged facets: 872397
+  CPU seconds to compute hull (after input): 8573
+  Maximum distance of point above facet: 3.6e-13 (0.4x)
+  Maximum distance of vertex below facet: -3.5e-13 (0.4x)
+
