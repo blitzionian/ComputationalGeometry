@@ -28,7 +28,7 @@ function [mx, my, mr, polygonXs, polygonYs] = calculateInCircle(filename)
        A = [A; -m1 -m2 1];
 
        result = (-p2 * q1 + p1 * q2) / lineLength;
-       b = [b; result];
+       b = [b; -result];
        sum = sum + result;
     end
     
